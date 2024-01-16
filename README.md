@@ -1,8 +1,8 @@
-# Project Name
+# OAR - Optical Alphabet Recognition
 
-Developer Names:
+Developer Names: Hunter Ceranic
 
-Date of project start:
+Date of project start: January 15, 2023
 
 This project is ...
 
