@@ -3,9 +3,9 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{Problem Statement and Goals\\\progname}
+\title{Problem Statement and Goals\\Optical Alphabet Recognition}
 
-\author{Hunter Ceranic}
+\author{\textbf{Hunter Ceranic}}
 
 \date{January 19, 2024}
 
@@ -22,12 +22,18 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-January 19, 2024 & Hunter Ceranic & Initial Revision\\
+January 19, 2024 & Hunter Ceranic & Creation of Document\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \section{Problem Statement}
+Optical character recognition is a well known computer vision problem that uses various forms of image classification 
+convert image data into understandable text. Optical character recognition is widely used in many different fields such as 
+finance, healthcare and supply chain management and as such many tools have been developed to streamline ease of 
+access and use of the technology. This project aims to create clear, in-depth documentation outlining
+the creation of an optical character recognition program, specifically for capitalized alphabet characters, using 
+an image classification model to translate images into the respective alphabet characters they represent.
 
 \wss{You should check your problem statement with the
 \href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
@@ -37,7 +43,9 @@ January 19, 2024 & Hunter Ceranic & Initial Revision\\
 \subsection{Problem}
 
 \subsection{Inputs and Outputs}
-
+Inputs to the program will be images of characters to be identified.
+Outputs of the program will be a probability that the image depicts one of the letters in the 
+set of {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}.
 \wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
 Use abstraction so that you can avoid details.}
 
@@ -45,7 +53,7 @@ Use abstraction so that you can avoid details.}
 
 \subsection{Environment}
 
-\wss{Hardware and software}
+\wss{Hardware and Software}
 
 \section{Goals}
 
