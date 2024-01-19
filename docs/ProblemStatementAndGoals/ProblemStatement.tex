@@ -30,33 +30,26 @@ January 19, 2024 & Hunter Ceranic & Creation of Document\\
 \section{Problem Statement}
 Optical character recognition is a well known computer vision problem that uses various forms of image classification 
 convert image data into understandable text. Optical character recognition is widely used in many different fields such as 
-finance, healthcare and supply chain management and as such many tools have been developed to streamline ease of 
-access and use of the technology. This project aims to create clear, in-depth documentation outlining
-the creation of an optical character recognition program, specifically for capitalized alphabet characters, using 
-an image classification model to translate images into the respective alphabet characters they represent.
-
-\wss{You should check your problem statement with the
-\href{https://github.com/smiths/capTemplate/blob/main/docs/Checklists/ProbState-Checklist.pdf}
-{problem statement checklist}.}
-\wss{You can change the section headings, as long as you include the required information.}
+finance, healthcare and supply chain management to help identify important communications and written data in images. 
+As such many tools and programming libraries have been developed to streamline ease of access and use of the technology. 
+This project aims to create clear, in-depth documentation outlining the creation of an optical character recognition program,
+specifically for capitalized English alphabet characters, using an image classification model to translate images into the 
+respective alphabet characters they represent.
 
 \subsection{Problem}
-
+The problem that is being addressed by this project is the creation of an image classification algorithm to convert 
+pixel data from an image of an upper-case letter to the corresponding text chararacter.
 \subsection{Inputs and Outputs}
-Inputs to the program will be images of characters to be identified.
-Outputs of the program will be a probability that the image depicts one of the letters in the 
+Inputs to the program will be pixel data from images of characters to be identified.
+
+Outputs of the program will be a probability that the image depicts one of the English alphabet letters in the 
 set of {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}.
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
-
-\subsection{Stakeholders}
-
-\subsection{Environment}
-
-\wss{Hardware and Software}
 
 \section{Goals}
-
+The end goal of this project is to accurately identify capital letters consistently, with a reasonable 
+amount of confidence, likely in the range of >90\% probability.
 \section{Stretch Goals}
+Furthermore, beyond the intended scope the project, if possible a stretch goal would be amending 
+the program so that it would be useable for all other printing ASCII characters.
 
 \end{document}
