@@ -213,8 +213,9 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-px & Pixel & Number of picture element units
+x & Pixels & Input image matrix
 \\
+y & Character & Actual Label of Output
 \\ 
 \bottomrule
 \end{longtable*}
@@ -690,12 +691,7 @@ on.  \plt{Modify the examples below for your problem, and add additional models
 }
 % #5 description
 {
-  The above equation gives the conservation of energy for transient heat transfer in a material
-  of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-  (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-  $g$ is the volumetric heat generation
-  (\si{\watt\per\cubic\metre}), $T$ is the temperature
-  (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
+   and $\nabla$ is
   the gradient operator.  For this equation to apply, other forms
   of energy, such as mechanical energy, are assumed to be negligible in the
   system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
@@ -759,7 +755,7 @@ Label &\bf Newton's law of cooling \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&\si{\watt\per\square\metre}\\
+SI Units&Something\\
 \hline
 Equation&$ q(t) = h \Delta T(t)$  \\
 \hline
@@ -768,11 +764,11 @@ Newton's law of cooling describes convective cooling from a surface.  The law is
 stated as: the rate of heat loss from a body is proportional to the difference
 in temperatures between the body and its surroundings.
 \\
-& $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
+& $q(t)$ is the thermal flux.\\
 & $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	(\si{\watt\per\square\metre\per\celsius}).\\
+	.\\
 &$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object (\si{\celsius}).
+between the environment and the object.
 \\
 \hline
   Source & Citation here \\
@@ -820,18 +816,17 @@ Symbol &$q_C$\\
 \hline
 % Units& $Mt^{-3}$\\
 % \hline
-  SI Units & \si{\watt\per\square\metre}\\
+  SI Units & Something\\
   \hline
   Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
   \hline
   Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
+                $T_C$ is the temperature of the coil.  $T_W$ is the temperature of the water.  
+                The heat flux out of the coil, $q_C$, is found by
                 assuming that Newton's Law 
                 of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
+                the coil, which has area $A_C$ and heat 
+                transfer coefficient $h_C$.  This equation
                 assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
                 of the coil (\aref{A_tlcoil}).
   \\
@@ -922,10 +917,10 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
   &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
   &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
   \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+  Description&$T_W$ is the water temperature.\\
+  &$T_P$ is the PCM temperature.\\
+  &$T_C$ is the coil temperature.\\
+  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant.\\
   &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
   & The above equation applies as long as the water is in liquid form,
   $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
@@ -972,7 +967,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
+  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 m & 10\%
   \\
   \bottomrule
 \end{longtable*}
@@ -990,7 +985,7 @@ Table~\ref{TblSpecParams}.
   \toprule
   \textbf{Var} & \textbf{Value} \\
   \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
+  $L_\text{min}$ & 0.1 m\\
   \bottomrule
 \end{longtable*}
 \end{table}
