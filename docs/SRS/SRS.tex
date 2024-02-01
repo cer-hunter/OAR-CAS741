@@ -146,8 +146,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+February 2, 2024 & 1.0 & Initial Revision\\
 \bottomrule
 \end{tabularx}
 
@@ -178,7 +177,7 @@ description of the unit and the SI name.
     \toprule		
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
-    px & Picture Element & Pixel Unit\\
+    px & pixel & picture element\\
   \end{tabular}
   %	\caption{Provide a caption}
 %\end{table}
@@ -229,6 +228,7 @@ y & Character & Actual Label of Output
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
+  2D & Two Dimensional\\
   A & Assumption\\
   DD & Data Definition\\
   GD & General Definition\\
@@ -238,8 +238,8 @@ y & Character & Actual Label of Output
   PS & Physical System Description\\
   R & Requirement\\
   SRS & Software Requirements Specification\\
-  \progname{OAR} & Optical Alphabet Recognition\\
   TM & Theoretical Model\\
+  OAR & Optical Alphabet Recognition\\
   \bottomrule
 \end{tabular}\\
 
@@ -337,71 +337,35 @@ expect in the Introduction section.}
 
 \subsection{Purpose of Document}
 
-\plt{This section summarizes the purpose of the SRS document.  It does not focus
-  on the problem itself.  The problem is described in the ``Problem
-  Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document
-  in the context of the project itself, not in the context of this course.
-  Although the ``purpose'' of the document is to get a grade, you should not
-  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose
-  section will be similar between projects.  The purpose of the document is the
-  purpose of the SRS, including communication, planning for the design stage,
-  etc.}
-
-The purpose of this SRS document is to establish and clearly communicate the scope and intentions of 
-the OAR project, and be a basis for reference for the rest of the documents supporting the project. 
+The purpose of this SRS document is to establish and clearly communicate the requirements, limitations, definitions, and models, 
+in regards to the OAR project. This document will also serve as basis for reference for the rest of the documents 
+supporting the project. 
 
 \subsection{Scope of Requirements} 
 
-\plt{Modelling the real world requires simplification.  The full complexity of
-  the actual physics, chemistry, biology is too much for existing models, and
-  for existing computational solution techniques.  Rather than say what is in
-  the scope, it is usually easier to say what is not.  You can think of it as
-  the scope is initially everything, and then it is constrained to create the
-  actual scope.  For instance, the problem can be restricted to 2 dimensions, or
-  it can ignore the effect of temperature (or pressure) on the material
-  properties, etc.}  
-
-  The scope for this project is contrained to the recognition of capital-letter English
-  alphabet characters, in their correct orientations. PRINTED OR HANDWRITTEN?
-
-\plt{The scope section is related to the assumptions section
-  (Section~\ref{sec_assumpt}).  However, the scope and the assumptions are not
-  at the same level of abstraction.  The scope is at a high level.  The focus is
-  on the ``big picture'' assumptions.  The assumptions section lists, and
-  describes, all of the assumptions.}
+The scope for this project is constrained to the recognition of images of handwritten and printed capital-letter English
+alphabet characters, in their correct orientations. This does not include hand-written cursive letters.
+See the assumptions section (Section 4.2.1) for further details.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-  This document is intended to be read by 
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+Readers of this document are intended to have a basic level understanding of 2D image 
+processing techniques (equivalent to a standard undergraduate course on machine learning), with
+a prerequisite of at least level one university mathematics knowledge (specifically including matrix linear algebra). 
 
 \subsection{Organization of Document}
 
-\plt{This section provides a roadmap of the SRS document.  It will help the
-  reader orient themselves.  It will provide direction that will help them
-  select which sections they want to read, and in what order.  This section will
-  be similar between project.}
+  This SRS document contains an introduction to the problem being addressed by the software,
+  and the overarching goals of the project. It is to be used as reference for readers based on the
+  SRS template by Smith and Lai(2005); Smith et al.(2007). The scope, terminology, definitions
+  and models used in the project are outlined, and more details about the specifics of the problem and the explored
+  solution are presented. Requirements, potential future changes and traceability information are also defined.
 
 \section{General System Description}
 
 This section provides general information about the system.  It identifies the
 interfaces between the system and its environment, describes the user
-characteristics and lists the system constraints.  \plt{This text can likely be
-  borrowed verbatim.}
+characteristics and lists the system constraints.  
 
 \plt{The purpose of this section is to provide general information about the
   system so the specific requirements in the next section will be easier to
@@ -452,7 +416,7 @@ characteristics and lists the system constraints.  \plt{This text can likely be
 \begin{itemize}
 \item 
 \end{itemize}
-\item \progname{} Responsibilities:
+\item OAR Responsibilities:
 \begin{itemize}
 \item Detect data type mismatch, such as a string of characters instead of a
   floating point number
@@ -462,16 +426,13 @@ characteristics and lists the system constraints.  \plt{This text can likely be
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
+The end user of the OAR software is anyone who can use character recognition software. This may include the intended readers of this document 
+(as described in Section 2.3), however none of those reader requirements are neccessary to use the software.
 
 \subsection{System Constraints}
+
+The only real world design constraint for this project is that all input images must have the character in their proper legible
+orientation.
 
 \plt{System constraints differ from other type of requirements because they
   limit the developers' options in the system design and they identify how the
