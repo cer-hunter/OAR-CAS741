@@ -329,11 +329,15 @@ y & Character & Actual Label of Output
 
 \section{Introduction}
 
-\plt{The introduction section is written to introduce the problem.  It starts
-  general and focuses on the problem domain. The general advice is to start with
-a paragraph or two that describes the problem, followed by a ``roadmap''
-paragraph.  A roadmap orients the reader by telling them what sub-sections to
-expect in the Introduction section.}
+Images often contain important information to be used in many different modern applications. One such type 
+of information that can be contained within images are readable characters, and the motivation for the Optical Alphabet 
+Recognition project is to create a system from scratch, that can classify upper-case English letter characters characters accurately.
+More information about the problem itself can be found within the Problem Statement document. Furthermore, a foundational goal of
+this project is to be useful for educating people about the fundamentals of image classification.
+
+The following section is an overview of the Software Requirement Specifications for the OAR project, specifically outlining the 
+purpose of the document, the scope of the requirements, characteristics of the intended reader, and the organization of the 
+document.
 
 \subsection{Purpose of Document}
 
@@ -350,8 +354,10 @@ See the assumptions section (Section 4.2.1) for further details.
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
 Readers of this document are intended to have a basic level understanding of 2D image 
-processing techniques (equivalent to a standard undergraduate course on machine learning), with
-a prerequisite of at least level one university mathematics knowledge (specifically including matrix linear algebra). 
+processing techniques (equivalent to a standard undergraduate course on machine learning). However, readers with
+a prerequisite of at least level one university mathematics knowledge (specifically including matrix linear algebra) will
+be able to understand and follow most of the concepts in the document, as the project is also intended to be a useful tools
+for learning about image processing.
 
 \subsection{Organization of Document}
 
@@ -366,14 +372,6 @@ a prerequisite of at least level one university mathematics knowledge (specifica
 This section provides general information about the system.  It identifies the
 interfaces between the system and its environment, describes the user
 characteristics and lists the system constraints.  
-
-\plt{The purpose of this section is to provide general information about the
-  system so the specific requirements in the next section will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
 
 \subsection{System Context}
 
@@ -401,33 +399,28 @@ characteristics and lists the system constraints.
 \end{center}
 \end{figure}
 
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilites should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
 
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item 
+\item Provide an image of a character to the program in the proper orientation.
+\item Be able to interact with the software program using a keyboard, computer mouse, and monitor.
+\item Run the software on a system with the capabilities to sufficently process computer graphics.
 \end{itemize}
 \item OAR Responsibilities:
 \begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
+\item Provide the ability to load or change image files to be classified.
+\item Detect and warn about invalid or corrupt image files, upon input.
+\item Display the confidence in the result of classified characters.
+\item Provide a user interface which is able to take user input at anytime, with minimal down time where the program is unresponsive.
 \end{itemize}
 \end{itemize}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-The end user of the OAR software is anyone who can use character recognition software. This may include the intended readers of this document 
-(as described in Section 2.3), however none of those reader requirements are neccessary to use the software.
+The end user of the OAR software is anyone who can use character recognition software or wants to learn about it. This may include 
+the intended readers of this document (as described in Section 2.3), however none of those reader requirements are neccessary 
+to use the software.
 
 \subsection{System Constraints}
 
@@ -439,13 +432,12 @@ orientation.
 This section first presents the problem description, which gives a high-level
 view of the problem to be solved.  This is followed by the solution characteristics
 specification, which presents the assumptions, theories, definitions and finally
-the instance models.  \plt{Add any project specific details that are relevant
-  for the section overview.}
+the instance models.  
 
 \subsection{Problem Description} \label{Sec_pd}
 
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+OAR is intended to classify the characters in images according to their corresponding English language
+alphabet characters. It should be able to do this with a high level of confidence that the classifcation is correct.
 
 \subsubsection{Terminology and  Definitions}
 
@@ -515,26 +507,26 @@ includes the following elements:
   amount of technical language.  They should be understandable by non-domain
   experts.}
 
-\noindent Given the \plt{inputs}, the goal statements are:
+\noindent Given an image, the goal statements are:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \plt{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Reprocess the image such that classifying
+calculations can be performed on the image.
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Calculate and display the predicted 
+corresponding character label for the unknown character in the image.
+
+ \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Calculate and display the confidence level that
+ the predicted label is correct.
 
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
 
-\plt{This section specifies the information in the solution domain of the system
-  to be developed. This section is intended to express what is required in
-  such a way that analysts and stakeholders get a clear picture, and the
-  latter will accept it. The purpose of this section is to reduce the problem
-  into one expressed in mathematical terms. Mathematical expertise is used to
-  extract the essentials from the underlying physical description of the
-  problem, and to collect and substantiate all physical data pertinent to the
-  problem.}
+This section provides the assumptions, theoretical models, instance models, general definitions,
+and data constraints. The information in this section is intended to reduce ambiguity about the project and 
+to present the problem in clear mathethematical or logical terms.
 
 \plt{This section presents the solution characteristics by successively refining
   models.  It starts with the abstract/general Theoretical Models (TMs) and
@@ -577,18 +569,6 @@ The instance models that govern \progname{} are presented in
 Subsection~\ref{sec_instance}.  The information to understand the meaning of the
 instance models and their derivation is also presented, so that the instance
 models can be verified.
-
-\subsubsection{Types}
-
-\plt{This section is optional. Defining types can make the document easier to
-understand.}
-
-\subsection{Scope Decisions}
-
-\plt{This section is optional.}
-\subsection{Modelling Decisions}
-
-\plt{This section is optional.}
 
 \subsubsection{Assumptions} \label{sec_assumpt}
 
@@ -947,29 +927,9 @@ Table~\ref{TblSpecParams}.
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
-A correct solution must exhibit \plt{fill in the details}.  \plt{These
-  properties are in addition to the stated requirements.  There is no need to
-  repeat the requirements here.  These additional properties may not exist for
-  every problem.  Examples include conservation laws (like conservation of
-  energy or mass) and known constraints on outputs, which are usually summarized
-  in tabular form.  A sample table is shown in Table~\ref{TblOutputVar}}
-
-\begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
-  \midrule 
-  $T_W$ & $T_\text{init} \leq T_W \leq T_C$ (by~\aref{A_charge})
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\plt{This section is not for test cases or techniques for verification and
-  validation.  Those topics will be addressed in the Verification and Validation
-  plan.}
+A correct solution must come in the form of one of the 26 possible labels,
+\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}, as well as an associated confidence level, as a percentage, that the
+label assigned is correct.
 
 \section{Requirements}
 
@@ -984,22 +944,20 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \plt{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] Accept an input image in the following formats: \begin{itemize}
+  \item PNG (Portable Net Graphics)
+  \item JPEG (Joint Photographic Experts Group)
+  \item BMP (Bitmap)
+  \item preloaded training images
+\end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \plt{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Process the image such that the calculations
+needed to be performed by the program can be executed.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \plt{Calculation
-    related requirements.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] Calculate and display the classified label for the input image.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \plt{Verification related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \plt{Output related
-    requirements.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] Calculate and display the confidence level that the assigned
+label is correct.
 
 \end{itemize}
 
@@ -1008,56 +966,27 @@ qualities that the software is expected to exhibit.
 
 \subsection{Nonfunctional Requirements}
 
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
-
 \noindent \begin{itemize}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  A link to the VnV plan would be a nice extra.}
+  \textbf{Accuracy} The accuracy of the computed label confidence should be consistent enough that the results 
+  could be considered comparable to other existing solutions for this problem. As such the confidence level output has to
+  be calculated in a similar way to existing solutions so that the output can be verified and compared.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  A
-    link to the VnV plan would be a nice extra.}
+  The user should be able to intuitively use the software and understand the output that is displayed.
+  To accomplish this the software should be user-friendly, simple, and require little setup. A user survey
+  may be conducted to verify the software's percieved usability.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
+  \textbf{Maintainability & Understandability} The code should be clear and understandable to make further development by other programmers 
+  possible with little hassle, as well as to help educate newer programmers as to how image classification works.
+  Adding further features, or understanding how the software presently works should not be a difficult task.
+
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
-
-\item Other NFRs that might be discussed include verifiability,
-  understandability and reusability.
+  \textbf{Portability} The software should be cross-platform (Windows, Linux, MacOS) with little to no setup
+  required. This can be in the the form of an executable python-based application.
 
 \end{itemize}
 
@@ -1067,12 +996,16 @@ be covered in the Verification and Validation document.}
 should be provided for scope decisions, modelling decisions, assumptions and
 typical values.}
 
-\section{Likely Changes}    
+\section{Likely Changes}
+
+The changes listed below are likely to be implemented as the software is developed further.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Expand the number of classification labels
+to include lower-case English letter alphabet, numerical, and punctuation characters. 
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Allow the user to specify whether the image is being
+input from a camera or from a pre-existing file on their system.
 
 \end{itemize}
 
@@ -1080,9 +1013,10 @@ typical values.}
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Expand the functionality of the program to classify
+whole English words and sentences instead of just individual characters.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Provide the choice of different image classifciation algorithms.
+
 
 \end{itemize}
 
@@ -1226,24 +1160,8 @@ instance models, requirements, and data constraints on each other.
 % 	\end{center}
 % \end{figure}
 
-\section{Development Plan}
-
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could should the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
-
 \section{Values of Auxiliary Constants}
-
-\plt{Show the values of the symbolic parameters introduced in the report.}
-
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
+There are no auxiliary constants defined so this section is not applicable for this project.
 
 \newpage
 
