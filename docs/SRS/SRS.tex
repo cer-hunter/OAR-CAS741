@@ -282,7 +282,7 @@ for learning about image processing.
 
   This SRS document contains an introduction to the problem being addressed by the software,
   and the overarching goals of the project. It is to be used as reference for readers based on the
-  SRS template by Smith and Lai(2005); Smith et al.(2007). The scope, terminology, definitions
+  SRS template by \citet{SmithAndLai2005, SmithEtAl2007}. The scope, terminology, definitions
   and models used in the project are outlined, and more details about the specifics of the problem and the explored
   solution are presented. Requirements, potential future changes and traceability information are also defined.
 
@@ -356,7 +356,7 @@ easier to correctly understand the requirements:
 \item Image: A representation of visual information that can be represented by a 2D matrix where each entry represents a pixel with an intensity value.
 \item Intensity: The value of a pixel representing it's grayscale colour, on a scale from 0 (which represents black) to 255 (which represents white).
 \item Label: A value which associates the result of image classification with a real world category, such as English alphabet letters.
-\item Normalization: Altering the aspect ratio and scale of images to some arbitrarily set standard.
+\item Normalization: Altering the aspect ratio and scale of images to some arbitrarily set standard, \cite{Karandish2022}.
 
 
 \end{itemize}
@@ -473,7 +473,7 @@ the confidence level of the predicted value, to satisfy \gsref{GS3}.
 Notes & The value of $z$ can be a scalar or matrix.
 \\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  Source & \cite{Turin2020}\\
   \hline
   Ref.\ By & \dref{GD_sig}\\
   \hline
@@ -515,7 +515,7 @@ predicted value $\hat{y}$. \\
 Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must be the of the same size (see \aref{A1}).
 \\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  Source & \cite{Turin2020} \\
   \hline
   Ref.\ By & \aref{A1}, \dref{GD_sig}, \dref{GD_gradw}, \dref{GD_gradb}, \iref{Train}\\
   \hline
@@ -543,7 +543,7 @@ Description &
 This formula is used to derive the composition of two differentiable functions.
 \\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  Source & \cite{Turin2020}\\
   \hline
   Ref.\ By & \dref{GD_gradw}, \dref{GD_gradb}\\
   \hline
@@ -583,7 +583,7 @@ This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how i
 &$\mathbf{b}$ is the matrix of biases\\
 & Note that the predicted value $\mathbf{\hat{y}}$ from \tref{TM2} will be determined from the sigmoid function.\\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  Source & \cite{Turin2020} \\
   \hline
   Ref.\ By & \dref{GD_gradw}, \dref{GD_gradb}, \iref{Train}, \iref{Test}\\
   \hline
@@ -612,7 +612,7 @@ Description &
 Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\mathbf{\hat{y}} $
 defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  Source & \citet{Turin2020, SharmaLogReg2022} \\
   \hline
   Ref.\ By & \iref{Train}\\
   \hline
@@ -641,7 +641,7 @@ Description &
 Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
 defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
-  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  Source & \citet{Turin2020, SharmaLogReg2022}  \\
   \hline
   Ref.\ By & \iref{Train}\\
   \hline
@@ -715,7 +715,7 @@ Symbol &$\alpha$\\
                 increasing or decreasing the value by a factor of 10.
   \\
   \hline
-  Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
+  Sources& \cite{SharmaRegParm2022} \\
   \hline
   Ref.\ By & \iref{Train}\\
   \hline
@@ -748,7 +748,7 @@ Symbol &$\lambda$\\
                 that fine-tuning is done by increasing or decreasing the value by a factor of 10.
   \\
   \hline
-  Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
+  Sources& \cite{SharmaRegParm2022}\\
   \hline
   Ref.\ By & \iref{Train}\\
   \hline
@@ -801,7 +801,7 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
  \end{itemize}
   \\
   \hline
-  Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  Sources & \citet{Turin2020, SharmaLogReg2022} \\
   \hline
   Ref.\ By & \aref{A2}, \aref{A3}, \iref{Test}, \rref{R3}\\
   \hline
@@ -833,7 +833,7 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   be calculated as the output of the sigmoid function for the related predicted label.
   \\
   \hline
-  Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  Sources & \citet{Turin2020, SharmaLogReg2022} \\
   \hline
   Ref.\ By & \rref{R4}, \rref{R5}\\
   \hline
