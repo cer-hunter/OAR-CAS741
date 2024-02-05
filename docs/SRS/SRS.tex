@@ -436,9 +436,9 @@ change [LC], in which the respective assumption is used.
 well as any other image processing performed before classification calculations, as described in \gsref{GS1}, 
 will be performed by supporting libraries.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A2}:] The dataset used for training the software model
-as described by \iref{IM1}, will only contain labels of capital letter characters.
+as described by \iref{Train}, will only contain labels of capital letter characters.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A3}:] The dataset used for training the software model
-as described by \iref{IM1}, will contain an even spread of every label that can be identified by the porgram.
+as described by \iref{Train}, will contain an even spread of every label that can be identified by the porgram.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A4}:] All input images will be properly oriented so that 
 they are legible by the program prior to being input.
 
@@ -467,7 +467,7 @@ Equation & $ \sigma(z) = \frac{1}{1 + e^{-z}} $ \\
 \hline
 Description &
 The sigmoid function takes input $z$ and returns a value between 0 and 1. This function will be used to calculate
-the confidence level of the predicted value, to satisfy s{GS3}.
+the confidence level of the predicted value, to satisfy \gsref{GS3}.
 \\
 \hline
 Notes & The value of $z$ can be a scalar or matrix.
@@ -517,7 +517,7 @@ Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \aref{A1}, \dref{GD1}, \dref{GD2}, \dref{GD3}, \iref{IM1}\\
+  Ref.\ By & \aref{A1}, \dref{GD1}, \dref{GD2}, \dref{GD3}, \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -585,7 +585,7 @@ This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how i
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{GD2}, \dref{GD3}, \iref{IM1}, \iref{IM2}\\
+  Ref.\ By & \dref{GD2}, \dref{GD3}, \iref{Train}, \iref{Test}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -610,11 +610,11 @@ Equation&$ \nabla_\mathbf{w}  (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\mathbf{\hat{y}} $
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{IM1}).\\
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \iref{IM1}\\
+  Ref.\ By & \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -639,11 +639,11 @@ Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{IM1}).\\
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \iref{IM1}\\
+  Ref.\ By & \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -717,7 +717,7 @@ Symbol &$\alpha$\\
   \hline
   Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
   \hline
-  Ref.\ By & \iref{IM1}\\
+  Ref.\ By & \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -750,7 +750,7 @@ Symbol &$\lambda$\\
   \hline
   Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
   \hline
-  Ref.\ By & \iref{IM1}\\
+  Ref.\ By & \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -764,8 +764,8 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals s{GS2} and s{GS3} are solved by \iref{IM2}. \iref{IM1} is used 
-to train the model so that \iref{IM2} can be used reliably and efficiently.
+The goals \gsref{GS2} and \gsref{GS3} are solved by \iref{Test}. \iref{Train} is used 
+to train the model so that \iref{Test} can be used reliably and efficiently.
 
 ~\newline
 
@@ -777,7 +777,7 @@ to train the model so that \iref{IM2} can be used reliably and efficiently.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{IM1}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{Train}\\
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
@@ -788,7 +788,7 @@ to train the model so that \iref{IM2} can be used reliably and efficiently.
   \hline
   Description &
   Using gradient descent we minimize the Log Loss Function to optimize the weights and bias for better predictions\\
-  This is executed in the following order, over multiple epochs ($t$) to further optimize the values:\\
+  & This is executed in the following order, over multiple epochs ($t$) to further optimize the values:
   \begin{itemize}
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
@@ -803,7 +803,7 @@ to train the model so that \iref{IM2} can be used reliably and efficiently.
   \hline
   Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \aref{A2}, \aref{A3}, \iref{IM2}, \rref{R3}\\
+  Ref.\ By & \aref{A2}, \aref{A3}, \iref{Test}, \rref{R3}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -818,7 +818,7 @@ to train the model so that \iref{IM2} can be used reliably and efficiently.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{IM2}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{Test}\\
   \hline
   Label& \bf Label Classification\\
   \hline
@@ -827,7 +827,7 @@ to train the model so that \iref{IM2} can be used reliably and efficiently.
   Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label \\
   \hline
   Description &
-  Using the optimized weights and bias from \iref{IM1} and combining that with an unknown input $\mathbf{x}$ in
+  Using the optimized weights and bias from \iref{Train} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
   the 26 possible labels, the most likely label can be predicted. In addition the confidence level in the prediction can
   be calculated as the output of the sigmoid function for the related predicted label.
@@ -868,9 +868,9 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $x_i,j$& - & ${\text{min}} x_i,j \leq x_i,j \leq {\text{max}} x_i,j$ & 128 & 10\%
+  $x_{i,j}$& - & ${\text{min }} x_{i,j} \leq x_{i,j} \leq {\text{max }} x_{i,j}$ & 128 & 10\%
   \\
-  $\mathbf{x}_(n \times m)^1$& - & ${\text{min}} n, m \leq n, m \leq {\text{max}} n, m$ & $1024 \times 1024$ & 10\%
+  $\mathbf{x}_{n \times m}^1$& - & ${\text{min }} n, m \leq n, m \leq {\text{max }} n, m$ & $1024 \times 1024$ & 10\%
   \\
   \bottomrule
 \end{longtable*}
@@ -888,10 +888,10 @@ Table~\ref{TblSpecParams}.
   \toprule
   \textbf{Var} & \textbf{Value} \\
   \midrule 
-  $\text{min} x_i,j$ & 0\\
-  $\text{max} x_i,j$ & 255\\
-  $\text{min} n \times m$ & 20 px $\times$ 20px\\
-  $\text{max} n \times m$ & 4096 px $\times$ 4096px\\
+  $\text{min } x_{i,j}$ & 0\\
+  $\text{max } x_{i,j}$ & 255\\
+  $\text{min } n \times m$ & 20 px $\times$ 20px\\
+  $\text{max } n \times m$ & 4096 px $\times$ 4096px\\
   \bottomrule
 \end{longtable*}
 \end{table}
@@ -924,12 +924,12 @@ qualities that the software is expected to exhibit.
 needed to be performed by the program can be executed.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R3}:] Provide a trained model that can accurately classify images using
-26 different labels (see \dref{IM1}).
+26 different labels (see \iref{Train}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R4}:] Calculate and display the classified label for the input image (see \dref{IM2}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R4}:] Calculate and display the classified label for the input image (see \iref{Test}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R5}:] Calculate and display the confidence level that the assigned
-label is correct (see \dref{IM2}).
+label is correct (see \iref{Test}).
 
 \end{itemize}
 
@@ -1019,8 +1019,8 @@ the assumptions.
 \dref{GD3}       & & & & \\ \hline
 \ddref{DD1}       & & & &  \\ \hline
 \ddref{DD2}       & & & X &  \\ \hline
-\iref{IM1}       & X & X & X & X \\ \hline
-\iref{IM2}        & X & & & X \\ \hline
+\iref{Train}       & X & X & X & X \\ \hline
+\iref{Test}        & X & & & X \\ \hline
 \lcref{LC1}        & & X & X & X \\ \hline
 \lcref{LC2}        & & & & X \\ \hline
 \lcref{LC3}        & & X & X & X \\ \hline
@@ -1037,7 +1037,7 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \dref{GD3}& \ddref{DD1} & \ddref{DD2}& \iref{IM1}& \iref{IM2}\\
+	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \dref{GD3}& \ddref{DD1} & \ddref{DD2}& \iref{Train}& \iref{Test}\\
 \hline
 \tref{TM1}     & & & & X & X & X & & & X & X \\ \hline
 \tref{TM2}     & & & & & X & X & & & X &  \\ \hline
@@ -1047,8 +1047,8 @@ the assumptions.
 \dref{GD3}    & & & & & & & & & X &  \\ \hline
 \ddref{DD1}    & & & & & & & & & X &  \\ \hline
 \ddref{DD2}    & & & & & & & & & X &  \\ \hline
-\iref{IM1}    & & & & & & & & & &  \\ \hline
-\iref{IM2}     & & & & & & & & & & X \\ 
+\iref{Train}    & & & & & & & & & &  \\ \hline
+\iref{Test}     & & & & & & & & & & X \\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
@@ -1059,10 +1059,10 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{IM1}& \iref{IM2}& \rref{R1}& \rref{R2}& \rref{R3}& \rref{R4}& \rref{R5} & \nfrref{NFR1} & \nfrref{NFR2} & \nfrref{NFR3} & \nfrref{NFR4} \\
+	& \iref{Train}& \iref{Test}& \rref{R1}& \rref{R2}& \rref{R3}& \rref{R4}& \rref{R5} & \nfrref{NFR1} & \nfrref{NFR2} & \nfrref{NFR3} & \nfrref{NFR4} \\
 \hline
-\iref{IM1}    & & & & & & & & & & &  \\ \hline
-\iref{IM2}    & & & & & & & & & & &  \\ \hline
+\iref{Train}    & & & & & & & & & & &  \\ \hline
+\iref{Test}    & & & & & & & & & & &  \\ \hline
 \rref{R1}     & & & & & & & & & & & \\ \hline
 \rref{R2}     & & & & & & & & & & & \\ \hline
 \rref{R3}     & X & & & & & & & & & &\\ \hline
@@ -1085,12 +1085,5 @@ There are no auxiliary constants defined so this section is not applicable for t
 
 \bibliographystyle {plainnat}
 \bibliography {../../refs/References}
-
-\newpage
-
-\noindent \plt{The following is not part of the template, just some things to consider
-  when filing in the template.}
-
-\noindent
 
 \end{document}
