@@ -652,13 +652,21 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 
 There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
 \begin{center}
-  \begin{equation}
+  $$
     [-\mathbf{y} \cdot \log(\mathbf{\hat{y}})]' = \frac{-\mathbf{y}}{\mathbf{\hat{y}}},
-    \text{\\ and,\\} 
+  $$
+  ~\newline
+    and, 
+    ~\newline
+    $$
     [-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\hat{y}})]' = \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})}, 
-    \text{\\ which combines to,\\}
+    $$
+    ~\newline
+    which combines to,
+    ~\newline
+    $$
     \frac{-\mathbf{y}}{\mathbf{\hat{y}}} + \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})} = \frac{(\mathbf{\hat{y}} - \mathbf{y})}{(\mathbf{\hat{y}} \cdot (1 - \mathbf{\hat{y}}))}
-  \end{equation}
+    $$
 \end{center}
 Then we take the derivative of $\mathbf{\hat{y}} = \sigma(\mathbf(z))$ using the following identities:
 \begin{center}
