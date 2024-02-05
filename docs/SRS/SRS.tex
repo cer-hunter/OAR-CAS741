@@ -189,27 +189,27 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-\italic{\boldface{x}_n$\times$m} & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
+$\boldface{x}_(n \times m)$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
 \\
-\italic{\boldface{y}_n$\times$m} & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
+$\boldface{y}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
 \\
-\italic{\boldface{\^{y}}_n$\times$m} & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+$\boldface{\^{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
 \\
-\italic{\boldface{z}_n$\times$m} & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\boldface{\^y}}
+$\boldface{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\boldface{\^y}}
 \\
-\italic{x_i,j} & Unitless & An entry in the input matrix \boldface{x} (at i, j) which represents the level of intensity of the pixel
+$x_(i,j)$ & Unitless & An entry in the input matrix \boldface{x} (at i, j) which represents the level of intensity of the pixel
 \\
-\italic{\boldface{w_1$\times$n}} & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
+$\boldface{w_(1 \times n)}$ & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
 \\
-\italic{b} & Unitless & Bias that is used by the classifier model
+$b$ & Unitless & Bias that is used by the classifier model
 \\
-\italic{\lambda} & Unitless & Regularization Parameter that affects flexibilty/variance of the model
+$\lambda$ & Unitless & Regularization Parameter that affects flexibilty/variance of the model
 \\
-\italic{\alpha} & Unitless & Learning rate of classifier model
+$\alpha$ & Unitless & Learning rate of classifier model
 \\
-\italic{\sigma} & Unitless & Represents the Sigmoid Function
+$\sigma$ & Unitless & Represents the Sigmoid Function
 \\
-\italic{L} & Unitless & Represents the Log Loss Function
+$L$ & Unitless & Represents the Log Loss Function
 \\
 \bottomrule
 \end{longtable*}
@@ -506,16 +506,16 @@ None.
 }
 % #5 description
 {
-\italic{y} represents the actual label value
+$y$ represents the actual label value
 ~\newline
-\italic{\^y} represents the predicted label value
+$\^y}$ represents the predicted label value
 ~\newline
-\italic{n} is the total number of input values
+$n$ is the total number of input values
 ~\newline
-\italic{i} is the current step in the summation
+$i$ is the current step in the summation
 ~\newline
-This function utilizes the properties of the natural logarithm to determine how similar the actual value \italic{y} is to the 
-predicted value \italic{\^y}. 
+This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
+predicted value $\^y$. 
 ~\newline
 \begin{center}
 \begin{equation}
@@ -528,7 +528,7 @@ predicted value \italic{\^y}.
 }
 % #6 Notes
 {
-The values of \italic{y} and \italic{\^y} can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
+The values of $y$ and $\^y$ can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
 }
 % #7 Source
 {
