@@ -129,7 +129,7 @@
 
 \title{Software Requirements Specification for \progname: OAR - Optical Alphabet Recognition} 
 \author{Hunter Ceranic}
-\date{February 2, 2024}
+\date{February 5, 2024}
 	
 \maketitle
 
@@ -146,16 +146,11 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-February 2, 2024 & 1.0 & Initial Revision\\
+February 5, 2024 & 1.0 & Initial Version\\
 \bottomrule
 \end{tabularx}
 
 ~\\
-\plt{This template is intended for use by CAS 741.  For CAS 741 the template
-should be used exactly as given, except the Reflection Appendix can be deleted.
-For the capstone course it is a source of ideas, but shouldn't be followed
-exactly.  The exception is the reflection appendix.  All capstone SRS documents
-should have a refelection appendix.}
 
 ~\newpage
 
@@ -182,24 +177,6 @@ description of the unit and the SI name.
   %	\caption{Provide a caption}
 %\end{table}
 
-\plt{Only include the units that your SRS actually uses.}
-
-\plt{Derived units, like newtons, pascal, etc, should show their derivation
-    (the units they are derived from) if their constituent units are in the
-    table of units (that is, if the units they are derived from are used in the
-    document).  For instance, the derivation of pascals as
-     is shown if newtons and m are
-    both in the table.  The derivations of newtons would not be shown if kg and
-    s are not both in the table.}
-
-\plt{The symbol for units named after people use capital letters, but the name
-  of the unit itself uses lower case.  For instance, pascals use the symbol Pa,
-  watts use the symbol W, teslas use the symbol T, newtons use the symbol N,
-  etc.  The one exception to this is degree Celsius.  Details on writing metric
-  units can be found on the 
-  \href{https://www.nist.gov/pml/weights-and-measures/writing-metric-units}
-  {NIST} web-page.}
-
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
@@ -212,14 +189,30 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-x & Pixels & Input image matrix
+\italic{\boldface{x}_n$\times$m} & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
 \\
-y & Character & Actual Label of Output
-\\ 
+\italic{\boldface{y}_n$\times$m} & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
+\\
+\italic{\boldface{\^{y}}_n$\times$m} & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+\\
+\italic{\boldface{z}_n$\times$m} & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\boldface{\^y}}
+\\
+\italic{x_i,j} & Unitless & An entry in the input matrix \boldface{x} (at i, j) which represents the level of intensity of the pixel
+\\
+\italic{\boldface{w_1$\times$n}} & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
+\\
+\italic{b} & Unitless & Bias that is used by the classifier model
+\\
+\italic{\lambda} & Unitless & Regularization Parameter that affects flexibilty/variance of the model
+\\
+\italic{\alpha} & Unitless & Learning rate of classifier model
+\\
+\italic{\sigma} & Unitless & Represents the Sigmoid Function
+\\
+\italic{L} & Unitless & Represents the Log Loss Function
+\\
 \bottomrule
 \end{longtable*}
-\plt{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
 
 \subsection{Abbreviations and Acronyms}
 
@@ -243,89 +236,15 @@ y & Character & Actual Label of Output
   \bottomrule
 \end{tabular}\\
 
-\plt{Add any other abbreviations or acronyms that you add}
-
 \subsection{Mathematical Notation}
 
-\plt{This section is optional, but should be included for projects that make use
-  of notation to convey mathematical information.  For instance, if typographic
-  conventions (like bold face font) are used to distinguish matrices, this
-  should be stated here.  If symbols are used to show mathematical operations,
-  these should be summarized here.  In some cases the easiest way to summarize
-  the notation is to point to a text or other source that explains the
-  notation.}
+In this project documentation variables which represent matrices are indicated by bolded letters (ie. \boldface{x}), whereas
+all other variables are represented by regular printed letters.
 
-\plt{This section was added to the template because some students use very
-  domain specific notation.  This notation will not be readily understandable to
-  people outside of your domain.  It should be explained.}
 
 \newpage
 
 \pagenumbering{arabic}
-
-\plt{This SRS template is based on \citet{SmithAndLai2005, SmithEtAl2007,
-  SmithAndKoothoor2016}.  It will get you started.  You should not modify the
-  section headings, without first discussing the change with the course
-  instructor.  Modification means you are not following the template, which
-  loses some of the advantage of a template, especially standardization.
-  Although the bits shown below do not include type information, you may need to
-  add this information for your problem.  If you are unsure, please can ask the
-  instructor.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.  A separate template is provided for this.  For program
-  families you should look at \cite{Smith2006, SmithMcCutchanAndCarette2017}.
-  Single family member programs are often programs based on a single physical
-  model.  General purpose tools are usually documented as a family.  Families of
-  physical models also come up.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.  For writing an SRS, and for reading one for the first time, the
-  suggested order of sections is:
-\begin{itemize}
-\item Goal Statement
-\item Instance Models
-\item Requirements
-\item Introduction
-\item Specific System Description
-\end{itemize}
-}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.  For instance, there will be overlap between the scope section and the
-  assumptions, but the scope section will not go into as much detail as the
-  assumptions section.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.  Other information will be derived, like
-  General Definitions.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone that meets the Characteristics
-  of the Intended Reader (Section~\ref{sec_IntendedReader}) can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
 
 \section{Introduction}
 
@@ -375,22 +294,6 @@ characteristics and lists the system constraints.
 
 \subsection{System Context}
 
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  Often in a scientific context, the program can be viewed
-  abstractly following the design pattern of Inputs $\rightarrow$ Calculations
-  $\rightarrow$ Outputs.  The system context will therefore often follow this
-  pattern.  The user provides inputs, the system does the calculations, and then
-  provides the outputs to the user.  The figure should not show all of the
-  inputs, just an abstract view of the main categories of inputs (like material
-  properties, geometry, etc.).  Likewise, the outputs should be presented from
-  an abstract point of view.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
-
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=0.6\textwidth]{SystemContextFigure}
@@ -437,7 +340,8 @@ the instance models.
 \subsection{Problem Description} \label{Sec_pd}
 
 OAR is intended to classify the characters in images according to their corresponding English language
-alphabet characters. It should be able to do this with a high level of confidence that the classifcation is correct.
+alphabet characters. It should be able to do this and communicate to users the confidence level in how correctly it 
+classified the image.
 
 \subsubsection{Terminology and  Definitions}
 
@@ -453,61 +357,51 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item 
+\item Classification: A method of assigning pre-existing labels to processed images.
+\item Confidence Level: The probability that the label assigned to an image was correctly identified.
+\item Image: A representation of visual information that can be represented by a 2D matrix where each entry represents a pixel with an intensity value.
+\item Intensity: The value of a pixel representing it's grayscale colour, on a scale from 0 (which represents black) to 255 (which represents white).
+\item Label: A value which associates the result of image classification with a real world category, such as English alphabet letters.
+\item Normalization: Altering the aspect ratio and scale of images to some arbitrarily set standard.
+
 
 \end{itemize}
 
 \subsubsection{Physical System Description} \label{sec_phySystDescrip}
 
-\plt{The purpose of this section is to clearly and unambiguously state the
-  physical system that is to be modelled. Effective problem solving requires a
-  logical and organized approach. The statements on the physical system to be
-  studied should cover enough information to solve the problem. The physical
-  description involves element identification, where elements are defined as
-  independent and separable items of the physical system. Some example elements
-  include acceleration due to gravity, the mass of an object, and the size and
-  shape of an object. Each element should be identified and labelled, with their
-  interesting properties specified clearly. The physical description can also
-  include interactions of the elements, such as the following: i) the
-  interactions between the elements and their physical environment; ii) the
-  interactions between elements; and, iii) the initial or boundary conditions.}
-
-The physical system of \progname{}, as shown in Figure~?,
+The physical system of OAR, as shown in Figure 2,
 includes the following elements:
 
 \begin{itemize}
 
-\item[PS1:] 
+\item[PS1:] The image that is being input.
 
-\item[PS2:] ...
+\begin{figure}[h!]
+  \begin{center}
+   \includegraphics[width=0.6\textwidth]{physicalsystempreprocessing}
+  \caption{A sample input image depicting the letter A}
+  \label{Fig_PSPreproccessing} 
+  \end{center}
+  \end{figure}
+
+  To maintain consistency within the software the images will be normalized to some set of n$\times$m pixels such that
+  the trained model can classify any given input image. The physical representation of what this resizing will look like
+  is seen in Figure 3.
+
+  \begin{figure}[h!]
+    \begin{center}
+     \includegraphics[width=0.6\textwidth]{physicalsystem}
+    \caption{A sample input image depicting the letter A, after being processed}
+    \label{Fig_PS} 
+    \end{center}
+    \end{figure}
+
 
 \end{itemize}
 
-\plt{A figure here makes sense for most SRS documents}
-
-% \begin{figure}[h!]
-% \begin{center}
-% %\rotatebox{-90}
-% {
-%  \includegraphics[width=0.5\textwidth]{<FigureName>}
-% }
-% \caption{\label{<Label>} <Caption>}
-% \end{center}
-% \end{figure}
-
 \subsubsection{Goal Statements}
 
-\plt{The goal statements refine the ``Problem Description''
-  (Section~\ref{Sec_pd}).  A goal is a functional objective the system under
-  consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements
-  pertinence. Goals will be refined in Section “Instanced Models”
-  (Section~\ref{sec_instance}). Large and complex goals should be decomposed
-  into smaller sub-goals.  The goals are written abstractly, with a minimal
-  amount of technical language.  They should be understandable by non-domain
-  experts.}
-
-\noindent Given an image, the goal statements are:
+\noindent Given an input image, the goal statements are:
 
 \begin{itemize}
 
@@ -528,58 +422,13 @@ This section provides the assumptions, theoretical models, instance models, gene
 and data constraints. The information in this section is intended to reduce ambiguity about the project and 
 to present the problem in clear mathethematical or logical terms.
 
-\plt{This section presents the solution characteristics by successively refining
-  models.  It starts with the abstract/general Theoretical Models (TMs) and
-  refines them to the concrete/specific Instance Models (IMs).  If necessary
-  there are intermediate refinements to General Definitions (GDs).  All of these
-  refinements can potentially use Assumptions (A) and Data Definitions (DD).
-  TMs are refined to create new models, that are called GMs or IMs. DDs are not
-  refined; they are just used. GDs and IMs are derived, or refined, from other
-  models. DDs are not derived; they are just given. TMs are also just given, but
-  they are refined, not used.  If a potential DD includes a derivation, then
-  that means it is refining other models, which would make it a GD or an IM.}
-
-\plt{The above makes a distinction between ``refined'' and ``used.'' A model is
-  refined to another model if it is changed by the refinement. When we change a
-  general 3D equation to a 2D equation, we are making a refinement, by applying
-  the assumption that the third dimension does not matter. If we use a
-  definition, like the definition of density, we aren't refining, or changing
-  that definition, we are just using it.}
-
-\plt{The same information can be a TM in one problem and a DD in another.  It is
-  about how the information is used.  In one problem the definition of
-  acceleration can be a TM, in another it would be a DD.}
-
-\plt{There is repetition between the information given in the different chunks
-  (TM, GDs etc) with other information in the document.  For instance, the
-  meaning of the symbols, the units etc are repeated.  This is so that the
-  chunks can stand on their own when being read by a reviewer/user.  It also
-  facilitates reuse of the models in a different context.}
-
-\noindent \plt{The relationships between the parts of the document are show in
-  the following figure.  In this diagram ``may ref'' has the same role as
-  ``uses'' above.  The figure adds ``Likely Changes,'' which are able to
-  reference (use) Assumptions.}
-
-\begin{figure}[H]
-  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
-\end{figure}
-
-The instance models that govern \progname{} are presented in
+The instance models that govern the OAR porject are presented in
 Subsection~\ref{sec_instance}.  The information to understand the meaning of the
 instance models and their derivation is also presented, so that the instance
 models can be verified.
 
 \subsubsection{Assumptions} \label{sec_assumpt}
 
-\plt{The assumptions are a refinement of the scope.  The scope is general, where
-  the assumptions are specific.  All assumptions should be listed, even those
-  that domain experts know so well that they are rarely (if ever) written down.}
-\plt{The document should not take for granted that the reader knows which
-  assumptions have been made. In the case of unusual assumptions, it is
-  recommended that the documentation either include, or point to, an explanation
-  and justification for the assumption.}
-\plt{If it helps with the organization and understandability, the assumptions can be presented as sub sections.  The following sub-sections are options: background theory assumptions, helper theory assumptions, generic theory assumptions, problem specific assumptions, and rationale assumptions}
 
 This section simplifies the original problem and helps in developing the
 theoretical model by filling in the missing information for the physical system.
@@ -589,46 +438,130 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \plt{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to TM, GD, DD etc., using commands like dref, ddref
-    etc.  Each assumption should be atomic - that is, there should not be an
-    explicit (or implicit) ``and'' in the text of an assumption.}
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] Normalization, required by \dref{TM2}, as 
+well as any other image processing performed before classification calculations, as described in \dref{GS1}, 
+will be performed by supporting libraries.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] The dataset used for training the software model
+as described by \dref{IM1}, will only contain labels of capital letter characters.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] The dataset used for training the software model
+as described by \dref{IM1}, will contain an even spread of every label that can be identified by the porgram.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] All input images will be properly oriented so that 
+they are legible by the program prior to being input.
 
 \end{itemize}
 
 \subsubsection{Theoretical Models}\label{sec_theoretical}
 
-\plt{Theoretical models are sets of abstract mathematical equations or axioms
-  for solving the problem described in Section ``Physical System Description''
-  (Section~\ref{sec_phySystDescrip}). Examples of theoretical models are
-  physical laws, constitutive equations, relevant conversion factors, etc.}
-
-\plt{Optionally the theory section could be divided into subsections to provide more structure and improve understandability and reusability.  Potential subsections include the following: Context theories, background theories, helper theories, generic theories, problem specific theories, final theories and rationale theories.}
-
-This section focuses on the general equations and laws that \progname{} is based
-on.  \plt{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+This section focuses on the general equations and laws that OAR is based
+on.  
 
 ~\newline
 
 \noindent
 \deftheory
 % #2 refname of theory
-{TM:COE}
+{TM1}
 % #3 label
-{Conservation of thermal energy}
+{Sigmoid Function}
 % #4 equation
 {
-  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$
+  $ \sigma(z) = 1 \div (1 + e^-z) $
 }
 % #5 description
 {
-   and $\nabla$ is
-  the gradient operator.  For this equation to apply, other forms
-  of energy, such as mechanical energy, are assumed to be negligible in the
-  system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
+The sigmoid function takes input z and returns a value between 0 and 1. This function will be used to calculate
+the confidence level of the predicted value, to satisfy \dref{GS3}.
+
+}
+% #6 Notes
+{
+The value of z can be a scalar or matrix.
+}
+% #7 Source
+{
+  \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
+}
+% #8 Referenced by
+{
+\dref{GD1}
+}
+% #9 Preconditions
+{
+None.
+}
+% #1 derivation - not applicable by default
+{}
+
+~\newline
+
+\noindent
+\deftheory
+% #2 refname of theory
+{TM2}
+% #3 label
+{Log Loss Function}
+% #4 equation
+{
+  $ L(y,\^y) = -(1 \div n) \cdot \sum_{i = 1}^{n} \[ y_i \cdot \log(\^y_i)\ + (1 - y_i) \cdot \log(1 - \^y_i)\]  $
+}
+% #5 description
+{
+\italic{y} represents the actual label value
+~\newline
+\italic{\^y} represents the predicted label value
+~\newline
+\italic{n} is the total number of input values
+~\newline
+\italic{i} is the current step in the summation
+~\newline
+This function utilizes the properties of the natural logarithm to determine how similar the actual value \italic{y} is to the 
+predicted value \italic{\^y}. 
+~\newline
+\begin{center}
+\begin{equation}
+  L_\^y = \begin{cases}
+    -\log(\^y) & \text{, if $y = 1$} \\
+    -\log(1 - \^y) & \text{, if $y = 0$}
+  \end{cases}
+\end{equation}
+\end{center}
+}
+% #6 Notes
+{
+The values of \italic{y} and \italic{\^y} can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
+}
+% #7 Source
+{
+  \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
+}
+% #8 Referenced by
+{
+\dref{A1}, \dref{GD1}, \dref{IM1}
+}
+% #9 Preconditions
+{
+None.
+}
+% #1 derivation - not applicable by default
+{}
+
+~\newline
+
+\noindent
+\deftheory
+% #2 refname of theory
+{TM3}
+% #3 label
+{Chain Rule}
+% #4 equation
+{
+  $ \frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}} $
+}
+% #5 description
+{
+
+This formula is used to derive the composition of two differentiable functions.
+
 }
 % #6 Notes
 {
@@ -636,44 +569,25 @@ None.
 }
 % #7 Source
 {
-  \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}
+  \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
 }
 % #8 Referenced by
 {
-  \dref{ROCT}
+\dref{GD2}, \dref{GD3}
 }
 % #9 Preconditions
 {
-None
+None.
 }
 % #1 derivation - not applicable by default
 {}
-
-\plt{``Ref.\ By'' is used repeatedly with the different types of information.
-  This stands for Referenced By.  It means that the models, definitions and
-  assumptions listed reference the current model, definition or assumption.
-  This information is given for traceability.  Ref. By provides a pointer in the
-  opposite direction to what we commonly do.  You still need to have a reference
-  in the other direction pointing to the current model, definition or
-  assumption.  As an example, if TM1 is referenced by GD2, that means that GD2 will
-  explicitly include a reference to TM1.}
 
 ~\newline
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of
-  other GDs.  The GDs are less abstract than the TMs.  Generally the reduction
-  in abstraction is possible through invoking (using/referencing) Assumptions.
-  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The
-  GD could take the general law and apply it to get a 1D equation.}
-
 This section collects the laws and equations that will be used in building the
 instance models.
-
-\plt{Some projects may not have any content for this section, but the section
-  heading should be kept.}  \plt{Modify the examples below for your problem, and
-  add additional definitions as appropriate.}
 
 ~\newline
 
@@ -683,56 +597,157 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{FWSigmoid}\\
 \hline
-Label &\bf Newton's law of cooling \\
+Label &\bf Sigmoid Function with Input Image and Weights \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-SI Units&Something\\
+SI Units&Unitless\\
 \hline
-Equation&$ q(t) = h \Delta T(t)$  \\
+Equation&$ \boldface{\^y} = \sigma(z) = 1 \div (1 + (e^-\boldface{z})) \text{, where} z = \boldface{w}^T \cdot \boldface{x} + b$ \\
 \hline
 Description &
-Newton's law of cooling describes convective cooling from a surface.  The law is
-stated as: the rate of heat loss from a body is proportional to the difference
-in temperatures between the body and its surroundings.
+This is a refinement of the Sigmoid function (see \dref{TM1}) to represent how it will be utilized as the basis of the model.
 \\
-& $q(t)$ is the thermal flux.\\
-& $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	.\\
-&$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object.
+& $\boldface{x}$ is the input image matrix.\\
+& $\boldface{w}$ is the matrix of weights\\
+&$b$ is the bias
 \\
+Note that the predicted value $\boldface{\^y}$ from \dref{TM2} will be determined from the sigmoid function.
 \hline
-  Source & Citation here \\
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
+  Ref.\ By & \dref{GD2}, \dref{GD3}, \dref{IM1}, \dref{IM2}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
+~\newline
 
-\plt{This may be necessary when the necessary information does not fit in the
-  description field.}
-\plt{Derivations are important for justifying a given GD.  You want it to be
-  clear where the equation came from.}
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{Gradw}\\
+\hline
+Label &\bf Gradient of Log Loss Function with respect to \boldface{w} \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&Unitless\\
+\hline
+Equation&$ \nabla_\boldface{w} \[ \boldface{y}_i \cdot \log(\boldface{\^y}_i)\ + (1 - \boldface{y}_i) \cdot \log(1 - \boldface{\^y}_i)\] = \boldface{x}_n \cdot (\boldface{y}_n - \boldface{\^y}_n)   $\\
+\hline
+Description &
+Here we derive the Log Loss Function with respect to $\boldface{w}$  using chain rule from \dref{TM3}, with \boldface{\^y} 
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
+
+\hline
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  \hline
+  Ref.\ By & \dref{IM1}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& GD\refstepcounter{defnum}\thedefnum \label{Gradb}\\
+\hline
+Label &\bf Gradient of Log Loss Function with respect to b \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+SI Units&Unitless\\
+\hline
+Equation&$ \nabla_b \[ \boldface{y}_i \cdot \log(\boldface{\^y}_i)\ + (1 - \boldface{y}_i) \cdot \log(1 - \boldface{\^y}_i)\] = \boldface{y}_n - \boldface{\^y}_n   $\\
+\hline
+Description &
+Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with \boldface{\^y} 
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
+
+\hline
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  \hline
+  Ref.\ By & \dref{IM1}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+\subsubsection*{Detailed Derivation of Gradients}
+
+There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
+\begin{center}
+  \begin{equation}
+    \[ -\boldface{y} \cdot \log(\boldface{\^y})\]' = -\boldface{y} \div \boldface{\^y}, \\
+    \text{and,} \\
+    \[-(1 - \boldface{y}) \cdot \log(1 - \boldface{\^y}) \]' = (1 - \boldface{y}) \div (1 - \boldface{\^y}), \\
+    \text{which combines to,}\\
+    (-\boldface{y} \div \boldface{\^y}) + ((1 - \boldface{y}) \div (1 - \boldface{\^y})) = (\boldface{\^y} - \boldface{y}) \div (\boldface{\^y} \cdot (1 - \boldface{\^y}))
+  \end{equation}
+\end{center}
+Then we take the derivative of $\boldface{\^y} = \sigma(\boldface(z))$ using the following identities:
+\begin{center}
+1. $ 1 - \sigma(z) = 1 - (e^z \div (1 + e^z)) = 1 \div (1 + e^z) = \sigma(-z)$\\
+2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^-1 = e^-z \div (1 + e^-z)^2 = (e^-z \div (1 + e^-z)) \cdot (1 \div (1 + e^-z)) = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
+\end{center}
+Which give $ \boldface{y}_n' = \boldface{y}_n \cdot (1 - \boldface{y}_n)$
+~\newline
+Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
+\begin{center}
+For \dref{GD2}: $ \frac{d}{d\boldface{w}} \cdot (b + \boldface{x}_1 \cdot \boldface{w}_1 + ... +\boldface{x}_n \cdot \boldface{w}_n) = \boldface{x}_i$ \\
+For \dref{GD3}: $\frac{d}{db} \cdot (b + \boldface{x}_1 \cdot \boldface{w}_1 + ... +\boldface{x}_n \cdot \boldface{w}_n) = 1 $
+\end{center}
+
+Then each derivative in the chain is multiplied together for $\nabla_\boldface{w}$ and $\nabla_b$ respectively, resulting in
+the final formulas seen in \dref{GD2} and \dref{GD3}. This information was gathered from \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, and \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7}.
+
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
-\plt{The Data Definitions are definitions of symbols and equations that are
-  given for the problem.  They are not derived; they are simply used by other
-  models.  For instance, if a problem depends on density, there may be a data
-  definition for the equation defining density.  The DDs are given information
-  that you can use in your other modules.}
-
-\plt{All Data Definitions should be used (referenced) by at least one other
-  model.}
-
 This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \plt{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
+models. The dimension of each quantity is also given.  
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+\hline
+Label& \bf Learning Rate\\
+\hline
+Symbol &$\alpha$\\
+\hline
+% Units& $Mt^{-3}$\\
+% \hline
+  SI Units & Unitless\\
+  \hline
+  Equation& Not Applicable\\
+  \hline
+  Description & 
+                Learning Rate is the value that is used to help the model minimize the Log Loss function effectively at each step.
+                While there is no concrete equation to determine the learning rate it is suggested that fine-tuning is done by
+                increasing or decreasing the value by a factor of 10.
+  \\
+  \hline
+  Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
+  \hline
+  Ref.\ By & \dref{IM1}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 ~\newline
 
@@ -744,90 +759,40 @@ models. The dimension of each quantity is also given.  \plt{Modify the examples
 \rowcolor[gray]{0.9}
 Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
 \hline
-Label& \bf Heat flux out of coil\\
+Label& \bf Regularization Parameter\\
 \hline
-Symbol &$q_C$\\
+Symbol &$\lambda$\\
 \hline
 % Units& $Mt^{-3}$\\
 % \hline
-  SI Units & Something\\
+  SI Units & Unitless\\
   \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
+  Equation& Not Applicable\\
   \hline
   Description & 
-                $T_C$ is the temperature of the coil.  $T_W$ is the temperature of the water.  
-                The heat flux out of the coil, $q_C$, is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ and heat 
-                transfer coefficient $h_C$.  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
+                The regularization parameter is a value that is used to help the model minimize the Log Loss function to reduce
+                overfitting. While there is no concrete equation to determine the regularization parameter it is suggested 
+                that fine-tuning is done by increasing or decreasing the value by a factor of 10.
   \\
   \hline
-  Sources& Citation here \\
+  Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \dref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection{Data Types}\label{sec_datatypes}
-
-\plt{This section is optional.  In many scientific computing programs it isn't
-  necessary, since the inputs and outpus are straightforward types, like reals,
-  integers, and sequences of reals and integers.  However, for some problems it
-  is very helpful to capture the type information.}
-
-\plt{The data types are not derived; they are simply stated and used by other
-  models.}
-
-\plt{All data types must be used by at least one of the models.}
-
-\plt{For the mathematical notation for expressing types, the recommendation is
-  to use the notation of~\citet{HoffmanAndStrooper1995}.}
-
-This section collects and defines all the data types needed to document the
-models. \plt{Modify the examples below for your problem, and add additional
-  definitions as appropriate.}
 
 ~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Type Name & Name for Type\\
-  \hline
-  Type Def & mathematical definition of the type\\
-  \hline
-  Description & description here
-  \\
-  \hline
-  Sources & Citation here, if the type is borrowed from another source\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
 \subsubsection{Instance Models} \label{sec_instance}    
-
-\plt{The motivation for this section is to reduce the problem defined in
-  ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
-  expressed in mathematical terms. The IMs are built by refining the TMs and/or
-  GDs.  This section should remain abstract.  The SRS should specify the
-  requirements without considering the implementation.}
 
 This section transforms the problem defined in Section~\ref{Sec_pd} into 
 one which is expressed in mathematical terms. It uses concrete symbols defined 
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \plt{reference your goals} are solved by \plt{reference your instance
-  models}.  \plt{other details, with cross-references where appropriate.}
-\plt{Modify the examples below for your problem, and add additional models as
-  appropriate.}
+The goals \dref{GS2} and \dref{GS3} are solved by \dref{IM2}. \dref{IM1} is used 
+to train the model so that \dref{IM2} can be used reliably and efficiently.
 
 ~\newline
 
@@ -839,42 +804,69 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{MTGD}\\
   \hline
-  Label& \bf Energy balance on water to find $T_W$\\
+  Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+  Input&$\boldface{x}_n$, $\boldface{y}_n$, $\boldface{\^y}_n = 1 \div (1 + (e^(\boldface{w}^T \cdot \boldface{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
+  & The input is constrained so that \dref{A2} and \dref{A3} can be satisfied.\\
   \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  Output & $\boldface{w}, b $
   \hline
-  Description&$T_W$ is the water temperature.\\
-  &$T_P$ is the PCM temperature.\\
-  &$T_C$ is the coil temperature.\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant.\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  Using gradient descent we minimize the Log Loss Function to optimize the weights and bias for better predictions\\
+  This is executed in the following order, over multiple epochs ($t$) to further optimize the values:\\
+  \begin{itemize}
+    \item 1. For each set of training images, calculate the following:
+    \begin{itemize}
+        \item 1.1. $d\boldface{w}^(t) = \boldface{x}_n \cdot (\boldface{y}_n - \boldface{\^y}_n) - (\lambda \div N) \cdot \boldface{w}^(t)^2 $
+        \item 1.2. $db^(t) = \boldface{y}_n - \boldface{\^y}_n$
+        \item 1.3. $\boldface{w}^(t+1) = \boldface{w}^(t) + \alpha \cdot d\boldface{w}^(t)$
+        \item 1.4. $db^(t+1) = db^(t) + \alpha \cdot db^(t)$
+    \end{itemize}
+    \item 2. Calculate the Log Loss and test the results using the updated weights.
+ \end{itemize}
   \\
   \hline
-  Sources& Citation here \\
+  Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & \dref{A2}, \dref{A3}, \dref{IM2}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-%~\newline
+~\newline
 
-\subsubsection*{Derivation of ...}
+%Instance Model 2
 
-\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
-  where the derivation cannot be described under the Description field, it will
-  be necessary to include this subsection.}
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{MTGD}\\
+  \hline
+  Label& \bf Label Classification\\
+  \hline
+  Input&$\boldface{x}$, $\boldface{y}_n$, $\boldface{w}$, $b$\\
+  \hline
+  Output & $\boldface{\^y}$, and the string representation of the corresponding predicted label
+  \hline
+  Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\boldface{x}$ in
+  the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
+  the 26 possible labels, the most likely label can be predicted. In addition the confidence level in the prediction can
+  be calculated as the output of the sigmoid function for the related predicted label.
+  \\
+  \hline
+  Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
+  \hline
+  Ref.\ By & \dref{R3}, \dref{R4}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+~\newline
+
+
 
 \subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
 
@@ -901,7 +893,9 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 m & 10\%
+  $x_i,j$& - & ${\text{min}} x_i,j \leq x_i,j \leq {\text{max}} x_i,j$ & 128 & 10\%
+  \\
+  $\boldface{x}_(n \times m)^1$& - & ${\text{min}} n, m \leq n, m \leq {\text{max}} n, m$ & $1024 \times 1024$ & 10\%
   \\
   \bottomrule
 \end{longtable*}
@@ -909,7 +903,7 @@ Table~\ref{TblSpecParams}.
 
 \noindent 
 \begin{description}
-\item[(*)] \plt{you might need to add some notes or clarifications}
+\item $^1$ The constraints on the input image matrix are strictly on it's size $n \times m$ not on the matrix itself.
 \end{description}
 
 \begin{table}[!h]
@@ -919,7 +913,10 @@ Table~\ref{TblSpecParams}.
   \toprule
   \textbf{Var} & \textbf{Value} \\
   \midrule 
-  $L_\text{min}$ & 0.1 m\\
+  $\text{min} x_i,j$ & 0\\
+  $\text{max} x_i,j$ & 255\\
+  $\text{min} n \times m$ & 20 px $\times$ 20px\\
+  $\text{max} n \times m$ & 4096 px $\times$ 4096px\\
   \bottomrule
 \end{longtable*}
 \end{table}
@@ -928,13 +925,10 @@ Table~\ref{TblSpecParams}.
 
 \noindent
 A correct solution must come in the form of one of the 26 possible labels,
-\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}, as well as an associated confidence level, as a percentage, that the
+\newline{\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}}, as well as an associated confidence level, as a percentage, that the
 label assigned is correct.
 
 \section{Requirements}
-
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
 
 This section provides the functional requirements, the business tasks that the
 software is expected to complete, and the nonfunctional requirements, the
@@ -954,10 +948,10 @@ qualities that the software is expected to exhibit.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Process the image such that the calculations
 needed to be performed by the program can be executed.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] Calculate and display the classified label for the input image.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] Calculate and display the classified label for the input image (see \dref{IM2}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] Calculate and display the confidence level that the assigned
-label is correct.
+label is correct (see \dref{IM2}).
 
 \end{itemize}
 
@@ -970,8 +964,9 @@ label is correct.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
   \textbf{Accuracy} The accuracy of the computed label confidence should be consistent enough that the results 
-  could be considered comparable to other existing solutions for this problem. As such the confidence level output has to
-  be calculated in a similar way to existing solutions so that the output can be verified and compared.
+  could be considered comparable to other existing solutions for this problem. As such, the accuracy of the model
+  on the training data set should be output in the form of a confusion matrix. In addition the confidence level output has to
+  be calculated in a similar way to existing solutions so that the output can be verified and compared to other algorithms.
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
   The user should be able to intuitively use the software and understand the output that is displayed.
@@ -1015,7 +1010,7 @@ input from a camera or from a pre-existing file on their system.
 
 \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Expand the functionality of the program to classify
 whole English words and sentences instead of just individual characters.
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Provide the choice of different image classifciation algorithms.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Provide the choice of different image classification algorithms.
 
 
 \end{itemize}
