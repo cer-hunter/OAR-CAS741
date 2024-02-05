@@ -829,7 +829,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{A2}, \dref{A3}, \dref{IM2}\\
+  Ref.\ By & \dref{A2}, \dref{A3}, \dref{IM2}, \dref{R3}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -860,7 +860,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{R3}, \dref{R4}\\
+  Ref.\ By & \dref{R4}, \dref{R5}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -925,8 +925,8 @@ Table~\ref{TblSpecParams}.
 
 \noindent
 A correct solution must come in the form of one of the 26 possible labels,
-\newline{\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}}, as well as an associated confidence level, as a percentage, that the
-label assigned is correct.
+\newline{\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}}, as well as an associated 
+confidence level, as a percentage, that the label assigned is correct.
 
 \section{Requirements}
 
@@ -948,15 +948,15 @@ qualities that the software is expected to exhibit.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Process the image such that the calculations
 needed to be performed by the program can be executed.
 
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Provide a trained model that can accurately classify images using
+26 different labels (see \dref{IM1}).
+
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] Calculate and display the classified label for the input image (see \dref{IM2}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] Calculate and display the confidence level that the assigned
 label is correct (see \dref{IM2}).
 
 \end{itemize}
-
-\plt{Every IM should map to at least one requirement, but not every requirement
-  has to map to a corresponding IM.}
 
 \subsection{Nonfunctional Requirements}
 
@@ -1028,42 +1028,28 @@ other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
 general definitions, data definitions, instance models, and likely changes on
 the assumptions.
 
-\plt{You will have to modify these tables for your problem.}
-
-\plt{The traceability matrix is not generally symmetric.  If GD1 uses A1, that
-  means that GD1's derivation or presentation requires invocation of A1.  A1
-  does not use GD1.  A1 is ``used by'' GD1.}
-
-\plt{The traceability matrix is challenging to maintain manually.  Please do
-  your best.  In the future tools (like Drasil) will make this much easier.}
-
 \afterpage{
 \begin{landscape}
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+	& \aref{A1}& \aref{A2}& \aref{A3}& \aref{A4} \\
 \hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
+\tref{TM1}        & & & &  \\ \hline
+\tref{TM2}        & & & &  \\ \hline
+\tref{TM3}        & & & & \\ \hline
+\dref{GD1}        & & & &  \\ \hline
+\dref{GD2}        & & & & \\ \hline
+\ddref{GD3}       & & & & \\ \hline
+\ddref{DD1}       & & & &  \\ \hline
+\ddref{DD2}       & & & X &  \\ \hline
+\ddref{IM1}       & X & X & X & X \\ \hline
+\iref{IM2}        & X & & & X \\ \hline
+\iref{LC1}        & & X & X & X \\ \hline
+\iref{LC2}        & & & & X \\ \hline
+\iref{LC3}        & & X & X & X \\ \hline
+\lcref{LC4}       & X & & & X \\
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
@@ -1074,23 +1060,20 @@ the assumptions.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
+	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \ddref{GD3}& \ddref{DD1} & \ddref{DD2}& \ddref{IM1}& \iref{IM2}\\
 \hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
+\tref{TM1}     & & & & X & X & X & & & X & X \\ \hline
+\tref{TM2}     & & & & & X & X & & & X &  \\ \hline
+\tref{TM3}     & & & & & X & X & & & X &  \\ \hline
+\dref{GD1}     & & & & & & & & & X & X \\ \hline
+\dref{GD2}     & & & & & & & & & X &  \\ \hline
+\ddref{GD3}    & & & & & & & & & X &  \\ \hline
+\ddref{DD1}    & & & & & & & & & X &  \\ \hline
+\ddref{DD2}    & & & & & & & & & X &  \\ \hline
+\ddref{IM1}    & & & & & & & & & &  \\ \hline
+\iref{IM2}     & & & & & & & & & & X \\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
@@ -1099,61 +1082,26 @@ the assumptions.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
+	& \iref{IM1}& \iref{IM2}& \iref{R1}& \iref{R2}& \ref{R3}& \rref{R4}& \rref{R5} & \ref{NFR1} & \ref{NFR2} & \ref{NFR3} & \ref{NFR4} \\
 \hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
+\iref{IM1}    & & & & & & & & & & &  \\ \hline
+\iref{IM2}    & & & & & & & & & & &  \\ \hline
+\iref{R1}     & & & & & & & & & & & \\ \hline
+\iref{R2}     & & & & & & & & & & & \\ \hline
+\rref{R3}     & X & & & & & & & & & &\\ \hline
+\rref{R4}     & & X & & & & & & & & &\\ \hline
+\rref{R5}     & & X & & & & & & & & &\\ \hline
+\rref{NFR1}   & & X & & & & & & & & & \\ \hline
+\rref{NFR2}   & & X & X & & & & & & & &\\ \hline 
+\rref{NFR3}   & & & & & & & & & & &\\ \hline
+\rref{NFR4}   & & & & & & & & & & &\\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
 \label{Table:R_trace}
 \end{table}
-
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=\textwidth]{ATrace.png}
-% 		}
-% 		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-% 	\end{center}
-% \end{figure}
-
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=0.7\textwidth]{RTrace.png}
-% 		}
-% 		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-% 	\end{center}
-% \end{figure}
 
 \section{Values of Auxiliary Constants}
 There are no auxiliary constants defined so this section is not applicable for this project.
