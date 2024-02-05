@@ -457,7 +457,7 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{TM1}\\
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM1}\\
 \hline
 Label &\bf Sigmoid Function \\
 \hline
@@ -488,7 +488,7 @@ Notes & The value of $z$ can be a scalar or matrix.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{TM2}\\
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM2}\\
 \hline
 Label &\bf Log Loss Function \\
 \hline
@@ -530,7 +530,7 @@ Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{TM3}\\
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM3}\\
 \hline
 Label &\bf Chain Rule \\
 \hline
@@ -650,7 +650,7 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 
 \subsubsection*{Detailed Derivation of Gradients}
 
-There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
+There are three steps to derive the Gradients of the Log Loss Function, using \tref{TM3}. First the outer-most derivative:
 \begin{center}
   $$
     [-\mathbf{y} \cdot \log(\mathbf{\hat{y}})]' = \frac{-\mathbf{y}}{\mathbf{\hat{y}}},
