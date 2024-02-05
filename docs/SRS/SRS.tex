@@ -405,13 +405,13 @@ includes the following elements:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Reprocess the image such that classifying
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{GS1}:] Reprocess the image such that classifying
 calculations can be performed on the image.
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Calculate and display the predicted 
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{GS2}:] Calculate and display the predicted 
 corresponding character label for the unknown character in the image.
 
- \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] Calculate and display the confidence level that
+ \item[GS\refstepcounter{goalnum}\thegoalnum \label{GS3}:] Calculate and display the confidence level that
  the predicted label is correct.
 
 \end{itemize}
@@ -438,14 +438,14 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] Normalization, required by \dref{TM2}, as 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A1}:] Normalization, required by \dref{TM2}, as 
 well as any other image processing performed before classification calculations, as described in \dref{GS1}, 
 will be performed by supporting libraries.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] The dataset used for training the software model
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A2}:] The dataset used for training the software model
 as described by \dref{IM1}, will only contain labels of capital letter characters.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] The dataset used for training the software model
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A3}:] The dataset used for training the software model
 as described by \dref{IM1}, will contain an even spread of every label that can be identified by the porgram.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:] All input images will be properly oriented so that 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A4}:] All input images will be properly oriented so that 
 they are legible by the program prior to being input.
 
 \end{itemize}
@@ -463,7 +463,7 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{Sigmoid}\\
+Number& TM\refstepcounter{defnum}\thedefnum \label{TM1}\\
 \hline
 Label &\bf Sigmoid Function \\
 \hline
@@ -494,27 +494,27 @@ Notes & The value of $z$ can be a scalar or matrix.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{LLF}\\
+Number& TM\refstepcounter{defnum}\thedefnum \label{TM2}\\
 \hline
 Label &\bf Log Loss Function \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-Equation & $ L(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
+Equation & $ L_(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
 \hline
 Description &
 $y$ represents the actual label value \\
-$\hat{y}$ represents the predicted label value \\
-$n$ is the total number of input values \\
-$i$ is the current step in the summation \\
-$$
-    L_\hat{y} = 
+& $\hat{y}$ represents the predicted label value \\
+& $n$ is the total number of input values \\
+& $i$ is the current step in the summation \\
+& \[
+    L_{\hat{y}} = 
     \begin{cases}
     -\log(\hat{y}) & \text{, if} y = 1\\
     -\log(1 - \hat{y}) & \text{, if} y = 0
     \end{cases}
-$$
-This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
+\]\\
+& This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
 predicted value $\hat{y}$. \\
 
 \hline
@@ -536,13 +536,13 @@ Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& TM\refstepcounter{defnum}\thedefnum \label{CR}\\
+Number& TM\refstepcounter{defnum}\thedefnum \label{TM3}\\
 \hline
 Label &\bf Chain Rule \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-Equation & \frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}} \\
+Equation & $\frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}}$ \\
 \hline
 Description &
 
@@ -571,7 +571,7 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{FWSigmoid}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD1}\\
 \hline
 Label &\bf Sigmoid Function with Input Image and Weights \\
 \hline
@@ -605,7 +605,7 @@ Note that the predicted value $\mathbf{\hat{y}}$ from \dref{TM2} will be determi
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{Gradw}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD2}\\
 \hline
 Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 \hline
@@ -635,7 +635,7 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{Gradb}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD3}\\
 \hline
 Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 \hline
@@ -698,7 +698,7 @@ models. The dimension of each quantity is also given.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD1}\\
 \hline
 Label& \bf Learning Rate\\
 \hline
@@ -731,7 +731,7 @@ Symbol &$\alpha$\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD2}\\
 \hline
 Label& \bf Regularization Parameter\\
 \hline
@@ -778,7 +778,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{MTGD}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{IM1}\\
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
@@ -818,7 +818,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{MTGD}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{IM2}\\
   \hline
   Label& \bf Label Classification\\
   \hline
@@ -912,22 +912,22 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] Accept an input image in the following formats: \begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R1}:] Accept an input image in the following formats: \begin{itemize}
   \item PNG (Portable Net Graphics)
   \item JPEG (Joint Photographic Experts Group)
   \item BMP (Bitmap)
   \item preloaded training images
 \end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Process the image such that the calculations
+\item[R\refstepcounter{reqnum}\thereqnum \label{R2}:] Process the image such that the calculations
 needed to be performed by the program can be executed.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] Provide a trained model that can accurately classify images using
+\item[R\refstepcounter{reqnum}\thereqnum \label{R3}:] Provide a trained model that can accurately classify images using
 26 different labels (see \dref{IM1}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] Calculate and display the classified label for the input image (see \dref{IM2}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R4}:] Calculate and display the classified label for the input image (see \dref{IM2}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:] Calculate and display the confidence level that the assigned
+\item[R\refstepcounter{reqnum}\thereqnum \label{R5}:] Calculate and display the confidence level that the assigned
 label is correct (see \dref{IM2}).
 
 \end{itemize}
@@ -936,24 +936,24 @@ label is correct (see \dref{IM2}).
 
 \noindent \begin{itemize}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR1}:]
   \textbf{Accuracy} The accuracy of the computed label confidence should be consistent enough that the results 
   could be considered comparable to other existing solutions for this problem. As such, the accuracy of the model
   on the training data set should be output in the form of a confusion matrix. In addition the confidence level output has to
   be calculated in a similar way to existing solutions so that the output can be verified and compared to other algorithms.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR2}:] \textbf{Usability}
   The user should be able to intuitively use the software and understand the output that is displayed.
   To accomplish this the software should be user-friendly, simple, and require little setup. A user survey
   may be conducted to verify the software's percieved usability.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR3}:]
   \textbf{Maintainability} The code should be clear and understandable to make further development by other programmers 
   possible with little hassle, as well as to help educate newer programmers as to how image classification works.
   Adding further features, or understanding how the software presently works should not be a difficult task.
 
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR4}:]
   \textbf{Portability} The software should be cross-platform (Windows, Linux, MacOS) with little to no setup
   required. This can be in the the form of an executable python-based application.
 
@@ -961,9 +961,9 @@ label is correct (see \dref{IM2}).
 
 \subsection{Rationale}
 
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, modelling decisions, assumptions and
-typical values.}
+The rationale for \dref{A1} to limit the scope of the project to the problem of classification, rather then including
+other problems such as normalization, given that \dref{GS2} and \dref{GS3} are the goals of the software which return an output
+to the user.
 
 \section{Likely Changes}
 
@@ -971,9 +971,9 @@ The changes listed below are likely to be implemented as the software is develop
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Expand the number of classification labels
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC1}:] Expand the number of classification labels
 to include lower-case English letter alphabet, numerical, and punctuation characters. 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Allow the user to specify whether the image is being
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC2}:] Allow the user to specify whether the image is being
 input from a camera or from a pre-existing file on their system.
 
 \end{itemize}
@@ -982,9 +982,9 @@ input from a camera or from a pre-existing file on their system.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Expand the functionality of the program to classify
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC3}:] Expand the functionality of the program to classify
 whole English words and sentences instead of just individual characters.
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] Provide the choice of different image classification algorithms.
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC4}:] Provide the choice of different image classification algorithms.
 
 
 \end{itemize}
