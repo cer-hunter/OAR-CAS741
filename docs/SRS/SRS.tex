@@ -783,7 +783,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = 1 \div (1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
   & The input is constrained so that \dref{A2} and \dref{A3} can be satisfied.\\
   \hline
-  Output & $\mathbf{w}, b $
+  Output & $\mathbf{w}, b $ \\
   \hline
   Using gradient descent we minimize the Log Loss Function to optimize the weights and bias for better predictions\\
   This is executed in the following order, over multiple epochs ($t$) to further optimize the values:\\
@@ -822,7 +822,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Input&$\mathbf{x}$, $\mathbf{y}_n$, $\mathbf{w}$, $b$\\
   \hline
-  Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label
+  Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label \\
   \hline
   Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
