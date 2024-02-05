@@ -193,9 +193,9 @@ $\mathbf{x}_(n \times m)$ & Pixel & Matrix representing pixels of the input imag
 \\
 $\mathbf{y}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
 \\
-$\mathbf{\^{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+$\mathbf{\hat{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
 \\
-$\mathbf{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\mathbf{\^y}}
+$\mathbf{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix $\mathbf{\hat{y}}$
 \\
 $x_(i,j)$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which represents the level of intensity of the pixel
 \\
@@ -502,33 +502,33 @@ None.
 {Log Loss Function}
 % #4 equation
 {
-  $ L(y,\^y) = -(1 \div n) \cdot \sum_{i = 1}^{n} \[ y_i \cdot \log(\^y_i)\ + (1 - y_i) \cdot \log(1 - \^y_i)\]  $
+  $ L(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} \[ y_i \cdot \log(\hat{y}_i)\ + (1 - y_i) \cdot \log(1 - \hat{y}_i)\]  $
 }
 % #5 description
 {
 $y$ represents the actual label value
 ~\newline
-$\^y}$ represents the predicted label value
+$\hat{y}$ represents the predicted label value
 ~\newline
 $n$ is the total number of input values
 ~\newline
 $i$ is the current step in the summation
 ~\newline
 This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
-predicted value $\^y$. 
+predicted value $\hat{y}$. 
 ~\newline
 \begin{center}
 \begin{equation}
-  L_\^y = \begin{cases}
-    -\log(\^y) & \text{, if $y = 1$} \\
-    -\log(1 - \^y) & \text{, if $y = 0$}
+  L_\hat{y} = \begin{cases}
+    -\log(\hat{y}) & \text{, if $y = 1$} \\
+    -\log(1 - \hat{y}) & \text{, if $y = 0$}
   \end{cases}
 \end{equation}
 \end{center}
 }
 % #6 Notes
 {
-The values of $y$ and $\^y$ can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
+The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
 }
 % #7 Source
 {
@@ -605,7 +605,7 @@ Label &\bf Sigmoid Function with Input Image and Weights \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \mathbf{\^y} = \sigma(z) = 1 \div (1 + (e^-\mathbf{z})) \text{, where} z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
+Equation&$ \mathbf{\hat{y}} = \sigma(z) = 1 \div (1 + (e^-\mathbf{z})) \text{, where} z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
 \hline
 Description &
 This is a refinement of the Sigmoid function (see \dref{TM1}) to represent how it will be utilized as the basis of the model.
@@ -614,7 +614,7 @@ This is a refinement of the Sigmoid function (see \dref{TM1}) to represent how i
 & $\mathbf{w}$ is the matrix of weights\\
 &$b$ is the bias
 \\
-Note that the predicted value $\mathbf{\^y}$ from \dref{TM2} will be determined from the sigmoid function.
+Note that the predicted value $\mathbf{\hat{y}}$ from \dref{TM2} will be determined from the sigmoid function.
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
@@ -639,10 +639,10 @@ Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_\mathbf{w} \[ \mathbf{y}_i \cdot \log(\mathbf{\^y}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\^y}_i)\] = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\^y}_n)   $\\
+Equation&$ \nabla_\mathbf{w} \[ \mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)\] = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n)   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \dref{TM3}, with $\mathbf{\^y} $
+Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \dref{TM3}, with $\mathbf{\hat{y}} $
 defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
 
 \hline
@@ -669,10 +669,10 @@ Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_b \[ \mathbf{y}_i \cdot \log(\mathbf{\^y}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\^y}_i)\] = \mathbf{y}_n - \mathbf{\^y}_n   $\\
+Equation&$ \nabla_b \[ \mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)\] = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with $\mathbf{\^y}$ 
+Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with $\mathbf{\hat{y}}$ 
 defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
 
 \hline
@@ -688,14 +688,14 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
 \begin{center}
   \begin{equation}
-    \[ -\mathbf{y} \cdot \log(\mathbf{\^y})\]' = -\mathbf{y} \div \mathbf{\^y}, \\
+    \[ -\mathbf{y} \cdot \log(\mathbf{\hat{y}})\]' = -\mathbf{y} \div \mathbf{\hat{y}}, \\
     \text{and,} \\
-    \[-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\^y}) \]' = (1 - \mathbf{y}) \div (1 - \mathbf{\^y}), \\
+    \[-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\hat{y}}) \]' = (1 - \mathbf{y}) \div (1 - \mathbf{\hat{y}}), \\
     \text{which combines to,}\\
-    (-\mathbf{y} \div \mathbf{\^y}) + ((1 - \mathbf{y}) \div (1 - \mathbf{\^y})) = (\mathbf{\^y} - \mathbf{y}) \div (\mathbf{\^y} \cdot (1 - \mathbf{\^y}))
+    (-\mathbf{y} \div \mathbf{\hat{y}}) + ((1 - \mathbf{y}) \div (1 - \mathbf{\hat{y}})) = (\mathbf{\hat{y}} - \mathbf{y}) \div (\mathbf{\hat{y}} \cdot (1 - \mathbf{\hat{y}}))
   \end{equation}
 \end{center}
-Then we take the derivative of $\mathbf{\^y} = \sigma(\mathbf(z))$ using the following identities:
+Then we take the derivative of $\mathbf{\hat{y}} = \sigma(\mathbf(z))$ using the following identities:
 \begin{center}
 1. $ 1 - \sigma(z) = 1 - (e^z \div (1 + e^z)) = 1 \div (1 + e^z) = \sigma(-z)$\\
 2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^-1 = e^-z \div (1 + e^-z)^2 = (e^-z \div (1 + e^-z)) \cdot (1 \div (1 + e^-z)) = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
@@ -808,7 +808,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\^y}_n = 1 \div (1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
+  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = 1 \div (1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
   & The input is constrained so that \dref{A2} and \dref{A3} can be satisfied.\\
   \hline
   Output & $\mathbf{w}, b $
@@ -818,8 +818,8 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \begin{itemize}
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
-        \item 1.1. $d\mathbf{w}^(t) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\^y}_n) - (\lambda \div N) \cdot \mathbf{w}^(t)^2 $
-        \item 1.2. $db^(t) = \mathbf{y}_n - \mathbf{\^y}_n$
+        \item 1.1. $d\mathbf{w}^(t) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n) - (\lambda \div N) \cdot \mathbf{w}^(t)^2 $
+        \item 1.2. $db^(t) = \mathbf{y}_n - \mathbf{\hat{y}}_n$
         \item 1.3. $\mathbf{w}^(t+1) = \mathbf{w}^(t) + \alpha \cdot d\mathbf{w}^(t)$
         \item 1.4. $db^(t+1) = db^(t) + \alpha \cdot db^(t)$
     \end{itemize}
@@ -850,7 +850,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Input&$\mathbf{x}$, $\mathbf{y}_n$, $\mathbf{w}$, $b$\\
   \hline
-  Output & $\mathbf{\^y}$, and the string representation of the corresponding predicted label
+  Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label
   \hline
   Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
