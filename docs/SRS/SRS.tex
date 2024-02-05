@@ -475,7 +475,7 @@ Notes & The value of $z$ can be a scalar or matrix.
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{GD1}\\
+  Ref.\ By & \dref{GD_sig}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -517,7 +517,7 @@ Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \aref{A1}, \dref{GD1}, \dref{GD2}, \dref{GD3}, \iref{Train}\\
+  Ref.\ By & \aref{A1}, \dref{GD_sig}, \dref{GD_gradw}, \dref{GD_gradb}, \iref{Train}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -545,7 +545,7 @@ This formula is used to derive the composition of two differentiable functions.
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{GD2}, \dref{GD3}\\
+  Ref.\ By & \dref{GD_gradw}, \dref{GD_gradb}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -565,7 +565,7 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{GD1}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD_sig}\\
 \hline
 Label &\bf Sigmoid Function with Input Image and Weights \\
 \hline
@@ -585,7 +585,7 @@ This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how i
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{GD2}, \dref{GD3}, \iref{Train}, \iref{Test}\\
+  Ref.\ By & \dref{GD_gradw}, \dref{GD_gradb}, \iref{Train}, \iref{Test}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -598,7 +598,7 @@ This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how i
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{GD2}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD_gradw}\\
 \hline
 Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 \hline
@@ -610,7 +610,7 @@ Equation&$ \nabla_\mathbf{w}  (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\mathbf{\hat{y}} $
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
+defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
@@ -627,7 +627,7 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{GD3}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{GD_gradb}\\
 \hline
 Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 \hline
@@ -639,7 +639,7 @@ Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
+defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
@@ -677,12 +677,12 @@ Which gives $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
 ~\newline
 Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
 \begin{center}
-For \dref{GD2}: $ \frac{d}{d\mathbf{w}} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = \mathbf{x}_i$ \\
-For \dref{GD3}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = 1 $
+For \dref{GD_gradw}: $ \frac{d}{d\mathbf{w}} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = \mathbf{x}_i$ \\
+For \dref{GD_gradb}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = 1 $
 \end{center}
 
 Then each derivative in the chain is multiplied together for $\nabla_\mathbf{w}$ and $\nabla_b$ respectively, resulting in
-the final formulas seen in \dref{GD2} and \dref{GD3}. 
+the final formulas seen in \dref{GD_gradw} and \dref{GD_gradb}. 
 
 
 \subsubsection{Data Definitions}\label{sec_datadef}
@@ -828,7 +828,7 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \hline
   Description &
   Using the optimized weights and bias from \iref{Train} and combining that with an unknown input $\mathbf{x}$ in
-  the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
+  the Sigmoid function (see \dref{GD_sig}), then comparing across the sigmoid values of
   the 26 possible labels, the most likely label can be predicted. In addition the confidence level in the prediction can
   be calculated as the output of the sigmoid function for the related predicted label.
   \\
@@ -962,8 +962,8 @@ label is correct (see \iref{Test}).
 
 \subsection{Rationale}
 
-The rationale for \dref{A1} to limit the scope of the project to the problem of classification, rather then including
-other problems such as normalization, given that \dref{GS2} and \dref{GS3} are the goals of the software which return an output
+The rationale for \aref{A1} to limit the scope of the project to the problem of classification, rather then including
+other problems such as normalization, given that \gsref{GS2} and \gsref{GS3} are the goals of the software which return an output
 to the user.
 
 \section{Likely Changes}
@@ -1014,9 +1014,9 @@ the assumptions.
 \tref{TM1}        & & & &  \\ \hline
 \tref{TM2}        & & & &  \\ \hline
 \tref{TM3}        & & & & \\ \hline
-\dref{GD1}        & & & &  \\ \hline
-\dref{GD2}        & & & & \\ \hline
-\dref{GD3}       & & & & \\ \hline
+\dref{GD_sig}        & & & &  \\ \hline
+\dref{GD_gradw}        & & & & \\ \hline
+\dref{GD_gradb}       & & & & \\ \hline
 \ddref{DD1}       & & & &  \\ \hline
 \ddref{DD2}       & & & X &  \\ \hline
 \iref{Train}       & X & X & X & X \\ \hline
@@ -1037,14 +1037,14 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \dref{GD3}& \ddref{DD1} & \ddref{DD2}& \iref{Train}& \iref{Test}\\
+	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD_sig}& \dref{GD_gradw} & \dref{GD_gradb}& \ddref{DD1} & \ddref{DD2}& \iref{Train}& \iref{Test}\\
 \hline
 \tref{TM1}     & & & & X & X & X & & & X & X \\ \hline
 \tref{TM2}     & & & & & X & X & & & X &  \\ \hline
 \tref{TM3}     & & & & & X & X & & & X &  \\ \hline
-\dref{GD1}     & & & & & & & & & X & X \\ \hline
-\dref{GD2}     & & & & & & & & & X &  \\ \hline
-\dref{GD3}    & & & & & & & & & X &  \\ \hline
+\dref{GD_sig}     & & & & & & & & & X & X \\ \hline
+\dref{GD_gradw}     & & & & & & & & & X &  \\ \hline
+\dref{GD_gradb}    & & & & & & & & & X &  \\ \hline
 \ddref{DD1}    & & & & & & & & & X &  \\ \hline
 \ddref{DD2}    & & & & & & & & & X &  \\ \hline
 \iref{Train}    & & & & & & & & & &  \\ \hline
