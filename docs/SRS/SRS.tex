@@ -510,12 +510,13 @@ $i$ is the current step in the summation \\
 This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
 predicted value $\hat{y}$. \\
 \begin{center}
-\begin{equation}
-  L_\hat{y} = \begin{cases}
-    -\log (\hat{y}) & \text{, if} y = 1\\
-    -\log (1 - \hat{y}) & \text{, if} y = 0
-  \end{cases}
-\end{equation}
+$$
+    L_\hat{y} = 
+    \begin{cases}
+    -\log(\hat{y}) & \text{, if} y = 1\\
+    -\log(1 - \hat{y}) & \text{, if} y = 0
+    \end{cases}
+$$
 \end{center}
 \\
 \hline
