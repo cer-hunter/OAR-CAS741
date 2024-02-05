@@ -189,17 +189,17 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$\mathbf{x}_(n \times m)$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
+$\mathbf{x}_{n \times m}$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
 \\
-$\mathbf{y}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
+$\mathbf{y}_{n \times m}$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
 \\
-$\mathbf{\hat{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+$\mathbf{\hat{y}}_{n \times m}$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
 \\
-$\mathbf{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix $\mathbf{\hat{y}}$
+$\mathbf{z}_{n \times m}$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix $\mathbf{\hat{y}}$
 \\
-$x_(i,j)$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which represents the level of intensity of the pixel
+$x_{i,j}$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which represents the level of intensity of the pixel
 \\
-$\mathbf{w}_(1 \times n)$ & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
+$\mathbf{w}_{1 \times n}$ & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
 \\
 $b$ & Unitless & Bias that is used by the classifier model
 \\
@@ -345,12 +345,6 @@ classified the image.
 
 \subsubsection{Terminology and  Definitions}
 
-\plt{This section is expressed in words, not with equations.  It provide the
-  meaning of the different words and phrases used in the domain of the problem.
-The terminology is used to introduce concepts from the world outside of the
-mathematical model  The terminology provides a real world connection to give the
-mathematical model meaning.}
-
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it
 easier to correctly understand the requirements:
@@ -438,13 +432,13 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A1}:] Normalization, required by \dref{TM2}, as 
-well as any other image processing performed before classification calculations, as described in \dref{GS1}, 
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A1}:] Normalization, required by \tref{TM2}, as 
+well as any other image processing performed before classification calculations, as described in \gsref{GS1}, 
 will be performed by supporting libraries.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A2}:] The dataset used for training the software model
-as described by \dref{IM1}, will only contain labels of capital letter characters.
+as described by \iref{IM1}, will only contain labels of capital letter characters.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A3}:] The dataset used for training the software model
-as described by \dref{IM1}, will contain an even spread of every label that can be identified by the porgram.
+as described by \iref{IM1}, will contain an even spread of every label that can be identified by the porgram.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A4}:] All input images will be properly oriented so that 
 they are legible by the program prior to being input.
 
@@ -469,11 +463,11 @@ Label &\bf Sigmoid Function \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-Equation & $ \sigma(z) = 1 \div (1 + e^-z) $ \\
+Equation & $ \sigma(z) = \frac{1}{1 + e^{-z}} $ \\
 \hline
 Description &
 The sigmoid function takes input $z$ and returns a value between 0 and 1. This function will be used to calculate
-the confidence level of the predicted value, to satisfy \dref{GS3}.
+the confidence level of the predicted value, to satisfy s{GS3}.
 \\
 \hline
 Notes & The value of $z$ can be a scalar or matrix.
@@ -500,7 +494,7 @@ Label &\bf Log Loss Function \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-Equation & $ L_(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
+Equation & $ L_{(y,\hat{y})} = -\frac{1}{n} \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
 \hline
 Description &
 $y$ represents the actual label value \\
@@ -510,8 +504,8 @@ $y$ represents the actual label value \\
 & \[
     L_{\hat{y}} = 
     \begin{cases}
-    -\log(\hat{y}) & \text{, if} y = 1\\
-    -\log(1 - \hat{y}) & \text{, if} y = 0
+    -\log(\hat{y}) & \text{, if } y = 1\\
+    -\log(1 - \hat{y}) & \text{, if } y = 0
     \end{cases}
 \]\\
 & This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
@@ -523,7 +517,7 @@ Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{A1}, \dref{GD1}, \dref{IM1}\\
+  Ref.\ By & \aref{A1}, \dref{GD1}, \dref{GD2}, \dref{GD3}, \iref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -579,20 +573,19 @@ Label &\bf Sigmoid Function with Input Image and Weights \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \mathbf{\hat{y}} = \sigma(z) = 1 \div (1 + (e^-\mathbf{z})) \text{, where} z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
+Equation&$ \mathbf{\hat{y}} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
 \hline
 Description &
-This is a refinement of the Sigmoid function (see \dref{TM1}) to represent how it will be utilized as the basis of the model.
+This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how it will be utilized as the basis of the model.
 \\
 & $\mathbf{x}$ is the input image matrix.\\
 & $\mathbf{w}$ is the matrix of weights\\
-&$b$ is the bias
-\\
-Note that the predicted value $\mathbf{\hat{y}}$ from \dref{TM2} will be determined from the sigmoid function.\\
+&$b$ is the bias\\
+& Note that the predicted value $\mathbf{\hat{y}}$ from \tref{TM2} will be determined from the sigmoid function.\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
-  Ref.\ By & \dref{GD2}, \dref{GD3}, \dref{IM1}, \dref{IM2}\\
+  Ref.\ By & \dref{GD2}, \dref{GD3}, \iref{IM1}, \iref{IM2}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -616,12 +609,12 @@ SI Units&Unitless\\
 Equation&$ \nabla_\mathbf{w}  (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n)   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \dref{TM3}, with $\mathbf{\hat{y}} $
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).\\
+Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\mathbf{\hat{y}} $
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{IM1}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{IM1}\\
+  Ref.\ By & \iref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -645,12 +638,12 @@ SI Units&Unitless\\
 Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with $\mathbf{\hat{y}}$ 
-defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).\\
+Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
+defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \iref{IM1}).\\
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{IM1}\\
+  Ref.\ By & \iref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -660,19 +653,19 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
 \begin{center}
   \begin{equation}
-    [-\mathbf{y} \cdot \log(\mathbf{\hat{y}})]' = -\mathbf{y} \div \mathbf{\hat{y}},
-    \text{and,} 
-    [-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\hat{y}})]' = (1 - \mathbf{y}) \div (1 - \mathbf{\hat{y}}), 
-    \text{which combines to,}s
-    (-\mathbf{y} \div \mathbf{\hat{y}}) + ((1 - \mathbf{y}) \div (1 - \mathbf{\hat{y}})) = (\mathbf{\hat{y}} - \mathbf{y}) \div (\mathbf{\hat{y}} \cdot (1 - \mathbf{\hat{y}}))
+    [-\mathbf{y} \cdot \log(\mathbf{\hat{y}})]' = \frac{-\mathbf{y}}{\mathbf{\hat{y}}},
+    \text{\\ and,\\} 
+    [-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\hat{y}})]' = \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})}, 
+    \text{\\ which combines to,\\}
+    \frac{-\mathbf{y}}{\mathbf{\hat{y}}} + \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})} = \frac{(\mathbf{\hat{y}} - \mathbf{y})}{(\mathbf{\hat{y}} \cdot (1 - \mathbf{\hat{y}}))}
   \end{equation}
 \end{center}
 Then we take the derivative of $\mathbf{\hat{y}} = \sigma(\mathbf(z))$ using the following identities:
 \begin{center}
-1. $ 1 - \sigma(z) = 1 - (e^z \div (1 + e^z)) = 1 \div (1 + e^z) = \sigma(-z)$\\
-2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^-1 = e^-z \div (1 + e^-z)^2 = (e^-z \div (1 + e^-z)) \cdot (1 \div (1 + e^-z)) = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
+1. $ 1 - \sigma(z) = 1 - \frac{e^z}{(1 + e^z)} = \frac{1}{(1 + e^z)} = \sigma(-z)$\\
+2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^{-1} = \frac{e^{-z}}{(1 + e^{-z})^2} = \frac{e^{-z}}{(1 + e^{-z})} \cdot \frac{1}{(1 + e^{-z})} = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
 \end{center}
-Which give $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
+Which gives $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
 ~\newline
 Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
 \begin{center}
@@ -681,7 +674,7 @@ For \dref{GD3}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +
 \end{center}
 
 Then each derivative in the chain is multiplied together for $\nabla_\mathbf{w}$ and $\nabla_b$ respectively, resulting in
-the final formulas seen in \dref{GD2} and \dref{GD3}. This information was gathered from \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, and \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7}.
+the final formulas seen in \dref{GD2} and \dref{GD3}. 
 
 
 \subsubsection{Data Definitions}\label{sec_datadef}
@@ -716,7 +709,7 @@ Symbol &$\alpha$\\
   \hline
   Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
   \hline
-  Ref.\ By & \dref{IM1}\\
+  Ref.\ By & \iref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -749,7 +742,7 @@ Symbol &$\lambda$\\
   \hline
   Sources& \url{https://heena-sharma.medium.com/regularization-in-machine-learning-e7445c3166cd} \\
   \hline
-  Ref.\ By & \dref{IM1}\\
+  Ref.\ By & \iref{IM1}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -763,8 +756,8 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \dref{GS2} and \dref{GS3} are solved by \dref{IM2}. \dref{IM1} is used 
-to train the model so that \dref{IM2} can be used reliably and efficiently.
+The goals s{GS2} and s{GS3} are solved by \iref{IM2}. \iref{IM1} is used 
+to train the model so that \iref{IM2} can be used reliably and efficiently.
 
 ~\newline
 
@@ -780,11 +773,12 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = 1 \div (1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
-  & The input is constrained so that \dref{A2} and \dref{A3} can be satisfied.\\
+  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \dref{DD1}}, \lambda \text{ from \dref{DD2}}, N$ which is the number of training images\\
+  & The input is constrained so that \aref{A2} and \aref{A3} can be satisfied.\\
   \hline
   Output & $\mathbf{w}, b $ \\
   \hline
+  Description &
   Using gradient descent we minimize the Log Loss Function to optimize the weights and bias for better predictions\\
   This is executed in the following order, over multiple epochs ($t$) to further optimize the values:\\
   \begin{itemize}
@@ -801,7 +795,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{A2}, \dref{A3}, \dref{IM2}, \dref{R3}\\
+  Ref.\ By & \aref{A2}, \aref{A3}, \iref{IM2}, \rref{R3}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -824,7 +818,8 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label \\
   \hline
-  Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\mathbf{x}$ in
+  Description &
+  Using the optimized weights and bias from \iref{IM1} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
   the 26 possible labels, the most likely label can be predicted. In addition the confidence level in the prediction can
   be calculated as the output of the sigmoid function for the related predicted label.
@@ -832,7 +827,7 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Sources & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7} \\
   \hline
-  Ref.\ By & \dref{R4}, \dref{R5}\\
+  Ref.\ By & \rref{R4}, \rref{R5}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -1013,14 +1008,14 @@ the assumptions.
 \tref{TM3}        & & & & \\ \hline
 \dref{GD1}        & & & &  \\ \hline
 \dref{GD2}        & & & & \\ \hline
-\ddref{GD3}       & & & & \\ \hline
+\dref{GD3}       & & & & \\ \hline
 \ddref{DD1}       & & & &  \\ \hline
 \ddref{DD2}       & & & X &  \\ \hline
-\ddref{IM1}       & X & X & X & X \\ \hline
+\iref{IM1}       & X & X & X & X \\ \hline
 \iref{IM2}        & X & & & X \\ \hline
-\iref{LC1}        & & X & X & X \\ \hline
-\iref{LC2}        & & & & X \\ \hline
-\iref{LC3}        & & X & X & X \\ \hline
+\lcref{LC1}        & & X & X & X \\ \hline
+\lcref{LC2}        & & & & X \\ \hline
+\lcref{LC3}        & & X & X & X \\ \hline
 \lcref{LC4}       & X & & & X \\
 \hline
 \end{tabular}
@@ -1034,17 +1029,17 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \ddref{GD3}& \ddref{DD1} & \ddref{DD2}& \ddref{IM1}& \iref{IM2}\\
+	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD1}& \dref{GD2} & \dref{GD3}& \ddref{DD1} & \ddref{DD2}& \iref{IM1}& \iref{IM2}\\
 \hline
 \tref{TM1}     & & & & X & X & X & & & X & X \\ \hline
 \tref{TM2}     & & & & & X & X & & & X &  \\ \hline
 \tref{TM3}     & & & & & X & X & & & X &  \\ \hline
 \dref{GD1}     & & & & & & & & & X & X \\ \hline
 \dref{GD2}     & & & & & & & & & X &  \\ \hline
-\ddref{GD3}    & & & & & & & & & X &  \\ \hline
+\dref{GD3}    & & & & & & & & & X &  \\ \hline
 \ddref{DD1}    & & & & & & & & & X &  \\ \hline
 \ddref{DD2}    & & & & & & & & & X &  \\ \hline
-\ddref{IM1}    & & & & & & & & & &  \\ \hline
+\iref{IM1}    & & & & & & & & & &  \\ \hline
 \iref{IM2}     & & & & & & & & & & X \\ 
 \hline
 \end{tabular}
@@ -1056,19 +1051,19 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{IM1}& \iref{IM2}& \iref{R1}& \iref{R2}& \ref{R3}& \rref{R4}& \rref{R5} & \ref{NFR1} & \ref{NFR2} & \ref{NFR3} & \ref{NFR4} \\
+	& \iref{IM1}& \iref{IM2}& \rref{R1}& \rref{R2}& \rref{R3}& \rref{R4}& \rref{R5} & \nfrref{NFR1} & \nfrref{NFR2} & \nfrref{NFR3} & \nfrref{NFR4} \\
 \hline
 \iref{IM1}    & & & & & & & & & & &  \\ \hline
 \iref{IM2}    & & & & & & & & & & &  \\ \hline
-\iref{R1}     & & & & & & & & & & & \\ \hline
-\iref{R2}     & & & & & & & & & & & \\ \hline
+\rref{R1}     & & & & & & & & & & & \\ \hline
+\rref{R2}     & & & & & & & & & & & \\ \hline
 \rref{R3}     & X & & & & & & & & & &\\ \hline
 \rref{R4}     & & X & & & & & & & & &\\ \hline
 \rref{R5}     & & X & & & & & & & & &\\ \hline
-\rref{NFR1}   & & X & & & & & & & & & \\ \hline
-\rref{NFR2}   & & X & X & & & & & & & &\\ \hline 
-\rref{NFR3}   & & & & & & & & & & &\\ \hline
-\rref{NFR4}   & & & & & & & & & & &\\ 
+\nfrref{NFR1}   & & X & & & & & & & & & \\ \hline
+\nfrref{NFR2}   & & X & X & & & & & & & &\\ \hline 
+\nfrref{NFR3}   & & & & & & & & & & &\\ \hline
+\nfrref{NFR4}   & & & & & & & & & & &\\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
@@ -1088,41 +1083,6 @@ There are no auxiliary constants defined so this section is not applicable for t
 \noindent \plt{The following is not part of the template, just some things to consider
   when filing in the template.}
 
-\noindent \plt{Grammar, flow and \LaTeX advice:
-\begin{itemize}
-\item For Mac users \texttt{*.DS\_Store} should be in \texttt{.gitignore}
-\item \LaTeX{} and formatting rules
-\begin{itemize}
-\item Variables are italic, everything else not, includes subscripts (link to
-  document)
-\begin{itemize}
-\item \href{https://physics.nist.gov/cuu/pdf/typefaces.pdf}{Conventions}
-\item Watch out for implied multiplication
-\end{itemize}
-\item Use BibTeX
-\item Use cross-referencing
-\end{itemize}
-\item Grammar and writing rules
-\begin{itemize}
-\item Acronyms expanded on first usage (not just in table of acronyms)
-\item ``In order to'' should be ``to''
-\end{itemize}
-\end{itemize}}
-
-\noindent \plt{Advice on using the template:
-\begin{itemize}
-\item Difference between physical and software constraints
-\item Properties of a correct solution means \emph{additional} properties, not
-  a restating of the requirements (may be ``not applicable'' for your problem).
-  If you have a table of output constraints, then these are properties of a
-  correct solution.
-\item Assumptions have to be invoked somewhere
-\item ``Referenced by'' implies that there is an explicit reference
-\item Think of traceability matrix, list of assumption invocations and list of
-  reference by fields as automatically generatable
-\item If you say the format of the output (plot, table etc), then your
-  requirement could be more abstract
-\end{itemize}
-}
+\noindent
 
 \end{document}
