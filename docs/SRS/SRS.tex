@@ -613,7 +613,7 @@ Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_\mathbf{w} \[ \mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)\] = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n)   $\\
+Equation&$ \nabla_\mathbf{w}  (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n)   $\\
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \dref{TM3}, with $\mathbf{\hat{y}} $
@@ -643,7 +643,7 @@ Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_b \[ \mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)\] = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
+Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with $\mathbf{\hat{y}}$ 
