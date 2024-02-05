@@ -792,7 +792,7 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \begin{itemize}
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
-        \item 1.1. $d\mathbf{w}^{(t)} = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n) - \frac{lambda}{N} \cdot \mathbf{w}^{(t)}^2 $
+        \item 1.1. $d\mathbf{w}^{(t)} = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n) - \frac{lambda}{N} \cdot \mathbf{w}^{(t)^2} $
         \item 1.2. $d\mathbf{b}^{(t)} = \mathbf{y}_n - \mathbf{\hat{y}}_n$
         \item 1.3. $\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} + \alpha \cdot d\mathbf{w}^{(t)}$
         \item 1.4. $d\mathbf{b}^{(t+1)} = d\mathbf{b}^{(t)} + \alpha \cdot d\mathbf{b}^{(t)}$
