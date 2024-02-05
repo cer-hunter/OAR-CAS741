@@ -189,17 +189,17 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$\boldface{x}_(n \times m)$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
+$\mathbf{x}_(n \times m)$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
 \\
-$\boldface{y}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
+$\mathbf{y}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
 \\
-$\boldface{\^{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+$\mathbf{\^{y}}_(n \times m)$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
 \\
-$\boldface{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\boldface{\^y}}
+$\mathbf{z}_(n \times m)$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biases, used in the Predicted Label Matrix \italic{\mathbf{\^y}}
 \\
-$x_(i,j)$ & Unitless & An entry in the input matrix \boldface{x} (at i, j) which represents the level of intensity of the pixel
+$x_(i,j)$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which represents the level of intensity of the pixel
 \\
-$\boldface{w_(1 \times n)}$ & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
+$\mathbf{w}_(1 \times n)$ & Unitless & Matrix of weights that is used by the classifier model with 1 row and n columns
 \\
 $b$ & Unitless & Bias that is used by the classifier model
 \\
@@ -238,7 +238,7 @@ $L$ & Unitless & Represents the Log Loss Function
 
 \subsection{Mathematical Notation}
 
-In this project documentation variables which represent matrices are indicated by bolded letters (ie. \boldface{x}), whereas
+In this project documentation variables which represent matrices are indicated by bolded letters (ie. $\mathbf{x}$), whereas
 all other variables are represented by regular printed letters.
 
 
@@ -605,16 +605,16 @@ Label &\bf Sigmoid Function with Input Image and Weights \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \boldface{\^y} = \sigma(z) = 1 \div (1 + (e^-\boldface{z})) \text{, where} z = \boldface{w}^T \cdot \boldface{x} + b$ \\
+Equation&$ \mathbf{\^y} = \sigma(z) = 1 \div (1 + (e^-\mathbf{z})) \text{, where} z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
 \hline
 Description &
 This is a refinement of the Sigmoid function (see \dref{TM1}) to represent how it will be utilized as the basis of the model.
 \\
-& $\boldface{x}$ is the input image matrix.\\
-& $\boldface{w}$ is the matrix of weights\\
+& $\mathbf{x}$ is the input image matrix.\\
+& $\mathbf{w}$ is the matrix of weights\\
 &$b$ is the bias
 \\
-Note that the predicted value $\boldface{\^y}$ from \dref{TM2} will be determined from the sigmoid function.
+Note that the predicted value $\mathbf{\^y}$ from \dref{TM2} will be determined from the sigmoid function.
 \hline
   Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
   \hline
@@ -633,16 +633,16 @@ Note that the predicted value $\boldface{\^y}$ from \dref{TM2} will be determine
 \rowcolor[gray]{0.9}
 Number& GD\refstepcounter{defnum}\thedefnum \label{Gradw}\\
 \hline
-Label &\bf Gradient of Log Loss Function with respect to \boldface{w} \\
+Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_\boldface{w} \[ \boldface{y}_i \cdot \log(\boldface{\^y}_i)\ + (1 - \boldface{y}_i) \cdot \log(1 - \boldface{\^y}_i)\] = \boldface{x}_n \cdot (\boldface{y}_n - \boldface{\^y}_n)   $\\
+Equation&$ \nabla_\mathbf{w} \[ \mathbf{y}_i \cdot \log(\mathbf{\^y}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\^y}_i)\] = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\^y}_n)   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $\boldface{w}$  using chain rule from \dref{TM3}, with \boldface{\^y} 
+Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \dref{TM3}, with $\mathbf{\^y} $
 defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
 
 \hline
@@ -663,16 +663,16 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 \rowcolor[gray]{0.9}
 Number& GD\refstepcounter{defnum}\thedefnum \label{Gradb}\\
 \hline
-Label &\bf Gradient of Log Loss Function with respect to b \\
+Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_b \[ \boldface{y}_i \cdot \log(\boldface{\^y}_i)\ + (1 - \boldface{y}_i) \cdot \log(1 - \boldface{\^y}_i)\] = \boldface{y}_n - \boldface{\^y}_n   $\\
+Equation&$ \nabla_b \[ \mathbf{y}_i \cdot \log(\mathbf{\^y}_i)\ + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\^y}_i)\] = \mathbf{y}_n - \mathbf{\^y}_n   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with \boldface{\^y} 
+Here we derive the Log Loss Function with respect to $b$ using chain rule from \dref{TM3}, with $\mathbf{\^y}$ 
 defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the Log Loss Function to train the model (see \dref{IM1}).
 
 \hline
@@ -688,27 +688,27 @@ defined using the Sigmoid Function (see \dref{GD1}), so that we can minimize the
 There are three steps to derive the Gradients of the Log Loss Function, using \dref{TM3}. First the outer-most derivative:
 \begin{center}
   \begin{equation}
-    \[ -\boldface{y} \cdot \log(\boldface{\^y})\]' = -\boldface{y} \div \boldface{\^y}, \\
+    \[ -\mathbf{y} \cdot \log(\mathbf{\^y})\]' = -\mathbf{y} \div \mathbf{\^y}, \\
     \text{and,} \\
-    \[-(1 - \boldface{y}) \cdot \log(1 - \boldface{\^y}) \]' = (1 - \boldface{y}) \div (1 - \boldface{\^y}), \\
+    \[-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\^y}) \]' = (1 - \mathbf{y}) \div (1 - \mathbf{\^y}), \\
     \text{which combines to,}\\
-    (-\boldface{y} \div \boldface{\^y}) + ((1 - \boldface{y}) \div (1 - \boldface{\^y})) = (\boldface{\^y} - \boldface{y}) \div (\boldface{\^y} \cdot (1 - \boldface{\^y}))
+    (-\mathbf{y} \div \mathbf{\^y}) + ((1 - \mathbf{y}) \div (1 - \mathbf{\^y})) = (\mathbf{\^y} - \mathbf{y}) \div (\mathbf{\^y} \cdot (1 - \mathbf{\^y}))
   \end{equation}
 \end{center}
-Then we take the derivative of $\boldface{\^y} = \sigma(\boldface(z))$ using the following identities:
+Then we take the derivative of $\mathbf{\^y} = \sigma(\mathbf(z))$ using the following identities:
 \begin{center}
 1. $ 1 - \sigma(z) = 1 - (e^z \div (1 + e^z)) = 1 \div (1 + e^z) = \sigma(-z)$\\
 2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^-1 = e^-z \div (1 + e^-z)^2 = (e^-z \div (1 + e^-z)) \cdot (1 \div (1 + e^-z)) = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
 \end{center}
-Which give $ \boldface{y}_n' = \boldface{y}_n \cdot (1 - \boldface{y}_n)$
+Which give $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
 ~\newline
 Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
 \begin{center}
-For \dref{GD2}: $ \frac{d}{d\boldface{w}} \cdot (b + \boldface{x}_1 \cdot \boldface{w}_1 + ... +\boldface{x}_n \cdot \boldface{w}_n) = \boldface{x}_i$ \\
-For \dref{GD3}: $\frac{d}{db} \cdot (b + \boldface{x}_1 \cdot \boldface{w}_1 + ... +\boldface{x}_n \cdot \boldface{w}_n) = 1 $
+For \dref{GD2}: $ \frac{d}{d\mathbf{w}} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = \mathbf{x}_i$ \\
+For \dref{GD3}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = 1 $
 \end{center}
 
-Then each derivative in the chain is multiplied together for $\nabla_\boldface{w}$ and $\nabla_b$ respectively, resulting in
+Then each derivative in the chain is multiplied together for $\nabla_\mathbf{w}$ and $\nabla_b$ respectively, resulting in
 the final formulas seen in \dref{GD2} and \dref{GD3}. This information was gathered from \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}, and \url{https://heena-sharma.medium.com/logistic-regression-python-implementation-from-scratch-without-using-sklearn-d3fca7d3dae7}.
 
 
@@ -808,19 +808,19 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\boldface{x}_n$, $\boldface{y}_n$, $\boldface{\^y}_n = 1 \div (1 + (e^(\boldface{w}^T \cdot \boldface{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
+  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\^y}_n = 1 \div (1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))), \alpha \text{from \dref{DD1}}, \lambda \text{from \dref{DD2}}, N$, which is the number of training images\\
   & The input is constrained so that \dref{A2} and \dref{A3} can be satisfied.\\
   \hline
-  Output & $\boldface{w}, b $
+  Output & $\mathbf{w}, b $
   \hline
   Using gradient descent we minimize the Log Loss Function to optimize the weights and bias for better predictions\\
   This is executed in the following order, over multiple epochs ($t$) to further optimize the values:\\
   \begin{itemize}
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
-        \item 1.1. $d\boldface{w}^(t) = \boldface{x}_n \cdot (\boldface{y}_n - \boldface{\^y}_n) - (\lambda \div N) \cdot \boldface{w}^(t)^2 $
-        \item 1.2. $db^(t) = \boldface{y}_n - \boldface{\^y}_n$
-        \item 1.3. $\boldface{w}^(t+1) = \boldface{w}^(t) + \alpha \cdot d\boldface{w}^(t)$
+        \item 1.1. $d\mathbf{w}^(t) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\^y}_n) - (\lambda \div N) \cdot \mathbf{w}^(t)^2 $
+        \item 1.2. $db^(t) = \mathbf{y}_n - \mathbf{\^y}_n$
+        \item 1.3. $\mathbf{w}^(t+1) = \mathbf{w}^(t) + \alpha \cdot d\mathbf{w}^(t)$
         \item 1.4. $db^(t+1) = db^(t) + \alpha \cdot db^(t)$
     \end{itemize}
     \item 2. Calculate the Log Loss and test the results using the updated weights.
@@ -848,11 +848,11 @@ to train the model so that \dref{IM2} can be used reliably and efficiently.
   \hline
   Label& \bf Label Classification\\
   \hline
-  Input&$\boldface{x}$, $\boldface{y}_n$, $\boldface{w}$, $b$\\
+  Input&$\mathbf{x}$, $\mathbf{y}_n$, $\mathbf{w}$, $b$\\
   \hline
-  Output & $\boldface{\^y}$, and the string representation of the corresponding predicted label
+  Output & $\mathbf{\^y}$, and the string representation of the corresponding predicted label
   \hline
-  Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\boldface{x}$ in
+  Using the optimized weights and bias from \dref{IM1} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD1}), then comparing across the sigmoid values of
   the 26 possible labels, the most likely label can be predicted. In addition the confidence level in the prediction can
   be calculated as the output of the sigmoid function for the related predicted label.
@@ -895,7 +895,7 @@ Table~\ref{TblSpecParams}.
   \midrule 
   $x_i,j$& - & ${\text{min}} x_i,j \leq x_i,j \leq {\text{max}} x_i,j$ & 128 & 10\%
   \\
-  $\boldface{x}_(n \times m)^1$& - & ${\text{min}} n, m \leq n, m \leq {\text{max}} n, m$ & $1024 \times 1024$ & 10\%
+  $\mathbf{x}_(n \times m)^1$& - & ${\text{min}} n, m \leq n, m \leq {\text{max}} n, m$ & $1024 \times 1024$ & 10\%
   \\
   \bottomrule
 \end{longtable*}
