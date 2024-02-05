@@ -458,65 +458,57 @@ on.
 ~\newline
 
 \noindent
-\deftheory
-% #2 refname of theory
-{TM1}
-% #3 label
-{Sigmoid Function}
-% #4 equation
-{
-  $ \sigma(z) = 1 \div (1 + e^-z) $
-}
-% #5 description
-{
-The sigmoid function takes input z and returns a value between 0 and 1. This function will be used to calculate
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{defnum}\thedefnum \label{Sigmoid}\\
+\hline
+Label &\bf Sigmoid Function \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+Equation & $ \sigma(z) = 1 \div (1 + e^-z) $ \\
+\hline
+Description &
+The sigmoid function takes input $z$ and returns a value between 0 and 1. This function will be used to calculate
 the confidence level of the predicted value, to satisfy \dref{GS3}.
-
-}
-% #6 Notes
-{
-The value of z can be a scalar or matrix.
-}
-% #7 Source
-{
-  \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
-}
-% #8 Referenced by
-{
-\dref{GD1}
-}
-% #9 Preconditions
-{
-None.
-}
-% #1 derivation - not applicable by default
-{}
+\\
+\hline
+Notes & The value of $z$ can be a scalar or matrix.
+\\
+\hline
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  \hline
+  Ref.\ By & \dref{GD1}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 ~\newline
 
 \noindent
-\deftheory
-% #2 refname of theory
-{TM2}
-% #3 label
-{Log Loss Function}
-% #4 equation
-{
-  $ L(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} \[ y_i \cdot \log(\hat{y}_i)\ + (1 - y_i) \cdot \log(1 - \hat{y}_i)\]  $
-}
-% #5 description
-{
-$y$ represents the actual label value
-~\newline
-$\hat{y}$ represents the predicted label value
-~\newline
-$n$ is the total number of input values
-~\newline
-$i$ is the current step in the summation
-~\newline
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{defnum}\thedefnum \label{LLF}\\
+\hline
+Label &\bf Log Loss Function \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+Equation & $ L(y,\hat{y}) = -(1 \div n) \cdot \sum_{i = 1}^{n} \[ y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)\]  $ \\
+\hline
+Description &
+$y$ represents the actual label value \\
+$\hat{y}$ represents the predicted label value \\
+$n$ is the total number of input values \\
+$i$ is the current step in the summation \\
 This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
-predicted value $\hat{y}$. 
-~\newline
+predicted value $\hat{y}$. \\
 \begin{center}
 \begin{equation}
   L_\hat{y} = \begin{cases}
@@ -525,62 +517,45 @@ predicted value $\hat{y}$.
   \end{cases}
 \end{equation}
 \end{center}
-}
-% #6 Notes
-{
-The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
-}
-% #7 Source
-{
-\url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
-}
-% #8 Referenced by
-{
-\dref{A1}, \dref{GD1}, \dref{IM1}
-}
-% #9 Preconditions
-{
-None.
-}
-% #1 derivation - not applicable by default
-{}
+\\
+\hline
+Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must be the of the same size (see \dref{A1}).
+\\
+\hline
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  \hline
+  Ref.\ By & \dref{A1}, \dref{GD1}, \dref{IM1}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 ~\newline
 
 \noindent
-\deftheory
-% #2 refname of theory
-{TM3}
-% #3 label
-{Chain Rule}
-% #4 equation
-{
-\frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}}
-}
-% #5 description
-{
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{defnum}\thedefnum \label{CR}\\
+\hline
+Label &\bf Chain Rule \\
+\hline
+% Units&$MLt^{-3}T^0$\\
+% \hline
+Equation & \frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}} \\
+\hline
+Description &
 
 This formula is used to derive the composition of two differentiable functions.
-
-}
-% #6 Notes
-{
-None.
-}
-% #7 Source
-{
-  \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17}
-}
-% #8 Referenced by
-{
-\dref{GD2}, \dref{GD3}
-}
-% #9 Preconditions
-{
-None.
-}
-% #1 derivation - not applicable by default
-{}
+\\
+\hline
+  Source & \url{https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17} \\
+  \hline
+  Ref.\ By & \dref{GD2}, \dref{GD3}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 ~\newline
 
