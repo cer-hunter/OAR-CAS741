@@ -1,0 +1,6 @@
+pytest
+numpy
+matplotlib
+seaborn
+opencv-python
+scikit-learn
