@@ -17,9 +17,9 @@
 
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan for \progname{}} 
-\author{\authname}
-\date{\today}
+\title{Optical Alphabet Recognition: System Verification and Validation Plan for \progname{OAR}} 
+\author{Hunter Ceranic}
+\date{February 19, 2024}
 	
 \maketitle
 
@@ -30,8 +30,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+February 19, 2024 & 1.0 & Initial Revision\\
 \bottomrule
 \end{tabularx}
 
@@ -69,7 +68,11 @@ in.}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
+  R & Requirement\\
+  SRS & System Requirements Specification\\
   T & Test\\
+  VnV & Verification and Validation\\
+  OAR & Optical Alphabet Recognition\\
   \bottomrule
 \end{tabular}\\
 
@@ -82,239 +85,440 @@ in.}
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document describes the Verification and Validation plan for the OAR Project. Testing of the Software and its components
+will be conducted in accordance with this document to improve confidence in the accuracy, understandibility and ability for the software 
+to meet the requirements laid out in the Software Requirement Specifications (SRS).
 
 \section{General Information}
 
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+The OAR project will result in software that is able to accurately classify input images of capital-letter English alphabet charcters using
+logistic regression. An emphasis is placed on understandable code so that OAR can be a launch point for learning about optical
+character recognition.
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
-
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
-
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+The objective is to build confidence in the correctness of the software, and making sure it is comparable
+to similar soultions (\textit{accuracy}). The correctness of the output is very easy for a user to evaluate themselves, so
+it is essential the OAR project not only outputs the correct label, but is able to do so at a high confidence probability level.  
+As a secondary goal, the \textit{understandability} of the code is important, as the project is designed as a learning tool.
+This goal is a subset of making the code \textit{maintainable}, and will require both thorough code writing during implementation
+and user input to validate. Parts of the code will rely on external libraries for operations like pre-processing input images,
+however while it would be beneficial to verify the correctness of these libraries, this is out of the scope of the project and it will 
+be assumed these external libraries will have been verified by their implementation teams.
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.}
+There are multiple design documents that provide in-depth details for understanding
+the program being tested. These are as follows:
 
-\citet{SRS}
-
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+\begin{itemize}
+  \item Problem Statement \citep{Prob_Statement}: States the problem we are trying to solve
+    and introduces the topics that will need be verified.
+  \item SRS \citep{SRS}: States the requirements, assumptions, models, and important 
+  terminology that are used in the VnV plan.
+  \item VnV Report \citep{VnV_report}: States what has been achieved from the VnV plan,
+    and provides results or evidence to help build confidence for correctness.
+  \item MG \citep{MG}: States the responsibilities and secrets for each module that will
+    be evaluated by the VnV plan.
+  \item MIS \citep{MIS}: Specifies the functional design and states what is needed for each
+    module that will be evaluated by the VnV plan.
+\end{itemize}
 
 \section{Plan}
 
-\wss{Introduce this section.   You can provide a roadmap of the sections to
-  come.}
+In this section, multiple plans are described to test and inspect the software with an emphasis 
+on \textit{accuracy} and \textit{understandability}. Multiple approaches and perspectives will be employed by the VnV team (Section 3.1)
+to help build confidence in the requirements, to avoid any missed important details, 
+and to deliver on the outlined objectives (Section 2.2).
 
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+The members of the VnV team as well their individual roles are listed in the following table:
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|r|l|}
+    \rowcolor[gray]{0.9}
+    \hline
+    \textbf{Role} & \textbf{Name} \\ \hline
+    Project Supervisor & Dr.\ Spencer Smith  \\ \hline
+    Author             & Hunter Ceranic      \\ \hline
+    Domain Expert      & Adrian Sochaniwsky  \\ \hline
+    SRS Reviewer       & Phil Du             \\ \hline
+    VnV Plan Reviewer  & Goafeng Zhou        \\ \hline
+    MG + MIS Reviewer  & Yiding Li           \\ \hline
+  \end{tabular}
+  \caption{Table of the VnV Team Members}
+  \label{table_vnv_team}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may include
-  ad hoc feedback from reviewers, like your classmates, or you may plan for 
-  something more rigorous/systematic.}
-
-\wss{Maybe create an SRS checklist?}
+The SRS will be reviewed by the project supervisor, the SRS reviewer and the author. Some input
+may be given by the expert consultants if time permits. Most of the feedback has been provided 
+through issues on GitHub, as annotated documents, or by verbal exchange. 
+Throughout the development of the project, the author is expected 
+to make changes needed to the resolve the issues. The reviewers may refer to the SRS checklist \citep{SRS_checklist}.
+The key objective is to verify that the software requirements and the documentation are sound 
+and coherent to the intended audience as defined in the SRS.
 
 \subsection{Design Verification Plan}
 
-\wss{Plans for design verification}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
+Design decisions were made with a focus on performance and code understandability, so that the program could also be used 
+as an educational tool for learning about image recognition. The design and implementation is documented in the 
+MG\citep{MG}/MIS\citep{MIS} which will be verified with the MG \cite{MG_checklist}
+and MIS \cite{MIS_checklist} checklists.
+The VnV team will provide their input using these checklists through GitHub issues. 
 
 \subsection{Verification and Validation Plan Verification Plan}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
+The goal is to uncover any mistakes and reveal any risks (such as misconceptions or coverage gaps) 
+through the supervision and 
+review of the VnV team members. Once most of the work has been done, the work and
+accompanying documentation shall undergo a vetting process: the VnV team
+will check whether the documented testing plans and verification process have been 
+accomplished and the requirements fulfilled. The author will then review the documents
+against the VnV checklist \citep{VnV_checklist}, before a final review by the rest of the VnV team.
 
 \subsection{Implementation Verification Plan}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+Both automated and manual testing will be performed for this project. This will include checking for any inconsistencies,
+unexpected outputs, or bugs that may be encountered.
+For all the code implemented linters and coverage tools will be implemented as described in Section 3.6. Furthermore,
+tests for the program based on requirements will be performed using an automated test suite. Manual tests will be 
+performed to benchmark the performance of the OAR project against already existing solutions.
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+Continous integration will be implemented for this project using CircleCI, which 
+is easily integrated with GitHub and Python the programming language for the project. CircleCI automates the testing 
+pipeline for the project, by running tests created using the pytest library and code coverage tests using the coverage.py library, 
+on selected pushes or pulls to the repository. The test created with pytest are performed by predetermining potential user
+inputs and comparing them with expected values. In addition to the continous integration suite, Flake 8 will be used as a 
+linter for the code created through the VSCode IDE.
 
 \subsection{Software Validation Plan}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
-
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
-
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
-
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
-
-\wss{This section might reference back to the SRS verification section.}
+Software validation is beyond the scope of the OAR project due to the sheer amount of experimental data needed to be collected to 
+validate the system behaviour not being feasible, given the time constraints.
 
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+In this section, the system tests that will be conducted are described in detail. These tests
+will be used to verify the fulfillment of the requirements as listed in the SRS \citep{SRS}.
+Most, if not all, of the tests listed here will be automatically performed unless otherwise stated.
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+\subsubsection{Input Image Type}
 
-\subsubsection{Area of Testing1}
+To satisfy R1 from the SRS \citep{SRS}, any input image of the following formats listed below shall be 
+accepted provided they follow the input data constraints.
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\begin{itemize}
+  \item{PNG}
+  \item{JPG}
+  \item{BMP\\}
+\end{itemize}
 
 \begin{enumerate}
 
-\item{test-id1\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputImage}}: Test input for PNG/JPG/BMP format\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) PNG, JPG, and BMP image files depicting valid label characters (see \ref{Fig_A}).
+            
+  Output: The predicted label should match the actual label as assigned by the oracle (the author).
+            
+  Test Case Derivation: These are some of the most common image file formats and should be compatible with the software.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Unprocessed Input Images}
+To satisfy R2 from the SRS \citep{SRS}, regardless of colorscale or pixel size any input image should be able to be accepted to 
+be processed into a format usable by the program. In addition, pixel sizes are constrained to the following ranges:
 
-...
+\begin{itemize}
+  \item{textit{max}: 4096px $\time$ 4096px}
+  \item{textit{min}: 20px $\time$ 20px}
+\end{itemize}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputColour}}: Test input for images with different colour schemes\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white(\ref{Fig_BWA}), 
+  grayscale (\ref{Fig_grayA}), red (\ref{Fig_redA}), green (\ref{Fig_greenA}) and blue (\ref{Fig_blueA}).
+  
+  Output: The predicted label should match the actual label as assigned by the oracle (the author).
+            
+  Test Case Derivation: These images cover the cases of greyscale, black and white and RGB images which should be compatible with the software.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputSize}}: Test input for images with different pixel sizes\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (see \ref{Fig_A}) of the following sizes:
+  \begin{itemize}
+    \item{8192px $\times$ 8192px}
+    \item{4096px $\times$ 4096px}
+    \item{1024px $\times$ 1024px}
+    \item{20px $\times$ 20px}
+    \item{10px $\times$ 10px}
+  \end{itemize}
+            
+  Output: In the 8192px $\times$ 8192px and 10px $\times$ 10px cases the program should provide the user with an error. In all other cases,
+  the predicted label should match the actual label as assigned by the oracle (the author).
+            
+  Test Case Derivation: These images cover the range of acceptable pixel sizes, as well as outside of the range which should be compatible with the software.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+\end{enumerate}
+
+\subsubsection{Output Labels}
+
+To satisfy R4 (and by extension R3) from the SRS \citep{SRS}, any input image should be properly classified and related to the 
+correct output label from the set of 26 letters: {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputLabel}}: Test input for images with different pixel sizes\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters(\ref{Fig_A}), and a blank image depicting no character (\ref{Fig_blank}).
+            
+  Output: The predicted label output should match the actual label as assigned by the oracle (the author). The output for the blank image
+  should state "No Label Detected".
+            
+  Test Case Derivation: These images cover the range of possible label outputs for the program.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+\end{enumerate}
+
+\subsubsection{Output Label Confidence Level}
+
+To satisfy R5 from the SRS \citep{SRS}, any classified input image should also have an associated valid confidence level in the range of
+0-100\%.
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputConf}}: Test input for images with different pixel sizes\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) image files depicting an input character from the training set, an input character from the test set,
+  an image depicting multiple characters and a blank image depicting no characters.
+            
+  Output: For each case the outputs would be as follows:
+  \begin{itemize}
+    \item{Training Set Image (\ref{Fig_trainA}): Confidence >90\%}
+    \item{Test Set Image (\ref{Fig_trainA}): Confidence >50\%}
+    \item{Multiple Character Image (\ref{Fig_ABC}): Confidence <50\%}
+    \item{Blank Image (\ref{Fig_blank}): Confidence <10\% (Corresponding to the "No Label Detected" Output)}
+  \end{itemize}
+ 
+  Test Case Derivation: These images likely cover the range of possible confidence level outputs for the program.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+\end{enumerate}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy}
+The following tests will check if the nonfunctional requirements, as defined in the SRS \citep{SRS}, are 
+met. The emphasis is on the \textit{accuracy} (NFR1) and \textit{understandability}, and 
+therby\textit{maintainability} (NFR3), of the software. In the case of OAR, 
+correctness and ease of understanding the code both help contribute to being a better learning tool.
+To satisfy the \textit{usability} (NFR1) requirement, a quick user survey shall be
+conducted to establish perspective on ease of use as expanded on below. As for \textit{portability} (NFR4),
+the user should be run the software on their platform and environment of choice.
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
 
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Accuracy Testing}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_accuracy}}: Accuracy Performance Test\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+  Type: Manual
+            
+  Condition: The OAR program, and a program built
+  using the Logistic Regression Function from the Sci-Kit Learn Library.
+            
+  Result: The result of the accuracy calculation should be < $\epsilon$ (see \ref{accuracy_calc})
+            
+  How test will be performed: The confusion matrices of both programs will be compared using the accuracy metric.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_misclass}}: Misclassification Performance Test\\}
 
+  Type: Manual
+            
+  Condition: The OAR program, and a program built
+  using the Logistic Regression Function from the Sci-Kit Learn Library.
+            
+  Result: The result of the misclassification calculation should be < $\epsilon$ (see \ref{misclass_calc})
+            
+  How test will be performed: The confusion matrices of both programs will be compared using the misclassification metric.
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_precision}}: Precision Performance Test\\}
+
+  Type: Manual
+            
+  Condition: The OAR program, and a program built
+  using the Logistic Regression Function from the Sci-Kit Learn Library.
+            
+  Result: The result of the precision calculation should be < $\epsilon$ (see \ref{precision_calc})
+            
+  How test will be performed: The confusion matrices of both programs will be compared using the precision metric.
+\end{enumerate} 
+					
+
+\subsubsection{Maintainability Testing}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_understandSurvey}}: Code Understandability Survey\\}
+            
+  Type: Manual
+            
+  Condition: A group of intended users, 
+  documentation about the supporting libraries, and the survey questions on topics related 
+  to the code quality and clarity.
+            
+  Result: The completed user surveys (see \ref{survey_understand}).
+            
+  Note: The information collected from the surveys
+  will be aggregated and analyzed for any patterns to
+  change or adapt the code to the results.
+            
+  How test will be performed: The users will be given a series of questions to evaluate 
+  the style and ease of understanding of the code as well as perceptions about how easy it will 
+  be to build upon the code for those who are learning.
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_linters}}: Static code analysis\\}
+
+  Type: Automatic
+            
+  Condition: The software code will be tested through the use of Flake 8.
+            
+  Result: The code linters should list zero warnings, and zero errors.
+            
+  How test will be performed: Flake 8 is a VSCode Extension and it's messages are present at all times while 
+  view and writing code.
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_duckTest}}: Duck Test Code Review\\}
+
+  Type: Manual
+            
+  Condition: The software source code and the code review checklist (see \ref{checklist_duckTest}).
+            
+  Result: The code should respect the defined code review checklist.
+            
+  How test will be performed: The author with walkthrough the code manually and check for qualities
+    such as consistent styling, loose variables, variable scoping, unreachable code, 
+    sufficient commenting, etc.
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
 
-...
+
+\subsubsection{Usability Testing}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_useSurvey}}: Code Useability Survey\\}
+            
+  Type: Manual
+            
+  Condition: A group of intended users, and the survey questions on topics related 
+  to the program quality and clarity.
+            
+  Result: The completed user surveys (see \ref{survey_useability}).
+            
+  Note: The information collected from the surveys
+  will be aggregated and analyzed for any patterns to
+  change or adapt the user interface to the results.
+            
+  How test will be performed: The users will be given a series of questions to evaluate 
+  the style and ease of understanding of the code as well as perceptions about how easy it will 
+  be to build upon the code for those who are learning.
+\end{enumerate} 
+
+\subsubsection{Portability Testing}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_dockerImage}}: Docker Image Test\\}
+            
+  Type: Automatic
+            
+  Condition: Code pushed to GitHub, connected to a CicleCI jobflow.
+            
+  Result: Program Built Successfully.
+            
+  Note: CircleCI tests are executed in a Docker Image, a container that enables the program to be portable,
+  as it contains all the libraries and dependencies needed to build the code.
+            
+  How test will be performed: CircleCI will automatically run this test whenever a jobflow is executed.
+\end{enumerate} 
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+Traceability matrices are used to simplify the process of identifying what needs to be changed 
+if a component is modified. An ``X'' is used to indicate links between items in the table. 
+When a component is changed, the elements marked with an ``X'' might need to be updated as well.
 
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+    & R1
+    & R2
+    & R3
+    & R4
+    & R5
+    & NFR1
+    & NFR2
+    & NFR3
+    & NFR4
+  \\ \hline
+  \tref{T_inputImage}           &X&X& &X& & & & & \\ \hline
+  \tref{T_inputColour}          &X&X& &X& & & & & \\ \hline
+  \tref{T_inputSize}            &X&X& &X& & & & & \\ \hline
+  \tref{T_outputLabel}          &X&X& &X& & & & & \\ \hline
+  \tref{T_outputConf}           &X&X& &X&X& & & & \\ \hline
+  \tref{T_accuracy}             & & &X&X&X&X& & & \\ \hline
+  \tref{T_misclass}             & & &X&X&X&X& & & \\ \hline
+  \tref{T_precision}            & & &X&X&X&X& & & \\ \hline
+  \tref{T_understandSurvey}     & & & & & & & &X& \\ \hline
+  \tref{T_linters}              & & & & & & & &X& \\ \hline
+  \tref{T_duckTest}             & & & & & & & &X& \\ \hline
+  \tref{T_useSurvey}            & & & & & & &X& & \\ \hline
+  \tref{T_dockerImage}          & & & & & & & & &X\\ \hline
+  \end{tabular}
+  \caption{Traceability Matrix Showing the Connections Between the Tests and Requirements}
+  \label{Table:A_trace}
+\end{table}
+\begin{comment}
 \section{Unit Test Description}
 
 \wss{This section should not be filled in until after the MIS (detailed design
@@ -439,7 +643,7 @@ How test will be performed:
 \subsection{Traceability Between Test Cases and Modules}
 
 \wss{Provide evidence that all of the modules have been considered.}
-				
+\end{comment}
 \bibliographystyle{plainnat}
 
 \bibliography{../../refs/References}
@@ -448,41 +652,178 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+\subsection{Calculation Definitions}
+
+\subsubsection{Accuracy Calculation} \label{accuracy_calc}
+
+Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
+that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+from that we define the definition of accuracy as:
+
+$\frac{TP + TN}{TP + TN + FP + FN}$
+
+We can then use this definition to evaluate the overall accuracy of the OAR model, by comparing confusion matrices of the OAR model 
+and any Library model using the following equation which calculates the relative error between the two models:
+
+$\frac{|OAR Accuracy - Library Accuracy|}{|Library Accuracy|} \times 100\% < \epsilon$
+
+\subsubsection{Misclassification Calculation} \label{misclass_calc}
+
+Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
+that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+from that we define the definition of misclassification as:
+
+$\frac{FP + FN}{TP + TN + FP + FN}$
+
+We can then use this definition to evaluate the overall misclassifications of the OAR model, by comparing confusion matrices of the OAR model 
+and any Library model using the following equation which calculates the relative error between the two models:
+
+$\frac{|OAR Misclassification - Library Misclassification|}{|Library Misclassification|} \times 100\% < \epsilon$
+
+\subsubsection{Precision Calculation} \label{precision_calc}
+
+Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
+that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+from that we define the definition of precision as:
+
+$\frac{TP}{TP + FP}$
+
+We can then use this definition to evaluate the overall precision of the OAR model, by comparing confusion matrices of the OAR model 
+and any Library model using the following equation which calculates the relative error between the two models:
+
+$\frac{|OAR Precision - Library Precision|}{|Library Precision|} \times 100\% < \epsilon$
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+These are \textit{symbolic} values used in the descriptions and text in this document that are 
+subject to change. They are listed and defined here to make it easy to change and reduce the
+possibility of mistakes when updating this document.
 
-\subsection{Usability Survey Questions?}
+\begin{itemize}
+  \item $\epsilon$ = 0.1 or 10\% (used for error calculations)
+\end{itemize}
 
-\wss{This is a section that would be appropriate for some projects.}
+\subsection{Figures}
 
-\newpage{}
-\section*{Appendix --- Reflection}
+\begin{figure}[h!]
+  \begin{center}
+   \includegraphics[width=0.6\textwidth]{A.bmp}
+  \caption{This image has been converted into .bmp, .jpg, and .png formats, can be rescaled to any pixel size 
+  and similar images exist for each letter of the English alphabet}
+  \label{Fig_A} 
+  \end{center}
+  \end{figure}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{bandwA}
+  \caption{This image depicts a Black and White A to satisfy}
+  \label{Fig_BWA} 
+  \end{center}
+  \end{figure}
 
-\newpage{}
-\section*{Appendix --- Reflection}
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{grayscaleA}
+  \caption{This image depicts a Grayscale A to satisfy}
+  \label{Fig_grayA} 
+  \end{center}
+  \end{figure}
 
-\wss{This section is not required for CAS 741}
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{redA}
+  \caption{This image depicts a Red A to satisfy}
+  \label{Fig_redA} 
+  \end{center}
+  \end{figure}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{greenA}
+  \caption{This image depicts a Green A}
+  \label{Fig_greenA} 
+  \end{center}
+  \end{figure}
 
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage etc.  You should look to
-  identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{blueA}
+  \caption{This image depicts a Blue A}
+  \label{Fig_blueA} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{Blank_image}
+  \caption{This is a blank image}
+  \label{Fig_blank} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{abc_image}
+  \caption{This image depicts the characters A, B and C}
+  \label{Fig_ABC} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{trainA}
+  \caption{This image depicts a sample character from the EMNIST data set used for training and testing the OAR model \citep{EMNIST}}
+  \label{Fig_trainA} 
+  \end{center}
+  \end{figure}
+    
+
+\subsection{Understandability Survey Questions} \label{survey_understand}
+
+\begin{itemize}
+  \item{On a scale from 1 to 10, how easy was it to understand the code?}
+  \item{Were there any OAR specific functions or variable names that caused confusion?}
+  \item{Were there any parts of the code that seemed not useful or uneccessary?}
+  \item{What part of the code was the most confusing/unclear?}
+  \item{Was the use of comments adequate?}
+  \item{Do you think you understand the code enough to be able to build upon it further?}
+  \item{Would you consider using the software as a learning or teaching tool?}
+  \item{Do you have any extra comments or thoughts you'd like to share?}
+\end{itemize}
+
+\subsection{Duck Test Checklist} \label{checklist_duckTest}
+
+\begin{itemize}
+  \item{Does the code follow a consistent style?}
+  \item{Are there any variables that should not be global?}
+  \item{Are function names not too long (i.e. less than 40 characters)?}
+  \item{Are most functions well named and clear in what they do?}
+  \item{Are there any long lines of that can be split into multiple lines?}
+  \item{Are global variables and functions documented?}
+  \item{Is each function modular (not too long and sufficiently broken down to accomplish a single task)?}
+  \item{Are comments plentiful, and written in a way that makes it easy for beginners to follow?}
+  \item{Is the code sorted into separate files where reasonable?}
+  \item{Is there any duplicate that code be avoided?}
+  \item{Is there any use of jargon, domain-specific, or unclear terms?}
+  \item{Is all of the code reachable?}
+  \item{Is the control flow convoluted?}
+  \item{Is there any unnecessarily obscure code? If necessary, is it commented and explained?}
+  \item{Could programmer other than the author read the code, and sufficeintly understand it to build upon it?}
+  \item{Is there any leftover commented code that is not useful?}
+\end{itemize}
+
+\subsection{Usability Survey Questions} \label{survey_useability}
+
+\begin{itemize}
+  \item{What operating system do you use?}
+  \item{Is OAR running smoothly on your computer?}
+  \item{On a scale from 1 to 10, how easy was it to use the software?}
+  \item{Was the output of the program satisfactory?}
+  \item{What was the least enjoyable feature to use?}
+  \item{Was everything legible and clearly displayed? If not, what was not?}
+  \item{Would you consider using the software as a learning or teaching tool?}
+  \item{Do you have any extra comments or thoughts you'd like to share?}
+\end{itemize}
 
 \end{document}
