@@ -4,6 +4,7 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{comment}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \hypersetup{
     colorlinks,
@@ -25,7 +26,7 @@
 
 \begin{document}
 
-\title{Optical Alphabet Recognition: System Verification and Validation Plan for \progname{OAR}} 
+\title{Optical Alphabet Recognition: System Verification and Validation Plan for OAR} 
 \author{Hunter Ceranic}
 \date{February 19, 2024}
 	
@@ -43,25 +44,10 @@ February 19, 2024 & 1.0 & Initial Revision\\
 \end{tabularx}
 
 ~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
-
-\listoffigures
 
 \newpage
 
@@ -194,9 +180,9 @@ performed to benchmark the performance of the OAR project against already existi
 Continous integration will be implemented for this project using CircleCI, which 
 is easily integrated with GitHub and Python the programming language for the project. CircleCI automates the testing 
 pipeline for the project, by running tests created using the pytest library and code coverage tests using the coverage.py library, 
-on selected pushes or pulls to the repository. The test created with pytest are performed by predetermining potential user
+on selected pushes or pulls to the repository \citep{CircleCI}. The test created with pytest are performed by predetermining potential user
 inputs and comparing them with expected values. In addition to the continous integration suite, Flake 8 will be used as a 
-linter for the code created through the VSCode IDE.
+linter for the code created through the VSCode IDE \citep{Flake8}.
 
 \subsection{Software Validation Plan}
 
@@ -329,10 +315,10 @@ To satisfy R5 from the SRS \citep{SRS}, any classified input image should also h
             
   Output: For each case the outputs would be as follows:
   \begin{itemize}
-    \item{Training Set Image (\ref{Fig_trainA}): Confidence >90\%}
-    \item{Test Set Image (\ref{Fig_trainA}): Confidence >50\%}
-    \item{Multiple Character Image (\ref{Fig_ABC}): Confidence <50\%}
-    \item{Blank Image (\ref{Fig_blank}): Confidence <10\% (Corresponding to the "No Label Detected" Output)}
+    \item{Training Set Image (\ref{Fig_trainA}): Confidence $> 90\%$}
+    \item{Test Set Image (\ref{Fig_trainA}): Confidence $> 50\%$}
+    \item{Multiple Character Image (\ref{Fig_ABC}): Confidence $< 50\%$}
+    \item{Blank Image (\ref{Fig_blank}): Confidence $< 10\%$ (Corresponding to the "No Label Detected" Output)}
   \end{itemize}
  
   Test Case Derivation: These images likely cover the range of possible confidence level outputs for the program.
@@ -345,7 +331,7 @@ To satisfy R5 from the SRS \citep{SRS}, any classified input image should also h
 
 The following tests will check if the nonfunctional requirements, as defined in the SRS \citep{SRS}, are 
 met. The emphasis is on the \textit{accuracy} (NFR1) and \textit{understandability}, and 
-therby\textit{maintainability} (NFR3), of the software. In the case of OAR, 
+therby \textit{maintainability} (NFR3), of the software. In the case of OAR, 
 correctness and ease of understanding the code both help contribute to being a better learning tool.
 To satisfy the \textit{usability} (NFR1) requirement, a quick user survey shall be
 conducted to establish perspective on ease of use as expanded on below. As for \textit{portability} (NFR4),
@@ -363,7 +349,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the Sci-Kit Learn Library.
             
-  Result: The result of the accuracy calculation should be < $\epsilon$ (see \ref{accuracy_calc})
+  Result: The result of the accuracy calculation should be$ < \epsilon$ (see \ref{accuracy_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the accuracy metric.
 
@@ -374,7 +360,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the Sci-Kit Learn Library.
             
-  Result: The result of the misclassification calculation should be < $\epsilon$ (see \ref{misclass_calc})
+  Result: The result of the misclassification calculation should be$ < \epsilon$ (see \ref{misclass_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the misclassification metric.
 
@@ -385,7 +371,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the Sci-Kit Learn Library.
             
-  Result: The result of the precision calculation should be < $\epsilon$ (see \ref{precision_calc})
+  Result: The result of the precision calculation should be$ < \epsilon$ (see \ref{precision_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the precision metric.
 \end{enumerate} 
@@ -516,6 +502,9 @@ When a component is changed, the elements marked with an ``X'' might need to be 
   \caption{Traceability Matrix Showing the Connections Between the Tests and Requirements}
   \label{Table:A_trace}
 \end{table}
+
+\newpage
+
 \begin{comment}
 \section{Unit Test Description}
 
@@ -658,40 +647,41 @@ How test will be performed:
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
 that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
 from that we define the definition of accuracy as:
-
-$\frac{TP + TN}{TP + TN + FP + FN}$
+\begin{gather}
+\frac{TP + TN}{TP + TN + FP + FN}
+\end{gather}
 
 We can then use this definition to evaluate the overall accuracy of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
-
-$\frac{|OAR Accuracy - Library Accuracy|}{|Library Accuracy|} \times 100\% < \epsilon$
-
+\begin{gather}
+\frac{|OAR Accuracy - Library Accuracy|}{|Library Accuracy|} \times 100\% < \epsilon
+\end{gather}
 \subsubsection{Misclassification Calculation} \label{misclass_calc}
 
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
 that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
 from that we define the definition of misclassification as:
-
-$\frac{FP + FN}{TP + TN + FP + FN}$
-
+\begin{gather}
+\frac{FP + FN}{TP + TN + FP + FN}
+\end{gather}
 We can then use this definition to evaluate the overall misclassifications of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
-
-$\frac{|OAR Misclassification - Library Misclassification|}{|Library Misclassification|} \times 100\% < \epsilon$
-
+\begin{gather}
+\frac{|OAR Misclassification - Library Misclassification|}{|Library Misclassification|} \times 100\% < \epsilon
+\end{gather}
 \subsubsection{Precision Calculation} \label{precision_calc}
 
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
 that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
 from that we define the definition of precision as:
-
-$\frac{TP}{TP + FP}$
-
+\begin{gather}
+\frac{TP}{TP + FP}
+\end{gather}
 We can then use this definition to evaluate the overall precision of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
-
-$\frac{|OAR Precision - Library Precision|}{|Library Precision|} \times 100\% < \epsilon$
-
+\begin{gather}
+\frac{|OAR Precision - Library Precision|}{|Library Precision|} \times 100\% < \epsilon
+\end{gather}
 \subsection{Symbolic Parameters}
 
 These are \textit{symbolic} values used in the descriptions and text in this document that are 
@@ -700,6 +690,53 @@ possibility of mistakes when updating this document.
 
 \begin{itemize}
   \item $\epsilon$ = 0.1 or 10\% (used for error calculations)
+\end{itemize}
+    
+\subsection{Understandability Survey Questions} \label{survey_understand}
+
+\begin{itemize}
+  \item{On a scale from 1 to 10, how easy was it to understand the code?}
+  \item{Were there any OAR specific functions or variable names that caused confusion?}
+  \item{Were there any parts of the code that seemed not useful or uneccessary?}
+  \item{What part of the code was the most confusing/unclear?}
+  \item{Was the use of comments adequate?}
+  \item{Do you think you understand the code enough to be able to build upon it further?}
+  \item{Would you consider using the software as a learning or teaching tool?}
+  \item{Do you have any extra comments or thoughts you'd like to share?}
+\end{itemize}
+
+\subsection{Duck Test Checklist} \label{checklist_duckTest}
+
+\begin{itemize}
+  \item{Does the code follow a consistent style?}
+  \item{Are there any variables that should not be global?}
+  \item{Are function names not too long (i.e. less than 40 characters)?}
+  \item{Are most functions well named and clear in what they do?}
+  \item{Are there any long lines of that can be split into multiple lines?}
+  \item{Are global variables and functions documented?}
+  \item{Is each function modular (not too long and sufficiently broken down to accomplish a single task)?}
+  \item{Are comments plentiful, and written in a way that makes it easy for beginners to follow?}
+  \item{Is the code sorted into separate files where reasonable?}
+  \item{Is there any duplicate that code be avoided?}
+  \item{Is there any use of jargon, domain-specific, or unclear terms?}
+  \item{Is all of the code reachable?}
+  \item{Is the control flow convoluted?}
+  \item{Is there any unnecessarily obscure code? If necessary, is it commented and explained?}
+  \item{Could programmer other than the author read the code, and sufficeintly understand it to build upon it?}
+  \item{Is there any leftover commented code that is not useful?}
+\end{itemize}
+
+\subsection{Usability Survey Questions} \label{survey_useability}
+
+\begin{itemize}
+  \item{What operating system do you use?}
+  \item{Is OAR running smoothly on your computer?}
+  \item{On a scale from 1 to 10, how easy was it to use the software?}
+  \item{Was the output of the program satisfactory?}
+  \item{What was the least enjoyable feature to use?}
+  \item{Was everything legible and clearly displayed? If not, what was not?}
+  \item{Would you consider using the software as a learning or teaching tool?}
+  \item{Do you have any extra comments or thoughts you'd like to share?}
 \end{itemize}
 
 \subsection{Figures}
@@ -776,53 +813,5 @@ possibility of mistakes when updating this document.
   \label{Fig_trainA} 
   \end{center}
   \end{figure}
-    
-
-\subsection{Understandability Survey Questions} \label{survey_understand}
-
-\begin{itemize}
-  \item{On a scale from 1 to 10, how easy was it to understand the code?}
-  \item{Were there any OAR specific functions or variable names that caused confusion?}
-  \item{Were there any parts of the code that seemed not useful or uneccessary?}
-  \item{What part of the code was the most confusing/unclear?}
-  \item{Was the use of comments adequate?}
-  \item{Do you think you understand the code enough to be able to build upon it further?}
-  \item{Would you consider using the software as a learning or teaching tool?}
-  \item{Do you have any extra comments or thoughts you'd like to share?}
-\end{itemize}
-
-\subsection{Duck Test Checklist} \label{checklist_duckTest}
-
-\begin{itemize}
-  \item{Does the code follow a consistent style?}
-  \item{Are there any variables that should not be global?}
-  \item{Are function names not too long (i.e. less than 40 characters)?}
-  \item{Are most functions well named and clear in what they do?}
-  \item{Are there any long lines of that can be split into multiple lines?}
-  \item{Are global variables and functions documented?}
-  \item{Is each function modular (not too long and sufficiently broken down to accomplish a single task)?}
-  \item{Are comments plentiful, and written in a way that makes it easy for beginners to follow?}
-  \item{Is the code sorted into separate files where reasonable?}
-  \item{Is there any duplicate that code be avoided?}
-  \item{Is there any use of jargon, domain-specific, or unclear terms?}
-  \item{Is all of the code reachable?}
-  \item{Is the control flow convoluted?}
-  \item{Is there any unnecessarily obscure code? If necessary, is it commented and explained?}
-  \item{Could programmer other than the author read the code, and sufficeintly understand it to build upon it?}
-  \item{Is there any leftover commented code that is not useful?}
-\end{itemize}
-
-\subsection{Usability Survey Questions} \label{survey_useability}
-
-\begin{itemize}
-  \item{What operating system do you use?}
-  \item{Is OAR running smoothly on your computer?}
-  \item{On a scale from 1 to 10, how easy was it to use the software?}
-  \item{Was the output of the program satisfactory?}
-  \item{What was the least enjoyable feature to use?}
-  \item{Was everything legible and clearly displayed? If not, what was not?}
-  \item{Would you consider using the software as a learning or teaching tool?}
-  \item{Do you have any extra comments or thoughts you'd like to share?}
-\end{itemize}
 
 \end{document}
