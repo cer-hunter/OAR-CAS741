@@ -6,6 +6,8 @@
 \usepackage{comment}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{gensymb}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -39,7 +41,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-February 19, 2024 & 1.0 & Initial Revision\\
+February 18, 2024 & 1.0 & Initial Revision\\
+February 19, 2024 & 1.1 & Added Input Image Orientation Test\\
 \bottomrule
 \end{tabularx}
 
@@ -58,6 +61,7 @@ February 19, 2024 & 1.0 & Initial Revision\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
+  A & Assumption\\
   R & Requirement\\
   SRS & System Requirements Specification\\
   T & Test\\
@@ -270,6 +274,39 @@ be processed into a format usable by the program. In addition, pixel sizes are c
   the predicted label should match the actual label as assigned by the oracle (the author).
             
   Test Case Derivation: These images cover the range of acceptable pixel sizes, as well as outside of the range which should be compatible with the software.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+\end{enumerate}
+
+\item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputAngle}}: Test input for images with different orientations\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (see \ref{Fig_angleA}) at the following orientations:
+  \begin{itemize}
+    \item{$0\degree$}
+    \item{$\pm 15\degree$}
+    \item{$\pm 30\degree$}
+    \item{$\pm 45\degree$}
+    \item{$\pm 60\degree$}
+    \item{$\pm 75\degree$}
+    \item{$\pm 90\degree$}
+    \item{$\pm 105\degree$}
+    \item{$\pm 120\degree$}
+    \item{$\pm 135\degree$}
+    \item{$\pm 150\degree$}
+    \item{$\pm 165\degree$}
+    \item{$180\degree$}
+  \end{itemize}
+            
+  Output: In the 0\% case, the predicted label should match the actual label as assigned by the oracle (the author). In all other cases,
+  the resulting value is unknown, although likely it will be incorrect, as this test is a degenerate edge case test that is covered by A4.
+            
+  Test Case Derivation: These images are not compatible with the software according to A4, however detecting that orientation is
+  skewed will be difficult in the scope of the project. Therefore, this test is performed to evaluate the performance of the program in 
+  these degenerate cases.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
@@ -487,6 +524,7 @@ When a component is changed, the elements marked with an ``X'' might need to be 
   \\ \hline
   \tref{T_inputImage}           &X&X& &X& & & & & \\ \hline
   \tref{T_inputColour}          &X&X& &X& & & & & \\ \hline
+  \tref{T_inputAngle}           &X&X& &X& & &X& & \\ \hline
   \tref{T_inputSize}            &X&X& &X& & & & & \\ \hline
   \tref{T_outputLabel}          &X&X& &X& & & & & \\ \hline
   \tref{T_outputConf}           &X&X& &X&X& & & & \\ \hline
@@ -744,8 +782,8 @@ possibility of mistakes when updating this document.
 \begin{figure}[h!]
   \begin{center}
    \includegraphics[width=0.6\textwidth]{A}
-  \caption{This image has been converted into .bmp, .jpg, and .png formats, can be rescaled to any pixel size 
-  and similar images exist for each letter of the English alphabet}
+  \caption{This image has been converted into .bmp, .jpg, and .png formats,
+  and similar images exist for each letter of the English alphabet. This example picture can also be rescaled using paint.net}
   \label{Fig_A} 
   \end{center}
   \end{figure}
@@ -787,6 +825,14 @@ possibility of mistakes when updating this document.
     \includegraphics[width=0.6\textwidth]{blueA}
   \caption{This image depicts a Blue A}
   \label{Fig_blueA} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{angleA}
+  \caption{This image has been rotated to a $90\degree$ angle. Rotations are performed using paint.net}
+  \label{Fig_angleA} 
   \end{center}
   \end{figure}
 
