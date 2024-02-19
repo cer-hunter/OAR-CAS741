@@ -4,6 +4,7 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{comment}
+\usepackage{graphicx}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -19,6 +20,8 @@
 \newcounter{testnum} %Definition Number
 \newcommand{\tthetestnum}{T\thetestnum}
 \newcommand{\tref}[1]{T\ref{#1}}
+
+\DeclareGraphicsExtensions{.bmp, .png, .jpg}
 
 \begin{document}
 
@@ -703,7 +706,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-   \includegraphics[width=0.6\textwidth]{A.bmp}
+   \includegraphics[width=0.6\textwidth]{A}
   \caption{This image has been converted into .bmp, .jpg, and .png formats, can be rescaled to any pixel size 
   and similar images exist for each letter of the English alphabet}
   \label{Fig_A} 
