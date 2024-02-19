@@ -147,6 +147,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 February 5, 2024 & 1.0 & Initial Version\\
+February 19, 2024 & 1.1 & Updated with Feedbacfk from Primary and Secondary Reviewers\\
 \bottomrule
 \end{tabularx}
 
@@ -266,9 +267,11 @@ supporting the project.
 
 \subsection{Scope of Requirements} 
 
-The scope for this project is constrained to the recognition of images of handwritten and printed capital-letter English
-alphabet characters, in their correct orientations. This does not include hand-written cursive letters.
-See the assumptions section (Section 4.2.1) for further details.
+The scope for this project is constrained to the recognition of images of singular, handwritten and printed, capital-letter English
+alphabet characters, in their correct orientations. Character images can be black and white, grayscale or RGB images.
+However, this does not include hand-written cursive letters. Any pre-processing needed will be handled by supporting libraries,
+to perform the calculations described in this document.
+See the assumptions section, \ref{sec_assumpt}, for further details.
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 
@@ -339,9 +342,11 @@ the instance models.
 
 \subsection{Problem Description} \label{Sec_pd}
 
-OAR is intended to classify the characters in images according to their corresponding English language
-alphabet characters. It should be able to do this and communicate to users the confidence level in how correctly it 
-classified the image.
+OAR is intended to address the simple problem of converting data stored in images into usable string data through the use of optical
+character recognition. Specifically OAR focuses on classifying images of individual characters according to their corresponding 
+English language alphabet characters. It should be able to do this and communicate to users the confidence level in how correctly it 
+classified the image. Furthermore, this project is also intended to demystify the underlying theories behind optical character 
+recognition for students and newer programmers, so it can be used as a learning tool.
 
 \subsubsection{Terminology and  Definitions}
 
@@ -399,13 +404,10 @@ includes the following elements:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{GS1}:] Reprocess the image such that classifying
-calculations can be performed on the image.
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{GS2}:] Calculate and display the predicted 
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{GS_label}:] Calculate and display the predicted 
 corresponding character label for the unknown character in the image.
 
- \item[GS\refstepcounter{goalnum}\thegoalnum \label{GS3}:] Calculate and display the confidence level that
+ \item[GS\refstepcounter{goalnum}\thegoalnum \label{GS_conf}:] Calculate and display the confidence level that
  the predicted label is correct.
 
 \end{itemize}
@@ -432,15 +434,14 @@ change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A1}:] Normalization, required by \tref{TM2}, as 
-well as any other image processing performed before classification calculations, as described in \gsref{GS1}, 
-will be performed by supporting libraries.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A2}:] The dataset used for training the software model
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A1}:] The image will already be normalized and pre-processed, 
+as required by \tref{TM2}, prior to any classification calculations.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A2}:] The dataset used to train the software model
 as described by \iref{Train}, will only contain labels of capital letter characters.
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A3}:] The dataset used for training the software model
-as described by \iref{Train}, will contain an even spread of every label that can be identified by the porgram.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A4}:] All input images will be properly oriented so that 
-they are legible by the program prior to being input.
+as described by \iref{Train}, will contain a balanced distribution of every label that can be identified by the program.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A4}:] All input images will display one single, properly oriented character,
+to be utilized by \iref{Test}.
 
 \end{itemize}
 
@@ -467,7 +468,7 @@ Equation & $ \sigma(z) = \frac{1}{1 + e^{-z}} $ \\
 \hline
 Description &
 The sigmoid function takes input $z$ and returns a value between 0 and 1. This function will be used to calculate
-the confidence level of the predicted value, to satisfy \gsref{GS3}.
+the confidence level of the predicted value, to satisfy \gsref{GS_conf}.
 \\
 \hline
 Notes & The value of $z$ can be a scalar or matrix.
@@ -764,7 +765,7 @@ one which is expressed in mathematical terms. It uses concrete symbols defined
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \gsref{GS2} and \gsref{GS3} are solved by \iref{Test}. \iref{Train} is used 
+The goals \gsref{GS_label} and \gsref{GS_conf} are solved by \iref{Test}. \iref{Train} is used 
 to train the model so that \iref{Test} can be used reliably and efficiently.
 
 ~\newline
@@ -868,9 +869,9 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $x_{i,j}$& - & ${\text{min }} x_{i,j} \leq x_{i,j} \leq {\text{max }} x_{i,j}$ & 128 & 10\%
+  $x_{i,j}$& - & ${\text{min }} x_{i,j} \leq x_{i,j} \leq {\text{max }} x_{i,j}$ & 128 & -
   \\
-  $\mathbf{x}_{n \times m}^1$& - & ${\text{min }} n, m \leq n, m \leq {\text{max }} n, m$ & $1024 \times 1024$ & 10\%
+  $\mathbf{x}_{n \times m}^1$& - & ${\text{min }} n, m \leq n, m \leq {\text{max }} n, m$ & $1024 \times 1024$ & -
   \\
   \bottomrule
 \end{longtable*}
@@ -917,13 +918,11 @@ qualities that the software is expected to exhibit.
   \item PNG (Portable Net Graphics)
   \item JPEG (Joint Photographic Experts Group)
   \item BMP (Bitmap)
-  \item preloaded training images
 \end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R2}:] Process the image such that the calculations
-needed to be performed by the program can be executed.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R2}:] The input image shall be pre-processed to normalize data to be used in calculations.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R3}:] Provide a trained model that can accurately classify images using
+\item[R\refstepcounter{reqnum}\thereqnum \label{R3}:] OAR shall provide a trained model that can accurately classify images using
 26 different labels (see \iref{Train}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R4}:] Calculate and display the classified label for the input image (see \iref{Test}).
@@ -963,7 +962,7 @@ label is correct (see \iref{Test}).
 \subsection{Rationale}
 
 The rationale for \aref{A1} to limit the scope of the project to the problem of classification, rather then including
-other problems such as normalization, given that \gsref{GS2} and \gsref{GS3} are the goals of the software which return an output
+other problems such as normalization, given that \gsref{GS_label} and \gsref{GS_conf} are the goals of the software which return an output
 to the user.
 
 \section{Likely Changes}
@@ -1003,8 +1002,6 @@ other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
 general definitions, data definitions, instance models, and likely changes on
 the assumptions.
 
-\afterpage{
-\begin{landscape}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
@@ -1030,8 +1027,6 @@ the assumptions.
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
 \label{Table:A_trace}
 \end{table}
-\end{landscape}
-}
 
 \begin{table}[h!]
 \centering
