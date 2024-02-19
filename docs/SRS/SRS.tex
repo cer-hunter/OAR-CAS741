@@ -129,7 +129,7 @@
 
 \title{Software Requirements Specification for \progname: OAR - Optical Alphabet Recognition} 
 \author{Hunter Ceranic}
-\date{February 5, 2024}
+\date{February 19, 2024}
 	
 \maketitle
 
@@ -147,7 +147,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 February 5, 2024 & 1.0 & Initial Version\\
-February 19, 2024 & 1.1 & Updated with Feedbacfk from Primary and Secondary Reviewers\\
+February 19, 2024 & 1.1 & Updated with Feedback from Primary and Secondary Reviewers\\
+February 19, 2024 & 1.2 & Updated with better understanding of bias value\\
 \bottomrule
 \end{tabularx}
 
@@ -202,7 +203,7 @@ $x_{i,j}$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which
 \\
 $\mathbf{w}_{m \times n}$ & Unitless & Matrix of weights that is used by the classifier model with m rows and n columns
 \\
-$\mathbf{b}_{n \times m}$ & Unitless & Matrix of biases that is used by the classifier model with n rows and m columns
+$b$ & Unitless & Bias value that is used by the classifier model
 \\
 $\lambda$ & Unitless & Regularization Parameter that affects flexibilty/variance of the model
 \\
@@ -574,14 +575,14 @@ Label &\bf Sigmoid Function with Input Image and Weights \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \mathbf{\hat{y}} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + \mathbf{b}$ \\
+Equation&$ \mathbf{\hat{y}} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
 \hline
 Description &
 This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how it will be utilized as the basis of the model.
 \\
 & $\mathbf{x}$ is the input image matrix.\\
 & $\mathbf{w}$ is the matrix of weights\\
-&$\mathbf{b}$ is the matrix of biases\\
+&$b$ is the matrix of biases\\
 & Note that the predicted value $\mathbf{\hat{y}}$ from \tref{TM2} will be determined from the sigmoid function.\\
 \hline
   Source & \cite{Turin2020} \\
@@ -630,13 +631,13 @@ defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize 
 \rowcolor[gray]{0.9}
 Number& GD\refstepcounter{defnum}\thedefnum \label{GD_gradb}\\
 \hline
-Label &\bf Gradient of Log Loss Function with respect to $\mathbf{b}$ \\
+Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_\mathbf{b} (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
+Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
 \hline
 Description &
 Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
@@ -678,8 +679,8 @@ Which gives $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
 ~\newline
 Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
 \begin{center}
-For \dref{GD_gradw}: $ \frac{d}{d\mathbf{w}} \cdot (\mathbf{b} + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = \mathbf{x}_i$ \\
-For \dref{GD_gradb}: $\frac{d}{d\mathbf{b}} \cdot (\mathbf{b} + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = 1 $
+For \dref{GD_gradw}: $ \frac{d}{d\mathbf{w}} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = \mathbf{x}_i$ \\
+For \dref{GD_gradb}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + ... +\mathbf{x}_n \cdot \mathbf{w}_n) = 1 $
 \end{center}
 
 Then each derivative in the chain is multiplied together for $\nabla_\mathbf{w}$ and $\nabla_b$ respectively, resulting in
@@ -782,10 +783,10 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + \mathbf{b}))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, N$ which is the number of training images\\
+  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, N$ which is the number of training images\\
   & The input is constrained so that \aref{A2} and \aref{A3} can be satisfied.\\
   \hline
-  Output & $\mathbf{w}, \mathbf{b} $ \\
+  Output & $\mathbf{w}, b $ \\
   \hline
   Description &
   Using gradient descent we minimize the Log Loss Function to optimize the weights and biases for better predictions\\
@@ -794,9 +795,9 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
         \item 1.1. $d\mathbf{w}^{(t)} = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n) - \frac{lambda}{N} \cdot \mathbf{w}^{(t)^2} $
-        \item 1.2. $d\mathbf{b}^{(t)} = \mathbf{y}_n - \mathbf{\hat{y}}_n$
-        \item 1.3. $\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} + \alpha \cdot d\mathbf{w}^{(t)}$
-        \item 1.4. $d\mathbf{b}^{(t+1)} = d\mathbf{b}^{(t)} + \alpha \cdot d\mathbf{b}^{(t)}$
+        \item 1.2. $db^{(t)} = \mathbf{y}_n - \mathbf{\hat{y}}_n$
+        \item 1.3. $d\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} + \alpha \cdot d\mathbf{w}^{(t)}$
+        \item 1.4. $db^{(t+1)} = db^{(t)} + \alpha \cdot db^{(t)}$
     \end{itemize}
     \item 2. Calculate the Log Loss and test the results using the updated weights.
  \end{itemize}
