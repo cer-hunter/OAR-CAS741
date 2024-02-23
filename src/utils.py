@@ -14,7 +14,7 @@ def logLossFunction(y_true, y_hat):
     n = y_hat.size
     log_loss = 0
     for i in range(n):
-        cost = y_true[i]*np.log10(y_hat[i] + 1-y_true[i])*np.log10(1-y_hat[i])
+        cost = y_true[i]*np.log10(y_hat[i]) + (1-y_true[i])*np.log10(1-y_hat[i])
         log_loss = log_loss + (-1/n)*cost
     return log_loss
 
@@ -28,14 +28,14 @@ def y_prediction(x, w, b):
 # computes the gradient with respect to the weights, corresponding to GD2
 def gradient_w(x, y, w, b, reg_lambda, N):
     y_hat = y_prediction(x, w, b)
-    dw = x * (y-y_hat) - (reg_lambda*w*w)/N
+    dw = np.transpose(x) * (y_hat - y) - (reg_lambda*w*w)/N
     return dw
 
 
 # computes the gradient with respect to the bias, corresponding to GD3
 def gradient_b(x, y, w, b):
     y_hat = y_prediction(x, w, b)
-    db = y - y_hat
+    db = y_hat - y
     return db
 
 
