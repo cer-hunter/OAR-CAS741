@@ -76,11 +76,12 @@ See SRS Documentation \citep{SRS} at \url{https://github.com/cer-hunter/OAR-CAS7
 \section{Introduction}
 
 The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+the OAR (Optical Alphabet Recognition) program. This document specifies how each module
+interfaces with other parts of the program.
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at \url{https://github.com/cer-hunter/OAR-CAS741}. 
 
 \section{Notation}
 
@@ -94,7 +95,7 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+The following table summarizes the primitive data types used by OAR. 
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
@@ -112,10 +113,10 @@ real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \end{center}
 
 \noindent
-The specification of \progname \ uses some derived data types: sequences, strings, and
+The specification of OAR uses some derived data types: sequences, strings, and
 tuples. Sequences are lists filled with elements of the same data type. Strings
 are sequences of characters. Tuples contain a list of values, potentially of
-different types. In addition, \progname \ uses functions, which
+different types. In addition, OAR uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
@@ -124,33 +125,42 @@ described by giving their type signature followed by their specification.
 The following table is taken directly from the Module Guide document for this project.
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.28\textwidth} p{0.27\textwidth} p{0.35\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}\\
+  \midrule
+    
+  {Hardware-Hiding Module} & ~ \\
+  \midrule
+    
+  \multirow{6}{0.3\textwidth}{Behaviour-Hiding Module}
+    & Application Control \\
+      \cline{2-3}
+    & Input Data Read Module \\
+      \cline{2-3}
+    & Output Module & Input Classifier Module\\
+      \cline{2-3}
+    & \multirow{3}{0.3\textwidth}{OAR Model Data Module}
+      & OAR Model Equations Module \\
+      && OAR Model Training Module \\
+      && OAR Model Testing Module \\
+    \midrule
+    
+    \multirow{4}{0.3\textwidth}{Software Decision Module}
+      & Confusion Matrix Module \\
+      \cline{2-3}
+      & Input Processing Module \\
+      \cline{2-3}
+      & Confidence Calculator Module \\
+      \cline{2-3}
+      & Graphical User Interface \\
+    \bottomrule
+    
+    \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
 
 \newpage
 ~\newpage
@@ -236,20 +246,6 @@ The following table is taken directly from the Module Guide document for this pr
 \section{Appendix} \label{Appendix}
 
 \wss{Extra information if required}
-
-\section{Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Problem Analysis and Design.  Please answer the following questions:
-
-\begin{enumerate}
-  \item What are the limitations of your solution?  Put another way, given
-  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
-  \item Give a brief overview of other design solutions you considered.  What
-  are the benefits and tradeoffs of those other designs compared with the chosen
-  design?  From all the potential options, why did you select the documented design?
-  (LO\_Explores)
-\end{enumerate}
 
 
 \end{document}
