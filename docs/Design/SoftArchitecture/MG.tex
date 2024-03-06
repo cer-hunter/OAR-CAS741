@@ -33,9 +33,9 @@
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
-\author{\authname}
-\date{\today}
+\title{Module Guide for OAR} 
+\author{Hunter Ceranic}
+\date{March 8, 2024}
 
 \maketitle
 
@@ -46,8 +46,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+March 8, 2024 & 1.0 & Initial Revision\\
 \bottomrule
 \end{tabularx}
 
@@ -66,15 +65,15 @@ This section records information for easy reference.
   \midrule 
   AC & Anticipated Change\\
   DAG & Directed Acyclic Graph \\
+  GUI & Graphical User Interface \\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
+  OAR & Optical Alphabet Recognition\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
   \bottomrule
 \end{tabular}\\
 
@@ -153,15 +152,24 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change.
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acInput2}:] The constraints on the initial input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputParams}:] The constraints on the
+initial input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acPreprocess}:] How the input data is pre-processed.
+\item[\refstepcounter{acnum} \actheacnum \label{acModel}:] How the input classification model is generated.
+\item[\refstepcounter{acnum} \actheacnum \label{acCalc}:] How the input classification is calculated.
+\item[\refstepcounter{acnum} \actheacnum \label{acFlow}:] How the overall flow and control of the OAR program is organized.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the
+  output data.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput2}:] The constraints on the output results.
+\item[\refstepcounter{acnum} \actheacnum \label{acGui}:] The implementation of the GUI.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -176,7 +184,10 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The source of the input is always external to the software.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The outputs are displayed on the output device.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to classify characters in an image.
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -188,36 +199,55 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mAC}:] Application Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOME}:] OAR Model Equations Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOMTr}:] OAR Model Training Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOMTs}:] OAR Model Testing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCMX}:] Confusion Matrix Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOMD}:] OAR Model Data Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIDR}:] Input Data Read Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIP}:] Input Processing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIC}:] Input Classifier Module
+\item [\refstepcounter{mnum} \mthemnum \label{mCC}:] Confidence Calculator Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGUI}:] Graphical User Interface
 \end{description}
 
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.28\textwidth} p{0.27\textwidth} p{0.35\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+\textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}\\
 \midrule
-
+  
 {Hardware-Hiding Module} & ~ \\
 \midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
-\bottomrule
-
-\end{tabular}
+  
+\multirow{6}{0.3\textwidth}{Behaviour-Hiding Module}
+  & Application Control \\
+    \cline{2-3}
+  & Input Data Read Module \\
+    \cline{2-3}
+  & Output Module & Input Classifier Module\\
+    \cline{2-3}
+  & \multirow{3}{0.3\textwidth}{OAR Model Data Module}
+    & OAR Model Equations Module \\
+    && OAR Model Training Module \\
+    && OAR Model Testing Module \\
+  \midrule
+  
+  \multirow{4}{0.3\textwidth}{Software Decision Module}
+    & Confusion Matrix Module \\
+    \cline{2-3}
+    & Input Processing Module \\
+    \cline{2-3}
+    & Confidence Calculator Module \\
+    \cline{2-3}
+    & Graphical User Interface \\
+  \bottomrule
+  
+  \end{tabular}
 \caption{Module Hierarchy}
 \label{TblMH}
 \end{table}
@@ -227,13 +257,6 @@ actually be implemented.
 The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}.
-
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -274,18 +297,80 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Application Control Module (\mref{mAC})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] The algorithm for the overall flow of the program.
+\item[Services:] Provides the main program
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Input Data Read Module (\mref{mIDR})}
+
+\begin{description}
+\item[Secrets:] The format and structure of the input data.
+\item[Services:] Prompts user for input image. Converts the input image data into the matrix data structure used OAR.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Output Module (\mref{mOU})}
+
+\begin{description}
+\item[Secrets:] The format and structure of the output data.
+\item[Services:] Outputs the results of the classification, including the predicted label and the confidence level.
+\item[Implemented By:] OAR
+\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+\end{description}
+
+\subsubsection{Input Classifier Module (\mref{mIC})}
+
+\begin{description}
+\item[Secrets:] The algorithm for classification given the input image and the OAR classification model.
+\item[Services:] Defines the algorithm used to determine the predicted label of an input image.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{OAR Model Data Module (\mref{mOMD})}
+
+\begin{description}
+\item[Secrets:] The weights and biases that make up the OAR classification model for the 26 labels.
+\item[Services:] Stores the data of the highest performance model trained by OAR. The values can be read from the file and are used by 
+the input classifier module \mref{mIC}. This module knows how many parameters it stores.
+\item[Implemented By:] OAR
+\item[Type of Module:] Record
+\end{description}
+
+\subsubsection{OAR Model Equations Module (\mref{mOME})}
+
+\begin{description}
+\item[Secrets:] The logistic regression equations used to train and test the classification model.
+\item[Services:] Provides the methods to train the weights and biases of a classification model and to use
+said classification model. These are the equations referred to as Instance Models in the SRS.
+\item[Implemented By:] OAR
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{OAR Model Training Module (\mref{mOMTr})}
+
+\begin{description}
+\item[Secrets:] The algorithm for training the classification model.
+\item[Services:] Defines the algorithm used to train the model's weights and biases using images from the EMNIST dataset for every label.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{OAR Model Testing Module (\mref{mOMTs})}
+
+\begin{description}
+\item[Secrets:] The algorithm for testing the performance of the classification model.
+\item[Services:] Defines the algorithm used to test the model's performance based on images from the EMNIST dataset. The output of this
+module is stored in the OAR model data module \mref{mOMD}.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Data Type
+\end{description}
 
 
 \subsection{Software Decision Module}
@@ -301,7 +386,47 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Confusion Matrix Module (\mref{mCMX})}
+
+\begin{description}
+\item[Secrets:] The algorithms to generate a confusion matrix of a classifier model.
+\item[Services:] Provides the methods to take the outputs of testing the classification model and return the metrics that describe
+that models performance, in both graphical and numerical forms.
+\item[Implemented By:] scikit-learn
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Input Processing Module (\mref{mIP})}
+
+\begin{description}
+\item[Secrets:] The algorithms to process the input image to transform it into the desired data structure.
+\item[Services:] Provides the methods to perform pre-proccessing operations such as normalization, and converting an image to grayscale,
+used by the input data read module \mref{mIDR}.
+\item[Implemented By:] OpenCV and scikit-learn
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Confidence Calculator Module (\mref{mCC})}
+
+\begin{description}
+\item[Secrets:] The algorithms for determining the confidence level of the predicted label.
+\item[Services:] Provides the methods to take the results of the input classification module \mref{mIC} and return the confidence in that 
+predicted label as a percentage.
+\item[Implemented By:] OAR and scikit-learn
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Graphical User Interface (\mref{mGUI})}
+
+\begin{description}
+\item[Secrets:] User interaction event handling, user input controls, states, data formats (such as text-boxes, buttons, file dialogs),
+visual layout and styling (eg. colours or sizing)
+\item[Services:] Sets up a visual interface for the user to see and interact with, handles user and GUI control events, updates the 
+visual elements representing the state of the application, and sends messages back to the application control module \mref{mAC} to update
+the application state accordingly.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -316,17 +441,11 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mHH}, \mref{mIDR}, \mref{mGUI}\\
+R2 & \mref{mIP}\\
+R3 & \mref{mOMD}, \mref{mOME}, \mref{mOTr}, \mref{mOTs}, \mref{mCMX}\\
+R4 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
+R5 & \mref{mOU}, \mref{mCC}, \mref{mGUI}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -340,17 +459,16 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acInput} & \mref{mIDR}, \mref{mIP}\\
+\acref{acInput2} & \mref{mIDR}, \mref{mIP}\\
+\acref{acInputParams} & \mref{mIDR}, \mref{mIP}\\
+\acref{acPreprocess} & \mref{mIP}\\
+\acref{acModel} & \mref{mOMD}, \mref{mOME}, \mref{mOTr}, \mref{mOTs}, \mref{mCMX}\\
+\acref{acCalc} & \mref{mIC}, \mref{mCC}\\
+\acref{acFlow} & \mref{mAC}\\
+\acref{acOutput} & \mref{mOU}\\
+\acref{acOutput2} & \mref{mOU}, \mref{mIC}, \mref{mCC}\\
+\acref{acGui} & \mref{mGUI}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -372,27 +490,10 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{OAR_UH}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
-
-%\section*{References}
-
-\section{User Interfaces}
-
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
-
-\section{Design of Communication Protocols}
-
-\wss{If appropriate}
-
-\section{Timeline}
-
-\wss{Schedule of tasks and who is responsible}
-
-\wss{You can point to GitHub if this information is included there}
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
