@@ -209,7 +209,6 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mOMTs}:] OAR Model Testing Module
 \item [\refstepcounter{mnum} \mthemnum \label{mCMX}:] Confusion Matrix Module
 \item [\refstepcounter{mnum} \mthemnum \label{mIP}:] Input Processing Module
-\item [\refstepcounter{mnum} \mthemnum \label{mCC}:] Confidence Calculator Module
 \item [\refstepcounter{mnum} \mthemnum \label{mGUI}:] Graphical User Interface
 \end{description}
 
@@ -218,31 +217,29 @@ actually be implemented.
 \centering
 \begin{tabular}{p{0.28\textwidth} p{0.27\textwidth} p{0.35\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}\\
+\textbf{Level 1} & \textbf{Level 2}\\
 \midrule
   
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module}\\
 \midrule
   
-\multirow{6}{0.3\textwidth}{Behaviour-Hiding Module}
+\multirow{8}{0.3\textwidth}{Behaviour-Hiding Module}
   & Application Control \\
     \cline{2-3}
+  & Output Module\\
   & Input Data Read Module \\
+  & Input Classifier Module\\
     \cline{2-3}
-  & Output Module & Input Classifier Module\\
-    \cline{2-3}
-  & \multirow{3}{0.3\textwidth}{OAR Model Data Module}
-    & OAR Model Equations Module \\
-    && OAR Model Training Module \\
-    && OAR Model Testing Module \\
+  & OAR Model Data Module \\
+  & OAR Model Equations Module \\
+  & OAR Model Training Module \\
+  & OAR Model Testing Module \\
   \midrule
   
-  \multirow{4}{0.3\textwidth}{Software Decision Module}
+  \multirow{3}{0.3\textwidth}{Software Decision Module}
     & Confusion Matrix Module \\
     \cline{2-3}
     & Input Processing Module \\
-    \cline{2-3}
-    & Confidence Calculator Module \\
     \cline{2-3}
     & Graphical User Interface \\
   \bottomrule
@@ -306,15 +303,6 @@ to be implemented.
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Input Data Read Module (\mref{mIDR})}
-
-\begin{description}
-\item[Secrets:] The format and structure of the input data.
-\item[Services:] Prompts user for input image. Converts the input image data into the matrix data structure used OAR.
-\item[Implemented By:] OAR
-\item[Type of Module:] Abstract Object
-\end{description}
-
 \subsubsection{Output Module (\mref{mOU})}
 
 \begin{description}
@@ -322,6 +310,15 @@ to be implemented.
 \item[Services:] Outputs the results of the classification, including the predicted label and the confidence level.
 \item[Implemented By:] OAR
 \item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+\end{description}
+
+\subsubsection{Input Data Read Module (\mref{mIDR})}
+
+\begin{description}
+\item[Secrets:] The format and structure of the input data.
+\item[Services:] Prompts user for input image. Converts the input image data into the matrix data structure used OAR.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsubsection{Input Classifier Module (\mref{mIC})}
@@ -406,16 +403,6 @@ used by the input data read module \mref{mIDR}.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Confidence Calculator Module (\mref{mCC})}
-
-\begin{description}
-\item[Secrets:] The algorithms for determining the confidence level of the predicted label.
-\item[Services:] Provides the methods to take the results of the input classification module \mref{mIC} and return the confidence in that 
-predicted label as a percentage.
-\item[Implemented By:] OAR and scikit-learn
-\item[Type of Module:] Library
-\end{description}
-
 \subsubsection{Graphical User Interface (\mref{mGUI})}
 
 \begin{description}
@@ -445,7 +432,7 @@ R1 & \mref{mHH}, \mref{mIDR}, \mref{mGUI}\\
 R2 & \mref{mIP}\\
 R3 & \mref{mOMD}, \mref{mOME}, \mref{mOMTr}, \mref{mOMTs}, \mref{mCMX}\\
 R4 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
-R5 & \mref{mOU}, \mref{mCC}, \mref{mGUI}\\
+R5 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -464,10 +451,10 @@ R5 & \mref{mOU}, \mref{mCC}, \mref{mGUI}\\
 \acref{acInputParams} & \mref{mIDR}, \mref{mIP}\\
 \acref{acPreprocess} & \mref{mIP}\\
 \acref{acModel} & \mref{mOMD}, \mref{mOME}, \mref{mOMTr}, \mref{mOMTs}, \mref{mCMX}\\
-\acref{acCalc} & \mref{mIC}, \mref{mCC}\\
+\acref{acCalc} & \mref{mIC}\\
 \acref{acFlow} & \mref{mAC}\\
 \acref{acOutput} & \mref{mOU}\\
-\acref{acOutput2} & \mref{mOU}, \mref{mIC}, \mref{mCC}\\
+\acref{acOutput2} & \mref{mOU}, \mref{mIC}\\
 \acref{acGui} & \mref{mGUI}\\
 \bottomrule
 \end{tabular}
