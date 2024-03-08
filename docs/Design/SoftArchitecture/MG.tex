@@ -296,7 +296,7 @@ to be implemented.
 \item[Secrets:] The algorithm for the overall flow of the program.
 \item[Services:] Provides the main program
 \item[Implemented By:] OAR
-\item[Type of Module:] Abstract Object
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsubsection{Output Module (\mref{mOU})}
@@ -305,7 +305,7 @@ to be implemented.
 \item[Secrets:] The format and structure of the output data.
 \item[Services:] Outputs the results of the classification, including the predicted label and the confidence level.
 \item[Implemented By:] OAR
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsubsection{Input Data Read Module (\mref{mIDR})}
@@ -314,7 +314,7 @@ to be implemented.
 \item[Secrets:] The format and structure of the input data.
 \item[Services:] Prompts user for input image. Converts the input image data into the matrix data structure used OAR.
 \item[Implemented By:] OAR
-\item[Type of Module:] Abstract Object
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsubsection{Input Classifier Module (\mref{mIC})}
@@ -323,7 +323,7 @@ to be implemented.
 \item[Secrets:] The algorithm for classification given the input image and the OAR classification model.
 \item[Services:] Defines the algorithm used to determine the predicted label of an input image.
 \item[Implemented By:] OAR
-\item[Type of Module:] Abstract Object
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \subsubsection{OAR Model Data Module (\mref{mOMD})}
@@ -374,8 +374,6 @@ module is stored in the OAR model data module \mref{mOMD}.
   \emph{not} described in the SRS.
 \item[Services:] Includes data structure and algorithms used in the system that
   do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
 \item[Implemented By:] --
 \end{description}
 
@@ -408,7 +406,7 @@ visual layout and styling (eg. colours or sizing)
 visual elements representing the state of the application, and sends messages back to the application control module \mref{mAC} to update
 the application state accordingly.
 \item[Implemented By:] OAR
-\item[Type of Module:] Abstract Object
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
@@ -416,8 +414,6 @@ the application state accordingly.
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
