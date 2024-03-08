@@ -448,8 +448,6 @@ None.
 \begin{itemize}
   \item \code{oarModel}: Data structure designed to store the matrix of weights and biases associated
    with the trained OAR classification model as a tuple of $\mathbb{M}_{x, y}$ and $\mathbb{R}$.
-  \item \code{performance}: Data structure designed to store the matrix of that performance of the 
-  trained OAR classification model for each label as $\mathbb{M}_{x, y}$.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -464,7 +462,7 @@ None.
 
 \noindent \code{model}():
 \begin{itemize}
-\item transition: This module is a simple tuple ($\mathbb{M}_{x, y}$ and $\mathbb{R}$) data structure for storing the OAR classification model weights and biases, and performance.
+\item transition: This module is a simple tuple ($\mathbb{M}_{x, y}$ and $\mathbb{R}$) data structure for storing the OAR classification model weights and biases.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -633,6 +631,7 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
+  \item OAR Model Data Module Specification \ref{ModuleOME}
   \item OAR Model Equations Module Specification \ref{ModuleOME}
   \item OAR Model Training Module Specification \ref{ModuleOMTr}
   \item Confusion Matrix Module Specification \ref{ModuleCM}
@@ -670,7 +669,7 @@ None.
   \item \code{dataSet}: The set of pre-processed images and their associated labels that will be used for training the classification model as a tuple of $\mathbb{I}_{x, y}$ and $\mathbb{Z}_{+}$.
   \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbb{M}_{x, y}$ for each label.
   \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbb{R}$ for each label.
-  \item \code{prediction}: matrix which tracks the number predictions made for each test image as $\mathbb{M}_{x, y}$.
+  \item \code{predictionData}: matrix which tracks the number predictions made for each test image as $\mathbb{M}_{x, y}$.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -734,7 +733,8 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{confMatrix} & - & - & - \\
+\code{confMatrix} & \code{predictionData} ($\mathbb{M}_{x, y}$) & \code{confusionMatrix} ($\mathbb{M}_{x, y}$)  &  \\
+\code{printConfMatrix} & \code{confusionMatrix} ($\mathbb{M}_{x, y}$) & \code{confusionMatrix} ($\mathbb{I}_{x, y}$)  &  \\
 \hline
 \end{tabular}
 \end{center}
@@ -743,42 +743,33 @@ None.
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+None.
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+None.
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+None.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
-\begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\noindent \code{confMatrix}(predictionData):
+\begin{itemize} 
+\item output: Outputs the confusion matrix representing the performance of the model based on the
+\code{predictionData} as $\mathbb{M}_{x, y}$.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent \code{printConfMatrix}(confusionMatrix):
+\begin{itemize} 
+\item output: Outputs the confusion matrix representing the performance of the model based on the
+\code{predictionData} as a graphical image ($\mathbb{I}_{x, y}$).
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+None.
 
 \section{MIS of Input Processing Module} \label{ModuleIP} 
 
@@ -803,7 +794,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+\wss{preprocess} & \code{baseImage} ($\mathbb{I}_{x, y}$) & \code{inputImage} ($\mathbb{I}_{x, y}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -812,42 +803,27 @@ None.
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+None.
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+None.
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+The format and parameters of the base image was already verified to be within the requirements.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
-\begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\noindent \code{preprocess}(baseImage):
+\begin{itemize} 
+\item output: Performs transformations on the \code{baseImage} such that the resulting \code{inputImage} 
+as $\mathbb{I}_{x, y}$, is normalized to be able to be used by the classification model.
 \end{itemize}
-
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+None.
 
 \section{MIS of Graphical User Interface} \label{ModuleGUI} 
 
@@ -930,12 +906,6 @@ None.
 
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
-
-\newpage
-
-\section{Appendix} \label{Appendix}
-
-\wss{Extra information if required}
 
 
 \end{document}
