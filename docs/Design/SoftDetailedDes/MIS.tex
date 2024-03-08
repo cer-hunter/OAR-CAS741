@@ -172,13 +172,9 @@ The following table is taken directly from the Module Guide document for this pr
 
 \section{MIS of Application Control Module} \label{ModuleAC} 
 
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
-
 \subsection{Module}
 
-\code{main} \mref{mAC}
+\code{main} 
 
 \subsection{Uses}
 
@@ -222,7 +218,7 @@ The GUI is running and displayed without issue.
 
 \noindent \code{main}():
 \begin{itemize}
-  \item transition: Initializes the program and the GUI module \mref{mGUI}
+  \item transition: Initializes the program and the GUI module \ref{ModuleGUI}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -282,7 +278,7 @@ The input image is valid.
 \noindent \code{output}():
 \begin{itemize}
 \item output: The \code{inputImage} as ($\mathbf{I}_{x,y}$) and the predicted label \code{resultLabel} and
- confidence in the classification \code{resultConf} as strings, to be used by the GUI module \mref{mGUI}.
+ confidence in the classification \code{resultConf} as strings, to be used by the GUI module \ref{ModuleGUI}.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -348,7 +344,7 @@ The input path location is valid, readable and accessible.
 \item output: Pre-processed \code{inputImage} as $\mathbf{I}_{x,y}$ ready for classification.
 \item exception: \code{InvalidSize} if the size of the base image is outside of the range of 
 \code{MIN_SIZE} - \code{MAX_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
-supported by the OAR Program (according to \rref{R1})
+supported by the OAR Program (according to R\ref{R1})
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -522,39 +518,39 @@ The input image is valid.
 
 \noindent \code{sigmoid}(sigIn):
 \begin{itemize}
-\item output: Computes the sigmoid function of \code{sigIn} according to \tref{TM1}
+\item output: Computes the sigmoid function of \code{sigIn} according to TM\ref{TM1}
 and returns the value \code{sigOut} as $\mathbf{R}$.
 \end{itemize}
 
 \noindent \code{logLossFunc}(trueVal, predVal):
 \begin{itemize}
 \item output: Computes the value of the log loss function using \code{trueVal} and \code{predVal}
-according to \tref{TM2} and returns the value \code{logLoss} as $\mathbf{R}$.
+according to TM\ref{TM2} and returns the value \code{logLoss} as $\mathbf{R}$.
 \end{itemize}
 
 \noindent \code{predict}(inputImage, weight, bias):
 \begin{itemize}
 \item output: Calls \code{sigmoid} to calculate the predicted label of the \code{inputImage}
-using \code{weight} and \code{bias} from the model according to \gref{GD1}.
+using \code{weight} and \code{bias} from the model according to GD\ref{GD1}.
 \end{itemize}
 
 \noindent \code{gradientW}(inputImage, trueVal, weight, bias, regParam, trainSize):
 \begin{itemize}
 \item output: Calculates the gradient of the log loss function using all the input variables
-with respect to the weights according to according to \gref{GD2}.
+with respect to the weights according to according to GD\ref{GD2}.
 \end{itemize}
 
 \noindent \code{gradientB}(inputImage, trueVal, weight, bias):
 \begin{itemize}
   \item output: Calculates the gradient of the log loss function using all the input variables
-  with respect to the bias according to according to \gref{GD3}.
+  with respect to the bias according to according to GD\ref{GD3}.
 \end{itemize}
 
 \noindent \code{gradientDescent}(inputImage, trueVal, weight, bias, regParam, learnRate, trainSize):
 \begin{itemize}
 \item output: Calls \code{gradientW} and \code{gradientB} to
 execute the algorithm to update the weights and biases using all the input variables 
-for one epoch according to \iref{IM1}.
+for one epoch according to IM\ref{IM1}.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -831,14 +827,13 @@ None.
 
 \subsection{Module}
 
-\code{gui} \mref{mGUI}
+\code{gui}
 
 \subsection{Uses}
 
 \begin{itemize}
-  \item Hardware-Hiding Module \mref{mHH}
-  \item Input Data Read Module \mref{mIDR}
-  \item Output Module \mref{mOU} 
+  \item Hardware-Hiding Module  
+  \item Output Module 
 \end{itemize}
 
 \subsection{Syntax}
@@ -867,9 +862,9 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
-  \item inputImage: The input image as processed and given by \mref{mIDR} as $\mathbf{I}_{x,y}$
-  \item resultLabel: The label output as given by \mref{mOU} as a string.
-  \item resultConf: The confidence probability output as given by \mref{mOU} as a string.
+  \item inputImage: The processed input image and given by the Output Module \ref{ModuleO} as $\mathbf{I}_{x,y}$
+  \item resultLabel: The label output as given by the Output Module \ref{ModuleO} as a string.
+  \item resultConf: The confidence probability output as given by the Output Module\ref{ModuleO} as a string.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -878,7 +873,7 @@ None.
   \item Keyboard ($\mathbf{Z}_{+}$ for keycodes describing the key pressed)
   \item Mouse (Boolean for click state and  $\mathbf{Z}_{+}$ for cursor position)
   \item Screen ($\mathbf{Z}_{+}$ for width and height in pixels)
-  \item Button (String for a file location) to provide an input image \mref{mIDR} from the file system
+  \item Button (String for a file location) to provide an input image from the file system
 \end{itemize}
 
 \subsubsection{Assumptions}
@@ -896,7 +891,7 @@ None.
 \noindent \code{gui}():
 \begin{itemize}
 \item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
-as needed for the user input. Calls the Input Data Read and Output Modules (\ref{ModuleIDR}, \ref{ModuleO}) to classify the input
+as needed for the user input. Calls the Output Module (\ref{ModuleO}) to classify the input
 image. The input image and output results are then pushed to the \code{displayWindow}.
 \end{itemize}
 
