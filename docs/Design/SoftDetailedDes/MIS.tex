@@ -65,8 +65,6 @@ March 8, 2024 & 1.0 & Initial Revision\\
 
 See SRS Documentation \citep{SRS} at \url{https://github.com/cer-hunter/OAR-CAS741/blob/main/docs/SRS/SRS.pdf}
 
-\wss{Also add any additional symbols, abbreviations or acronyms}
-
 \newpage
 
 \tableofcontents
@@ -87,9 +85,6 @@ found at \url{https://github.com/cer-hunter/OAR-CAS741}.
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
-
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
@@ -108,15 +103,15 @@ The following table summarizes the primitive data types used by OAR.
 \midrule
 character & char & a single symbol or digit\\
 integer & $\mathbf{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-positive integer $\mathbf{Z}_{+}$ a positive integer ($\mathbf{Z}$) in ($0$, $\infty$) \\
-unsigned 8-bit integer $\mathbf{U}$ a number without a fractional component in ($0$, $255$) \\
+positive integer & $\mathbf{Z}_{+}$ & a positive integer ($\mathbf{Z}$) in ($0$, $\infty$) \\
+unsigned 8-bit integer & $\mathbf{U}$ & a number without a fractional component in ($0$, $255$) \\
 natural number & $\mathbf{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbf{R}$ & any number in (-$\infty$, $\infty$)\\
-positive real $\mathbf{R}_{+}$ any real number ($\mathbf{R}$) in ($0$, $\infty$) \\
-image data $\mathbf{I}_{x,y}$ a one-dimensional array of unsigned 8-bit integers in order from the 
+positive real & $\mathbf{R}_{+}$ & any real number ($\mathbf{R}$) in ($0$, $\infty$) \\
+image data & $\mathbf{I}_{x,y}$ & \code{data}: a one-dimensional array of unsigned 8-bit integers in order from the 
 top-left pixel of the image to the bottom-right pixel. Has a \code{width}: $\mathbf{Z}_{+}$ width of \textit{x} and 
 \code{height}: $\mathbf{Z}_{+}$ height of \textit{y}.\\
-matrix $\mathbf{M}_{x,y}$ \code{data}: a one-dimensional array of real numbers, with a 
+matrix & $\mathbf{M}_{x,y}$ & \code{data}: a one-dimensional array of real numbers, with a 
 \code{width}: $\mathbf{Z}_{+}$ width of \textit{x} and \code{height}: $\mathbf{Z}_{+}$ height of \textit{y}.\\
 \bottomrule
 \end{tabular} 
@@ -168,7 +163,6 @@ The following table is taken directly from the Module Guide document for this pr
   \end{table}
   
 \newpage
-~\newpage
 
 \section{MIS of Application Control Module} \label{ModuleAC} 
 
@@ -179,7 +173,7 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Uses}
 
 \begin{itemize}
-  \item Graphical User Interface (GUI) Module Specification \ref{ModuleGUI}
+  \item Graphical User Interface (GUI) Module Specification (\ref{ModuleGUI})
 \end{itemize}
 
 \subsection{Syntax}
@@ -235,8 +229,8 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item Input Data Read Module Specification \ref{ModuleIDR}
-  \item Input Classifier Module Specification \ref{ModuleIC}
+  \item Input Data Read Module Specification (\ref{ModuleIDR})
+  \item Input Classifier Module Specification (\ref{ModuleIC})
 \end{itemize}
 
 \subsection{Syntax}
@@ -294,7 +288,7 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item Input Processing Module Specification \ref{ModuleIP}
+  \item Input Processing Module Specification (\ref{ModuleIP})
 \end{itemize}
 
 \subsection{Syntax}
@@ -361,8 +355,8 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item OAR Model Data Module Specification \ref{ModuleOMD}
-  \item OAR Model Equations Module Specification \ref{ModuleOME}
+  \item OAR Model Data Module Specification (\ref{ModuleOMD})
+  \item OAR Model Equations Module Specification (\ref{ModuleOME})
 \end{itemize}
 
 \subsection{Syntax}
@@ -418,7 +412,7 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item OAR Model Testing Module Specification \ref{ModuleOMTs}
+  \item OAR Model Testing Module Specification (\ref{ModuleOMTs})
 \end{itemize}
 
 \subsection{Syntax}
@@ -531,26 +525,26 @@ according to TM\ref{TM2} and returns the value \code{logLoss} as $\mathbf{R}$.
 \noindent \code{predict}(inputImage, weight, bias):
 \begin{itemize}
 \item output: Calls \code{sigmoid} to calculate the predicted label of the \code{inputImage}
-using \code{weight} and \code{bias} from the model according to GD\ref{GD1}.
+using \code{weight} and \code{bias} from the model according to GD\ref{GD_sig}.
 \end{itemize}
 
 \noindent \code{gradientW}(inputImage, trueVal, weight, bias, regParam, trainSize):
 \begin{itemize}
 \item output: Calculates the gradient of the log loss function using all the input variables
-with respect to the weights according to according to GD\ref{GD2}.
+with respect to the weights according to according to GD\ref{GD_gradw}.
 \end{itemize}
 
 \noindent \code{gradientB}(inputImage, trueVal, weight, bias):
 \begin{itemize}
   \item output: Calculates the gradient of the log loss function using all the input variables
-  with respect to the bias according to according to GD\ref{GD3}.
+  with respect to the bias according to according to GD\ref{GD_gradb}.
 \end{itemize}
 
 \noindent \code{gradientDescent}(inputImage, trueVal, weight, bias, regParam, learnRate, trainSize):
 \begin{itemize}
 \item output: Calls \code{gradientW} and \code{gradientB} to
 execute the algorithm to update the weights and biases using all the input variables 
-for one epoch according to IM\ref{IM1}.
+for one epoch according to IM\ref{Train}.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -566,7 +560,7 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item OAR Model Equations Module Specification \ref{ModuleOME}
+  \item OAR Model Equations Module Specification (\ref{ModuleOME})
 \end{itemize}
 
 \subsection{Syntax}
@@ -585,7 +579,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{train} & \code{trainSet} ($\mathbf{M}_{x,y}$),\code{trainVals} ($\mathbf{M}_{x,y}$), \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$) & - \\
+\code{train} & \code{trainSet} ($\mathbf{M}_{x,y}$),\code{trainVals} ($\mathbf{M}_{x,y}$), \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -629,10 +623,10 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item OAR Model Data Module Specification \ref{ModuleOME}
-  \item OAR Model Equations Module Specification \ref{ModuleOME}
-  \item OAR Model Training Module Specification \ref{ModuleOMTr}
-  \item Confusion Matrix Module Specification \ref{ModuleCM}
+  \item OAR Model Data Module Specification (\ref{ModuleOME})
+  \item OAR Model Equations Module Specification (\ref{ModuleOME})
+  \item OAR Model Training Module Specification (\ref{ModuleOMTr})
+  \item Confusion Matrix Module Specification (\ref{ModuleCM})
 \end{itemize}
 
 \subsection{Syntax}
@@ -704,7 +698,7 @@ The \code{dataSetPath} is valid, readible and accessible.
 \item \code{evalModelData}(oarModel, confusionMatrix):
   \begin{itemize}
     \item output: Evaluates the performance of the \code{oarModel} based on the \code{confusionMatrix}
-    and returns the values that should be written to the OAR Model Data Module \ref(ModuleOMD).
+    and returns the values that should be written to the OAR Model Data Module \ref{ModuleOMD}.
   \end{itemize}
 \end{itemize}
 
@@ -792,7 +786,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{preprocess} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & - \\
+\code{preprocess} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -833,7 +827,7 @@ None.
 
 \begin{itemize}
   \item Hardware-Hiding Module  
-  \item Output Module 
+  \item Output Module (\ref{ModuleO})
 \end{itemize}
 
 \subsection{Syntax}
@@ -864,7 +858,7 @@ None.
 \begin{itemize}
   \item inputImage: The processed input image and given by the Output Module \ref{ModuleO} as $\mathbf{I}_{x,y}$
   \item resultLabel: The label output as given by the Output Module \ref{ModuleO} as a string.
-  \item resultConf: The confidence probability output as given by the Output Module\ref{ModuleO} as a string.
+  \item resultConf: The confidence probability output as given by the Output Module \ref{ModuleO} as a string.
 \end{itemize}
 
 \subsubsection{Environment Variables}
