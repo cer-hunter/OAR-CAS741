@@ -229,7 +229,6 @@ None.
 \subsection{Uses}
 
 \begin{itemize}
-  \item Input Data Read Module Specification (\ref{ModuleIDR})
   \item Input Classifier Module Specification (\ref{ModuleIC})
 \end{itemize}
 
@@ -248,7 +247,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{output} & - & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
+\code{output} & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -271,7 +270,6 @@ The input image is valid.
 
 \noindent \code{output}():
 \begin{itemize}
-\item transition: Calls Input Data Read module \ref{ModuleIDR} to take an input image to be classified.
 \item output: The \code{inputImage} as ($\mathbf{I}_{x,y}$) and the predicted label \code{resultLabel} and
  confidence in the classification \code{resultConf} as strings, to be used by the GUI module \ref{ModuleGUI}.
 \end{itemize}
@@ -832,6 +830,7 @@ None.
 
 \begin{itemize}
   \item Hardware-Hiding Module  
+  \item Input Data Read Module (\ref{ModuleIDR})
   \item Output Module (\ref{ModuleO})
 \end{itemize}
 
@@ -890,7 +889,7 @@ None.
 \noindent \code{gui}():
 \begin{itemize}
 \item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
-as needed for the user input. Calls the Output Module \ref{ModuleO} to classify the input
+as needed for the user input. Calls the Input Data Read Module \ref{ModuleIDR} to accept a base image and Output Module \ref{ModuleO} to classify the input
 image. The input image and output results are then pushed to the \code{displayWindow}.
 \end{itemize}
 
