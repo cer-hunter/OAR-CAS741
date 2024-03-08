@@ -244,7 +244,7 @@ None.
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{2cm} p{2cm} p{6cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -271,6 +271,7 @@ The input image is valid.
 
 \noindent \code{output}():
 \begin{itemize}
+\item transition: Calls Input Data Read module \ref{ModuleIDR} to take an input image to be classified.
 \item output: The \code{inputImage} as ($\mathbf{I}_{x,y}$) and the predicted label \code{resultLabel} and
  confidence in the classification \code{resultConf} as strings, to be used by the GUI module \ref{ModuleGUI}.
 \end{itemize}
@@ -337,7 +338,7 @@ The input path location is valid, readable and accessible.
 \begin{itemize}
 \item output: Pre-processed \code{inputImage} as $\mathbf{I}_{x,y}$ ready for classification.
 \item exception: \code{InvalidSize} if the size of the base image is outside of the range of 
-\code{MIN\_SIZE} - \code{MAX\_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
+\code{MIN\_SIZE} to \code{MAX\_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
 supported by the OAR Program (according to R\ref{R1})
 \end{itemize}
 
@@ -440,6 +441,8 @@ None.
 \begin{itemize}
   \item \code{oarModel}: Data structure designed to store the matrix of weights and biases associated
    with the trained OAR classification model as a tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$.
+   \item \code{performance}: Data structure designed to store the matrix of performance values associated
+   with each label of the trained OAR classification model as a $\mathbf{M}_{x,y}$.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -454,7 +457,7 @@ None.
 
 \noindent \code{model}():
 \begin{itemize}
-\item transition: This module is a simple tuple ($\mathbf{M}_{x,y}$ and $\mathbf{R}$) data structure for storing the OAR classification model weights and biases.
+\item transition: This module is a simple tuple ($\mathbf{M}_{x,y}$ and $\mathbf{R}$) data structure for storing the OAR classification model weights and biases and corresponding performance matrix.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -480,7 +483,7 @@ None.
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{3cm} p{5cm} p{3cm} p{1cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -648,7 +651,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{test} & - & oarModel (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$) & - \\
+\code{test} & - & \code{oarModel} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$), \code{performance} ($\mathbf{M}_{x, y}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -676,9 +679,11 @@ The \code{dataSetPath} is valid, readible and accessible.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \code{train}():
+\noindent \code{test}():
 \begin{itemize}
-\item output: The matrix of weights and biases representing the \code{oarModel} as $\mathbf{M}_{x,y}$.
+\item transition: Calls routine to train and test a model of weights and biases.
+\item output: The matrix of weights and biases representing the \code{oarModel} as a tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$, 
+and the associated \code{performance} of the model as $\mathbf{M}_{x,y}$.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -698,7 +703,7 @@ The \code{dataSetPath} is valid, readible and accessible.
 \item \code{evalModelData}(oarModel, confusionMatrix):
   \begin{itemize}
     \item output: Evaluates the performance of the \code{oarModel} based on the \code{confusionMatrix}
-    and returns the values that should be written to the OAR Model Data Module \ref{ModuleOMD}.
+    and returns the \code{performance} matrix that will be written to the OAR Model Data Module \ref{ModuleOMD}.
   \end{itemize}
 \end{itemize}
 
@@ -721,7 +726,7 @@ None.
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{1cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -885,7 +890,7 @@ None.
 \noindent \code{gui}():
 \begin{itemize}
 \item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
-as needed for the user input. Calls the Output Module (\ref{ModuleO}) to classify the input
+as needed for the user input. Calls the Output Module \ref{ModuleO} to classify the input
 image. The input image and output results are then pushed to the \code{displayWindow}.
 \end{itemize}
 
