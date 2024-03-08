@@ -244,7 +244,7 @@ None.
 \subsubsection{Exported Constants}
 
 \begin{itemize}
-  \item \code{DEC_FIXED}: Used for fixed decimal number length rounding (ex. "5.8923" at fixed length "2" results in "5.89")
+  \item \code{DEC\_FIXED}: Used for fixed decimal number length rounding (ex. "5.8923" at fixed length "2" results in "5.89")
 \end{itemize}
 
 \subsubsection{Exported Access Programs}
@@ -302,11 +302,11 @@ None.
 \subsubsection{Exported Constants}
 
 \begin{itemize}
-  \item \code{MAX_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for maximum acceptable 
+  \item \code{MAX\_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for maximum acceptable 
 size of the input image (currently a square).
-  \item \code{MIN_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for minimum acceptable 
+  \item \code{MIN\_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for minimum acceptable 
 size of the input image (currently a square).
-  \item \code{MODEL_IMG_SIZE}: The required size of the input image matrix to be used by the classification model $\mathbf{I}_{x,y}$.
+  \item \code{MODEL\_IMG\_SIZE}: The required size of the input image matrix to be used by the classification model $\mathbf{I}_{x,y}$.
 \end{itemize}
 
 \subsubsection{Exported Access Programs}
@@ -343,7 +343,7 @@ The input path location is valid, readable and accessible.
 \begin{itemize}
 \item output: Pre-processed \code{inputImage} as $\mathbf{I}_{x,y}$ ready for classification.
 \item exception: \code{InvalidSize} if the size of the base image is outside of the range of 
-\code{MIN_SIZE} - \code{MAX_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
+\code{MIN\_SIZE} - \code{MAX\_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
 supported by the OAR Program (according to R\ref{R1})
 \end{itemize}
 
@@ -641,9 +641,9 @@ None.
 
 \begin{itemize}
 \item \code{EPOCHS}: The the number of times the model training regression algorithm is ran as $\mathbf{Z}_{+}$.
-\item \code{TRAIN_SIZE}: The size of the training data used during model training as $\mathbf{Z}_{+}$.
-\item \code{TEST_SIZE}: The size of the testing data used during model training as $\mathbf{Z}_{+}$.
-\item \code{DATA_IMG_SIZE}: The size of the input image matrix used during model training as $\mathbf{I}_{x,y}$.
+\item \code{TRAIN\_SIZE}: The size of the training data used during model training as $\mathbf{Z}_{+}$.
+\item \code{TEST\_SIZE}: The size of the testing data used during model training as $\mathbf{Z}_{+}$.
+\item \code{DATA\_IMG\_SIZE}: The size of the input image matrix used during model training as $\mathbf{I}_{x,y}$.
 \item \code{LABELS}: The set of possible labels for the classification model as a tuple of Strings.
 \end{itemize}
 
@@ -841,7 +841,7 @@ None.
 \subsubsection{Exported Constants}
 
 \begin{itemize}
-  \item \code{GUI_BOXSIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) used for the image
+  \item \code{GUI\_BOXSIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) used for the image
   display "box" (currently always a square)
 \end{itemize}
 
