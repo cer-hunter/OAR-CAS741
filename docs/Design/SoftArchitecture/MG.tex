@@ -35,7 +35,7 @@
 
 \title{Module Guide for OAR} 
 \author{Hunter Ceranic}
-\date{March 8, 2024}
+\date{March 15, 2024}
 
 \maketitle
 
@@ -47,6 +47,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 March 8, 2024 & 1.0 & Initial Revision\\
+March 15, 2024 & 1.1 & Changes made according to Dr. Smith's Initial Comments\\
 \bottomrule
 \end{tabularx}
 
@@ -162,8 +163,10 @@ adapted here is called design for change.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput2}:] The constraints on the initial input data.
 \item[\refstepcounter{acnum} \actheacnum \label{acInputParams}:] The constraints on the
 initial input parameters.
-\item[\refstepcounter{acnum} \actheacnum \label{acPreprocess}:] How the input data is pre-processed.
-\item[\refstepcounter{acnum} \actheacnum \label{acModel}:] How the input classification model is generated.
+\item[\refstepcounter{acnum} \actheacnum \label{acPreprocess}:] How the base data is processed into input data useable by the system.
+\item[\refstepcounter{acnum} \actheacnum \label{acModel}:] The equations used as the basis of the input classification model.
+\item[\refstepcounter{acnum} \actheacnum \label{acTrain}:] How the input classification model is trained.
+\item[\refstepcounter{acnum} \actheacnum \label{acTest}:] How the input classification model is tested.
 \item[\refstepcounter{acnum} \actheacnum \label{acCalc}:] How the input classification is calculated.
 \item[\refstepcounter{acnum} \actheacnum \label{acFlow}:] How the overall flow and control of the OAR program is organized.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the
@@ -200,7 +203,8 @@ actually be implemented.
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mAC}:] Application Control Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mGD}:] Graphics Display Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Calculator Module
 \item [\refstepcounter{mnum} \mthemnum \label{mIDR}:] Input Data Read Module
 \item [\refstepcounter{mnum} \mthemnum \label{mIC}:] Input Classifier Module
 \item [\refstepcounter{mnum} \mthemnum \label{mOMD}:] OAR Model Data Module
@@ -225,18 +229,19 @@ actually be implemented.
   
 \multirow{8}{0.3\textwidth}{Behaviour-Hiding Module}
   & Application Control \\
-  & Output Module\\
-  & Input Data Read Module \\
-  & Input Classifier Module\\
-  & OAR Model Data Module \\
-  & OAR Model Equations Module \\
-  & OAR Model Training Module \\
-  & OAR Model Testing Module \\
+  & Graphics Display \\
+  & Output Calculator\\
+  & Input Data Read \\
+  & Input Classifier\\
+  & OAR Model Data  \\
+  & OAR Model Equations \\
+  & OAR Model Training \\
+  & OAR Model Testing \\
   \midrule
   
   \multirow{3}{0.3\textwidth}{Software Decision Module}
-    & Confusion Matrix Module \\
-    & Input Processing Module \\
+    & Confusion Matrix \\
+    & Input Processing \\
     & Graphical User Interface \\
   \bottomrule
   
@@ -299,7 +304,18 @@ to be implemented.
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
-\subsubsection{Output Module (\mref{mOU})}
+\subsubsection{Graphics Display (\mref{mGD})}
+
+\begin{description}
+\item[Secrets:] User interaction event handling, user input controls, in accordance to program states for user interaction.
+\item[Services:] Sets up a visual interface for the user to see and interact with, handles user and GUI control events, updates the 
+visual elements representing the state of the application, and sends messages back to the application control module \mref{mAC} to update
+the application state accordingly.
+\item[Implemented By:] OAR
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Output Calculator Module (\mref{mOU})}
 
 \begin{description}
 \item[Secrets:] The format and structure of the output data.
@@ -400,13 +416,11 @@ used by the input data read module \mref{mIDR}.
 \subsubsection{Graphical User Interface (\mref{mGUI})}
 
 \begin{description}
-\item[Secrets:] User interaction event handling, user input controls, states, data formats (such as text-boxes, buttons, file dialogs),
-visual layout and styling (eg. colours or sizing)
-\item[Services:] Sets up a visual interface for the user to see and interact with, handles user and GUI control events, updates the 
-visual elements representing the state of the application, and sends messages back to the application control module \mref{mAC} to update
-the application state accordingly.
-\item[Implemented By:] OAR
-\item[Type of Module:] Abstract Data Type
+\item[Secrets:] User interaction event handling, user input controls, states, The methods to implement data formats (such as text-boxes, buttons, file dialogs),
+visual layout and styling (eg. colours or sizing) for user interaction.
+\item[Services:] Provides methods for building a visual interface for the user to see and interact with.
+\item[Implemented By:] TKinter
+\item[Type of Module:] Library
 \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
@@ -420,11 +434,11 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mIDR}, \mref{mGUI}\\
-R2 & \mref{mIDR}, \mref{mIP}, \mref{mGUI}\\
+R1 & \mref{mHH}, \mref{mIDR}, \mref{mGD}, \mref{mGUI}\\
+R2 & \mref{mIDR}, \mref{mIP}, \mref{mGD}, \mref{mGUI}\\
 R3 & \mref{mOMD}, \mref{mOME}, \mref{mOMTr}, \mref{mOMTs}, \mref{mCMX}\\
-R4 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
-R5 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
+R4 & \mref{mOU}, \mref{mIC}, \mref{mGD}, \mref{mGUI}\\
+R5 & \mref{mOU}, \mref{mIC}, \mref{mGD}, \mref{mGUI}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -442,12 +456,14 @@ R5 & \mref{mOU}, \mref{mIC}, \mref{mGUI}\\
 \acref{acInput2} & \mref{mIDR}\\
 \acref{acInputParams} & \mref{mIDR}\\
 \acref{acPreprocess} & \mref{mIP}\\
-\acref{acModel} & \mref{mOME}, \mref{mOMTr}, \mref{mOMTs}\\
+\acref{acModel} & \mref{mOME}\\
+\acref{acTrain} & \mref{mOMTr}\\
+\acref{acTest} & \mref{mOMTs}\\
 \acref{acCalc} & \mref{mIC}\\
 \acref{acFlow} & \mref{mAC}\\
 \acref{acOutput} & \mref{mOU}\\
 \acref{acOutput2} & \mref{mOU}\\
-\acref{acGui} & \mref{mGUI}\\
+\acref{acGui} & \mref{mGD}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}

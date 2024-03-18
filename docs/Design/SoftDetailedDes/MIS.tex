@@ -44,7 +44,7 @@ urlcolor=cyan          % color of external links
 
 \author{Hunter Ceranic}
 
-\date{March 8, 2024}
+\date{March 15, 2024}
 
 \maketitle
 
@@ -56,6 +56,7 @@ urlcolor=cyan          % color of external links
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 March 8, 2024 & 1.0 & Initial Revision\\
+March 15, 2024 & 1.1 & Changes made according to Dr. Smith's Initial Comments\\
 \bottomrule
 \end{tabularx}
 
@@ -142,18 +143,19 @@ The following table is taken directly from the Module Guide document for this pr
     
   \multirow{8}{0.3\textwidth}{Behaviour-Hiding Module}
     & Application Control \\
-    & Output Module\\
-    & Input Data Read Module \\
-    & Input Classifier Module\\
-    & OAR Model Data Module \\
-    & OAR Model Equations Module \\
-    & OAR Model Training Module \\
-    & OAR Model Testing Module \\
+    & Graphics Display \\
+    & Output Calculator \\
+    & Input Data Read \\
+    & Input Classifier \\
+    & OAR Model Data \\
+    & OAR Model Equations \\
+    & OAR Model Training\\
+    & OAR Model Testing\\
     \midrule
     
     \multirow{3}{0.3\textwidth}{Software Decision Module}
-      & Confusion Matrix Module \\
-      & Input Processing Module \\
+      & Confusion Matrix\\
+      & Input Processing\\
       & Graphical User Interface \\
     \bottomrule
     
@@ -173,7 +175,7 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Uses}
 
 \begin{itemize}
-  \item Graphical User Interface (GUI) Module Specification (\ref{ModuleGUI})
+  \item Graphics Display Module Specification (\ref{ModuleGD})
 \end{itemize}
 
 \subsection{Syntax}
@@ -202,24 +204,105 @@ None.
 
 \subsubsection{Environment Variables}
 
-None.
+\begin{itemize}
+  \item Screen ($\mathbf{Z}_{+}$ for width and height in pixels)
+\end{itemize}
 
 \subsubsection{Assumptions}
 
-The GUI is running and displayed without issue.
+The GUI Display is running and displayed without issue.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent \code{main}():
 \begin{itemize}
-  \item transition: Initializes the program and the GUI module \ref{ModuleGUI}
+  \item transition: Initializes the program and the Graphics Display module \ref{ModuleGD}
 \end{itemize}
 
 \subsubsection{Local Functions}
 
 None.
 
-\section{MIS of Output Module} \label{ModuleO} 
+\section{MIS of Graphics Display} \label{ModuleGD} 
+
+\subsection{Module}
+
+\code{display}
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item Hardware-Hiding Module  
+  \item Input Data Read Module (\ref{ModuleIDR})
+  \item Output Module (\ref{ModuleO})
+  \item Graphical User interface (GUI) Module (\ref{ModuleGUI})
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\begin{itemize}
+  \item \code{GUI\_BOXSIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) used for the image
+  display "box" (currently always a square)
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\code{display} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow}, event handlers & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item inputImage: The processed input image and given by the Output Calculator Module \ref{ModuleO} as $\mathbf{I}_{x,y}$
+  \item resultLabel: The label output as given by the Output Calculator Module \ref{ModuleO} as a string.
+  \item resultConf: The confidence probability output as given by the Output Calculator Module \ref{ModuleO} as a string.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item Keyboard ($\mathbf{Z}_{+}$ for keycodes describing the key pressed)
+  \item Mouse (Boolean for click state and  $\mathbf{Z}_{+}$ for cursor position)
+  \item Screen ($\mathbf{Z}_{+}$ for width and height in pixels)
+  \item \code{displayWindow} ($\mathbf{Z}_{+}$ for width and height in pixels) for the application interface
+  \item \code{inputButton} (String for a file location) to provide an input image from the file system
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The file system is able to read and provide the image file as specified by the user through an OS file-open dialog.
+  Otherwise if the file is not found, denied access or cancelled, no changes should occur.
+  \item The OS is able to provide basic text or number input user controls with some basic built-in validation, and
+  is able to handle events from Human Interface Devices (HIDs such as mouse, keyboard or touchscreen).
+\end{itemize}
+
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \code{display}():
+\begin{itemize}
+\item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
+as needed for the user input. Calls the Input Data Read Module \ref{ModuleIDR} to accept a base image and Output Calculator Module \ref{ModuleO} to classify the input
+image. The input image and output results are then pushed to the \code{displayWindow}.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None.
+
+\section{MIS of Output Calculator Module} \label{ModuleO} 
 
 
 \subsection{Module}
@@ -270,8 +353,10 @@ The input image is valid.
 
 \noindent \code{output}():
 \begin{itemize}
+\item transition: Passes the \code{inputImage} to the Input Classifier module \ref{ModuleIC} to return the \code{resultLabel} and \code{confPercent}, and converts
+the float value \code{confPercent} into a string
 \item output: The \code{inputImage} as ($\mathbf{I}_{x,y}$) and the predicted label \code{resultLabel} and
- confidence in the classification \code{resultConf} as strings, to be used by the GUI module \ref{ModuleGUI}.
+ confidence in the classification \code{resultConf} as strings, to be used by the Graphics Display module \ref{ModuleGD}.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -309,7 +394,7 @@ size of the input image (currently a square).
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{input} & \code{inputPath} (String) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{InvalidSize}, \code{InvalidFormat} \\
+\code{input} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{InvalidSize}, \code{InvalidFormat} \\
 \hline
 \end{tabular}
 \end{center}
@@ -323,12 +408,12 @@ None.
 \subsubsection{Environment Variables}
 
 \begin{itemize}
-  \item \code{inputPath}: the File System path or location as a string pointing to where the base input image is located.
+  \item \code{baseImage}: The base input image in the form of a .BMP .JPG or .PNG file.
 \end{itemize}
 
 \subsubsection{Assumptions}
 
-The input path location is valid, readable and accessible.
+The input path location for base image is valid, readable and accessible.
 
 \subsubsection{Access Routine Semantics}
 
@@ -395,7 +480,7 @@ The input image is valid.
 \noindent \code{classify}(inputImage):
 \begin{itemize}
 \item output: The predicted label of the input image \code{resultLabel} as a String and the associated confidence level in the 
-prediction as a $\mathbf{R}_{+}$.
+prediction as a $\mathbf{R}_{+}$, as described in IM\ref{Test}.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -828,20 +913,13 @@ None.
 
 \subsection{Uses}
 
-\begin{itemize}
-  \item Hardware-Hiding Module  
-  \item Input Data Read Module (\ref{ModuleIDR})
-  \item Output Module (\ref{ModuleO})
-\end{itemize}
+None.
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
-\begin{itemize}
-  \item \code{GUI\_BOXSIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) used for the image
-  display "box" (currently always a square)
-\end{itemize}
+None.
 
 \subsubsection{Exported Access Programs}
 
@@ -850,7 +928,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{gui} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow}, event handlers & - \\
+\code{gui} & None & None & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -859,11 +937,7 @@ None.
 
 \subsubsection{State Variables}
 
-\begin{itemize}
-  \item inputImage: The processed input image and given by the Output Module \ref{ModuleO} as $\mathbf{I}_{x,y}$
-  \item resultLabel: The label output as given by the Output Module \ref{ModuleO} as a string.
-  \item resultConf: The confidence probability output as given by the Output Module \ref{ModuleO} as a string.
-\end{itemize}
+None.
 
 \subsubsection{Environment Variables}
 
@@ -876,21 +950,13 @@ None.
 
 \subsubsection{Assumptions}
 
-\begin{itemize}
-  \item The file system is able to read and provide the image file as specified by the user through an OS file-open dialog.
-  Otherwise if the file is not found, denied access or cancelled, no changes should occur.
-  \item The OS is able to provide basic text or number input user controls with some basic built-in validation, and
-  is able to handle events from Human Interface Devices (HIDs such as mouse, keyboard or touchscreen).
-\end{itemize}
-
+None.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent \code{gui}():
 \begin{itemize}
-\item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
-as needed for the user input. Calls the Input Data Read Module \ref{ModuleIDR} to accept a base image and Output Module \ref{ModuleO} to classify the input
-image. The input image and output results are then pushed to the \code{displayWindow}.
+\item transition: Provides methods from the TKinter Library to build and deploy a GUI to Graphics Display Module \ref{ModuleGD}
 \end{itemize}
 
 \subsubsection{Local Functions}
