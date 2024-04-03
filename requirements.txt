@@ -3,7 +3,6 @@ flake8
 coverage
 tk
 numpy
-json
 matplotlib
 opencv-python
 pillow
