@@ -27,10 +27,10 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-      # - python/load-cache
+      - python/load-cache
       - python/install-packages:
           pkg-manager: pip
-      # - python/save-cache
+      - python/save-cache
       # - python/test
   lint-and-coverage:
     docker:
@@ -38,10 +38,10 @@ jobs:
     steps:
     # Checkout the code as the first step.
     - checkout
-    # - python/load-cache
+    - python/load-cache
     - python/install-packages:
         pkg-manager: pip
-    # - python/save-cache
+    - python/save-cache
     - run:
         name: Linter
         command: |

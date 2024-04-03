@@ -1,7 +1,7 @@
 pytest
 flake8
 coverage
-tkinter
+tk
 numpy
 json
 matplotlib
