@@ -27,19 +27,38 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      # - python/load-cache
       - python/install-packages:
           pkg-manager: pip
-          # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
-          # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
-      - run:
-          name: Run tests
-          # This assumes pytest is installed via the install-package step above
-          command: pytest
+      # - python/save-cache
+      # - python/test
+  lint-and-coverage:
+    docker:
+        - image: cimg/python:3.11
+    steps:
+    # Checkout the code as the first step.
+    - checkout
+    # - python/load-cache
+    - python/install-packages:
+        pkg-manager: pip
+    # - python/save-cache
+    - run:
+        name: Linter
+        command: |
+          flake8 src/
+      # flake8 test/
+    - run:
+        name: Coverage
+        command: |
+          coverage run
+          coverage report
+
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+  main: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      - lint-and-coverage
