@@ -1,8 +1,8 @@
 # This file computes the OAR model and outputs it's performance.
 
 from oarUtils import logLossFunc, predictSigmoid
-from metrics import confMatrix
-from train import train
+from metrics import confMatrix, confMatrixLabels, lossGraph
+from oarTrain import train
 import numpy as np
 import json
 from emnist import extract_training_samples, extract_test_samples
@@ -16,6 +16,7 @@ LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 LABEL_NUM = 26                     # Number of Labels
 EPSILON = 0.50                     # Used to improve training
 RESET = False                      # Constant used to reset model
+
 
 # Import letter image data and labels from EMNIST dataset
 imageTrain, labelTrain = extract_training_samples('letters')
@@ -50,12 +51,13 @@ else:
         weights[0, i] = np.random.random(dataTrain.shape[1])
     bias = np.random.random(26)
 
-# Initialize prediction and performance matrices
+# Initialize prediction matrices
 predictTrain = np.empty(len(labelTrain))
-trainLoss = np.empty(len(labelTrain))
 predicts = np.empty(LABEL_NUM)
 predictTest = np.empty(len(labelTest))
-testLoss = np.empty(len(labelTest))
+# Initialize Loss Matrices
+trainLoss = np.empty(EPOCHS)
+testLoss = np.empty(EPOCHS)
 
 # Training and Testing of model
 for i in range(EPOCHS):
@@ -85,8 +87,7 @@ for i in range(EPOCHS):
         # We store the loss values in an array,
         # yTrue is always 1, as we're using a binary classifier
         # and there are no blank images in the dataset used
-        trainLoss[j] = logLossFunc(labelTrain[j]/labelTrain[j], yHat)
-
+        trainLoss[i] += logLossFunc(labelTrain[j]/labelTrain[j], yHat)
     # Here we test how good the model is overall...
     # Similar to what the end product might be
     for j in range(len(labelTest)):
@@ -100,12 +101,36 @@ for i in range(EPOCHS):
             predictTest[j] = 1
         else:
             predictTest[j] = 0
-        testLoss[j] = logLossFunc(labelTest[j]/labelTest[j], predicts[bestLbl])
+        testLoss[i] = logLossFunc(labelTest[j]/labelTest[j], predicts[bestLbl])
     print("----- EPOCH %d COMPLETE -----" % (i+1))
 
+# Get Loss Graph
+lossGraph(testLoss, trainLoss, EPOCHS)
+
 # Calculate performance metrics
-trPerf = confMatrix(labelTrain, predictTrain)
+trPerformance = confMatrix(labelTrain, predictTrain)
 performance = confMatrix(labelTest, predictTest)
+
+# Calculates performance per label
+modelPerformance = []
+for i in range(LABEL_NUM):
+    modelTestLabels = np.empty(len(labelTest))
+    modelTest = np.empty(len(labelTest))
+    for j in range(len(labelTest)):
+        if (labelTest[j]-1 == i):
+            modelTestLabels[j] = 1
+        else:
+            modelTestLabels[j] = 0
+        w = weights[0, i]
+        b = bias[i]
+        yHat = predictSigmoid(dataTest[j], w, b)
+        if yHat > EPSILON:
+            modelTest[j] = 1
+        else:
+            modelTest[j] = 0
+    lblTitle = LABELS[i] + " Test"
+    lblMatrix = confMatrixLabels(modelTestLabels, modelTest, lblTitle).tolist()
+    modelPerformance.append(lblMatrix)
 
 
 # Write model to model.json record
@@ -115,8 +140,9 @@ model = open('model.json', 'w')
 format = {}
 format['weights'] = weights.tolist()
 format['bias'] = bias.tolist()
-format['train data performance'] = trPerf.tolist()
+format['train data performance'] = trPerformance.tolist()
 format['test data performance'] = performance.tolist()
+format['Per Label Test performance'] = modelPerformance
 json_data = json.dumps(format)
 
 model.write(json_data)
