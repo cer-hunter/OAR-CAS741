@@ -1,7 +1,13 @@
 pytest
+flake8
 coverage
+tkinter
 numpy
+json
 matplotlib
-seaborn
 opencv-python
+pillow
 scikit-learn
+emnist
+
+
