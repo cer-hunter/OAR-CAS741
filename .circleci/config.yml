@@ -36,10 +36,8 @@ jobs:
     steps:
     # Checkout the code as the first step.
     - checkout
-    - python/load-cache
     - python/install-packages:
         pkg-manager: pip
-    - python/save-cache
     - run:
         name: Linter
         command: |
