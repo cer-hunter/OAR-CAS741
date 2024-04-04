@@ -5,6 +5,7 @@ import numpy as np
 # on how many predictors you can use before over-fitting begins to occur...
 # In our case Logistic Regression is often suggested to use 10 predictors
 # We use 782 pixels... as such scaling by a factor of 10^2 is neccessary
+# Although it will effect the precision of the training
 SCALE = 100
 
 
@@ -18,14 +19,12 @@ def sigmoid(z):
 # Since yTrue is binary, find the value of 1-yTrue first
 # To avoid any potential divide by zero errors
 def logLossFunc(yTrue, yHat):
-    logLoss = 0
     if ((1 - yTrue) == 0):
         # yTrue corresponds to a label
-        logLoss = np.multiply(yTrue, np.log(yHat))
+        logLoss = -np.log(yHat)
     else:
         # yTrue does not correspond to a label
-        logLoss = np.multiply((1-yTrue), np.log(abs(1-yHat)))
-    logLoss -= logLoss
+        logLoss = -np.log(abs(1-yHat))
     return logLoss
 
 

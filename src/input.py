@@ -11,7 +11,7 @@ def input(imgPath):
         raise Exception("This is not a proper image file")
     ext = os.path.splitext(imgPath)[-1].lower()
     if (ext != '.png' and ext != '.jpg' and ext != '.bmp'):
-        raise TypeError("This is not a JPG, BMP or PNG image file")
+        raise ValueError("This is not a JPG, BMP or PNG image file")
 
     baseImg = cv2.imread(imgPath)
 

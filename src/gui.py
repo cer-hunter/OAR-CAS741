@@ -16,7 +16,7 @@ def getResult(output, root):
         dispImg = Image.fromarray(img)
         dispImgTK = ImageTk.PhotoImage(image=dispImg)
         tk.Label(outWin, image=dispImgTK).pack(anchor="center", pady=50)
-        resultText = ("This image is of the letter " + lbl +
+        resultText = ("This image is " + lbl +
                       ", with a " + conf + "% confidence")
         result = tk.Label(outWin, text=resultText)
         result.pack(anchor="center")

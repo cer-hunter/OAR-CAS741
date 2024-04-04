@@ -5,6 +5,7 @@ import json
 LABEL_NUM = 26  # Number of labels
 LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
           'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+EPSILON = 0.1   # Cutoff for accuracy of predictions
 
 
 def classify(inputImg):
@@ -26,8 +27,14 @@ def classify(inputImg):
         b = bias[i]
         yHat = predictSigmoid(inputImg, w, b)
         prediction[i] = yHat
-    bestLbl = (np.abs(prediction - 1)).argmin()  # Finds the best prediction
-    probability = prediction[bestLbl]
-    label = LABELS[bestLbl]
+    bestLbl = np.argmax(prediction)  # Finds the index of the best prediction
+    # Check if predicition is above cutoff
+    if prediction[bestLbl] > EPSILON:
+        probability = prediction[bestLbl]
+        label = "THE LETTER " + LABELS[bestLbl]
+    # Otherwise confidence prediction is not identifiable is 100%
+    else:
+        probability = 1
+        label = "NOT CLASSIFIED"
 
     return label, probability

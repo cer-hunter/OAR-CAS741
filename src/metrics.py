@@ -1,4 +1,5 @@
 from sklearn import metrics as mtr
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -23,9 +24,11 @@ def confMatrixLabels(yTrue, yPred, title):
     return cm
 
 
-def lossGraph(testLoss, trainLoss, epochs):
-    plt.plot(epochs, testLoss, label="Test Loss")
-    plt.plot(epochs, trainLoss, label="Train Loss")
+def lossGraph(trainLoss, epochs):
+    xAxis = np.arange(1, epochs+1)
+    label = ["Train Loss"]
+    plt.plot(xAxis, trainLoss, label="Train Loss")
+    plt.legend(label)
     plt.xlabel("Epochs")
-    plt.xlabel("Loss")
+    plt.ylabel("Loss")
     plt.show()
