@@ -10,7 +10,7 @@ from emnist import extract_training_samples, extract_test_samples
 PX_VAL = 255
 REG = 0.0001                       # Regularization Parameter (for overfitting)
 ALPHA = 0.0001                     # Learning Rate
-EPOCHS = 1                       # Number of training epochs
+EPOCHS = 500                       # Number of training epochs
 LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
           'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 LABEL_NUM = 26                     # Number of Labels
