@@ -34,7 +34,7 @@ def classify(inputImg):
         label = "THE LETTER " + LABELS[bestLbl]
     # Otherwise confidence prediction is not identifiable is 100%
     else:
-        probability = 1
+        probability = 1 - prediction[bestLbl]
         label = "NOT CLASSIFIED"
 
     return label, probability

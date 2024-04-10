@@ -14,7 +14,7 @@ EPOCHS = 500                       # Number of training epochs
 LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
           'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 LABEL_NUM = 26                     # Number of Labels
-EPSILON = 0.50                     # Used to improve training
+EPSILON = 0.50                     # Acceptable cutoff for confidence
 RESET = False                      # Constant used to reset model
 
 

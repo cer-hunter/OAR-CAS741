@@ -5,7 +5,7 @@ import numpy as np
 # on how many predictors you can use before over-fitting begins to occur...
 # In our case Logistic Regression is often suggested to use 10 predictors
 # We use 782 pixels... as such scaling by a factor of 10^2 is neccessary
-# Although it will effect the precision of the training
+# Although it will effect the training/confidence of output
 SCALE = 100
 
 
