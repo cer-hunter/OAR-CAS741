@@ -43,6 +43,7 @@
 \midrule
 February 18, 2024 & 1.0 & Initial Revision\\
 February 19, 2024 & 1.1 & Added Input Image Orientation Test\\
+April 10, 2024 & 1.2 & Updated Document according to feedback from Primary and Secondary Reviewers\\
 \bottomrule
 \end{tabularx}
 
@@ -74,7 +75,7 @@ February 19, 2024 & 1.1 & Added Input Image Orientation Test\\
 
 \pagenumbering{arabic}
 
-This document describes the Verification and Validation plan for the OAR Project. Testing of the Software and its components
+This document describes the Verification and Validation plan for the OAR Project. Testing of the software and its components
 will be conducted in accordance with this document to improve confidence in the accuracy, understandibility and ability for the software 
 to meet the requirements laid out in the Software Requirement Specifications (SRS).
 
@@ -86,7 +87,7 @@ The OAR project will result in software that is able to accurately classify inpu
 logistic regression. An emphasis is placed on understandable code so that OAR can be a launch point for learning about optical
 character recognition.
 
-\subsection{Objectives}
+\subsection{Objectives} \label{Objectives}
 
 The objective is to build confidence in the correctness of the software, and making sure it is comparable
 to similar soultions (\textit{accuracy}). The correctness of the output is very easy for a user to evaluate themselves, so
@@ -118,11 +119,11 @@ the program being tested. These are as follows:
 \section{Plan}
 
 In this section, multiple plans are described to test and inspect the software with an emphasis 
-on \textit{accuracy} and \textit{understandability}. Multiple approaches and perspectives will be employed by the VnV team (Section 3.1)
+on \textit{accuracy} and \textit{understandability}. Multiple approaches and perspectives will be employed by the VnV team (\ref{Team})
 to help build confidence in the requirements, to avoid any missed important details, 
-and to deliver on the outlined objectives (Section 2.2).
+and to deliver on the outlined objectives (\ref{Objectives}).
 
-\subsection{Verification and Validation Team}
+\subsection{Verification and Validation Team} \label{Team}
 
 The members of the VnV team as well their individual roles are listed in the following table:
 
@@ -172,14 +173,13 @@ against the VnV checklist \citep{VnV_checklist}, before a final review by the re
 
 \subsection{Implementation Verification Plan}
 
-Both automated and manual testing will be performed for this project. This will include checking for any inconsistencies,
-unexpected outputs, or bugs that may be encountered.
-For all the code implemented linters and coverage tools will be implemented as described in Section 3.6. Furthermore,
+Both automated and manual testing will be performed for this project. This will include checking for any unexpected outputs or bugs that may be encountered.
+To ensure code consistency, linters and coverage tools will be implemented as described in \ref{Tools}. Furthermore,
 tests for the program based on requirements will be performed using an automated test suite. Manual tests will be 
 performed to benchmark the performance of the OAR project against already existing solutions.
 
 
-\subsection{Automated Testing and Verification Tools}
+\subsection{Automated Testing and Verification Tools} \label{Tools}
 
 Continous integration will be implemented for this project using CircleCI, which 
 is easily integrated with GitHub and Python the programming language for the project. CircleCI automates the testing 
@@ -199,7 +199,7 @@ validate the system behaviour not being feasible, given the time constraints.
 
 In this section, the system tests that will be conducted are described in detail. These tests
 will be used to verify the fulfillment of the requirements as listed in the SRS \citep{SRS}.
-Most, if not all, of the tests listed here will be automatically performed unless otherwise stated.
+All of the tests listed here will be automatically performed unless otherwise stated.
 
 \subsubsection{Input Image Type}
 
@@ -220,9 +220,23 @@ accepted provided they follow the input data constraints.
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) PNG, JPG, and BMP image files depicting valid label characters (see \ref{Fig_A}).
+  Input: A set of non-corrupt (valid) PNG, JPG, BMP and PDF image files depicting valid label characters (see Figure \ref{Fig_A}).
+  The exact list of files is as follows:
+  \begin{itemize}
+    \item{A.png}
+    \item{A.jpg}
+    \item{A.bmp}
+    \item{A.pdf}
+  \end{itemize}
             
-  Output: The predicted label should match the actual label as assigned by the oracle (the author).
+  Output: The program should give a valid output as assigned by the oracle (the author). These outputs corresponding to the above
+  inputs should be:
+  \begin{itemize}
+    \item{Some classification output (regardless of if it's correct)}
+    \item{Some classification output (regardless of if it's correct)}
+    \item{Some classification output (regardless of if it's correct)}
+    \item{Value Error, No Output}
+  \end{itemize}
             
   Test Case Derivation: These are some of the most common image file formats and should be compatible with the software.
             
@@ -246,10 +260,11 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white(\ref{Fig_BWA}), 
-  grayscale (\ref{Fig_grayA}), red (\ref{Fig_redA}), green (\ref{Fig_greenA}) and blue (\ref{Fig_blueA}).
+  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white(Figure \ref{Fig_BWA}), 
+  grayscale (Figure \ref{Fig_grayA}), red (Figure \ref{Fig_redA}), green (Figure \ref{Fig_greenA}) and blue (Figure \ref{Fig_blueA}).
   
-  Output: The predicted label should match the actual label as assigned by the oracle (the author).
+  Output:  The program should give a valid output as assigned by the oracle (the author), meaning some classification result regardless
+  of whether it is correct.
             
   Test Case Derivation: These images cover the cases of greyscale, black and white and RGB images which should be compatible with the software.
             
@@ -261,7 +276,7 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters (see \ref{Fig_A}) of the following sizes:
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (see Figure \ref{Fig_A}) of the following sizes:
   \begin{itemize}
     \item{8192px $\times$ 8192px}
     \item{4096px $\times$ 4096px}
@@ -270,8 +285,9 @@ be processed into a format usable by the program. In addition, pixel sizes are c
     \item{10px $\times$ 10px}
   \end{itemize}
             
-  Output: In the 8192px $\times$ 8192px and 10px $\times$ 10px cases the program should provide the user with an error. In all other cases,
-  the predicted label should match the actual label as assigned by the oracle (the author).
+  Output: In the 8192px $\times$ 8192px and 10px $\times$ 10px cases the program should provide the user with a Value Error. In all other cases,
+  the program should give a valid output as assigned by the oracle (the author), meaning some classification result regardless
+  of whether it is correct.
             
   Test Case Derivation: These images cover the range of acceptable pixel sizes, as well as outside of the range which should be compatible with the software.
             
@@ -283,7 +299,7 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters (see \ref{Fig_angleA}) at the following orientations:
+  Input: A set of non-corrupt (valid) image files depicting valid classifiable label characters (see Figure \ref{Fig_angleA}) at the following orientations:
   \begin{itemize}
     \item{$0\degree$}
     \item{$\pm 15\degree$}
@@ -323,10 +339,10 @@ correct output label from the set of 26 letters: {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters(\ref{Fig_A}), and a blank image depicting no character (\ref{Fig_blank}).
+  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters(Figure \ref{Fig_A}), and a blank image depicting no character (\ref{Fig_blank}).
             
   Output: The predicted label output should match the actual label as assigned by the oracle (the author). The output for the blank image
-  should state "No Label Detected".
+  should state "Not Classified".
             
   Test Case Derivation: These images cover the range of possible label outputs for the program.
             
@@ -351,10 +367,10 @@ To satisfy R5 from the SRS \citep{SRS}, any classified input image should also h
             
   Output: For each case the outputs would be as follows:
   \begin{itemize}
-    \item{Training Set Image (\ref{Fig_trainA}): Confidence $> 90\%$}
-    \item{Test Set Image (\ref{Fig_trainA}): Confidence $> 50\%$}
-    \item{Multiple Character Image (\ref{Fig_ABC}): Confidence $< 50\%$}
-    \item{Blank Image (\ref{Fig_blank}): Confidence $< 10\%$ (Corresponding to the "No Label Detected" Output)}
+    \item{Training Set Image (Figure \ref{Fig_trainA}): Confidence $> 90\%$}
+    \item{Test Set Image (Figure \ref{Fig_trainA}): Confidence $> 50\%$}
+    \item{Multiple Character Image (Figure \ref{Fig_ABC}): Confidence $< 50\%$}
+    \item{Blank Image (Figure \ref{Fig_blank}): Confidence $< 10\%$ (Corresponding to the "No Label Detected" Output)}
   \end{itemize}
  
   Test Case Derivation: These images likely cover the range of possible confidence level outputs for the program.
@@ -495,7 +511,7 @@ the user should be run the software on their platform and environment of choice.
             
   Result: Program Built Successfully.
             
-  Note: CircleCI tests are executed in a Docker Image, a container that enables the program to be portable,
+  Note: CircleCI tests are built and executed in a Docker Image, a container that enables the program to be portable,
   as it contains all the libraries and dependencies needed to build the code.
             
   How test will be performed: CircleCI will automatically run this test whenever a jobflow is executed.
