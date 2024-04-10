@@ -614,7 +614,7 @@ The input image is valid.
 
 \noindent \code{predict}(inputImage, weight, bias):
 \begin{itemize}
-\item output: sigIn:= \code{weight}^{\textbf{T}}$\cdot$\code{inputImage}$+$\code{bias}, 
+\item output: sigIn:= $\code{weight}^{\textbf{T}}\cdot\code{inputImage}+\code{bias}$, 
 predVal := \code{sigmoid}(sigIn)
 \item exception: \code{ValueError} if \code{inputImage} and \code{weight} are matrices of the same size
 \end{itemize}
@@ -622,14 +622,14 @@ predVal := \code{sigmoid}(sigIn)
 \noindent \code{gradientW}(inputImage, trueVal, weight, bias, regParam, trainSize):
 \begin{itemize}
 \item transition: \code{predVal} := \code{predict}(inputImage, weight, bias)
-\item output: \code{gradW}:= \code{inputImage}$\cdot$(\code{trueVal}$-$\code{predVal}) $- \frac{\code{regParam}}{\code{trainSize}}\cdot$\code{weight}^{$2$}
+\item output: \code{gradW}:= $\code{inputImage}\cdot(\code{trueVal}-\code{predVal}) - \frac{\code{regParam}}{\code{trainSize}}\cdot\code{weight}^{2}$
 \item exception: \code{ValueError} if \code{trainSize} is 0 
 \end{itemize}
 
 \noindent \code{gradientB}(inputImage, trueVal, weight, bias):
 \begin{itemize}
   \item transition: \code{predVal} := \code{predict}(inputImage, weight, bias)
-  \item output: \code{gradB}:= \code{trueVal}$-$\code{predVal}
+  \item output: \code{gradB}:= $\code{trueVal}-\code{predVal}$
 \end{itemize}
 
 \subsubsection{Local Functions}
