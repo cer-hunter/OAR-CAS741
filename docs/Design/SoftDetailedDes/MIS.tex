@@ -57,6 +57,7 @@ urlcolor=cyan          % color of external links
 \midrule
 March 8, 2024 & 1.0 & Initial Revision\\
 March 15, 2024 & 1.1 & Changes made according to Dr. Smith's Initial Comments\\
+April 10, 2024 & 1.2 & Updates according to Comments from Primary and Secondary Reviewers\\
 \bottomrule
 \end{tabularx}
 
@@ -254,7 +255,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{display} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow}, event handlers & - \\
+\code{display} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow}, event handlers & \code{guiException} \\
 \hline
 \end{tabular}
 \end{center}
@@ -296,6 +297,7 @@ None.
 \item transition: Sets up user control event handlers (i.e., mouse clicks or drag, button presses, text input change, ...) 
 as needed for the user input. Calls the Input Data Read Module \ref{ModuleIDR} to accept a base image and Output Calculator Module \ref{ModuleO} to classify the input
 image. The input image and output results are then pushed to the \code{displayWindow}.
+\item exception: \code{guiException} when \code{ValueError} is raised by the program, or incorrect user input.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -330,7 +332,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{output} & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
+\code{output} & \code{baseImage} ($\mathbf{M}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -339,7 +341,9 @@ None.
 
 \subsubsection{State Variables}
 
-None.
+\begin{itemize}
+\item \code{labelData} := $\mathbf{M}_{x,y}$ of outputs from \code{classify}(inputImage) containing the label string, and confidence in the prediction
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
@@ -353,10 +357,8 @@ The input image is valid.
 
 \noindent \code{output}():
 \begin{itemize}
-\item transition: Passes the \code{inputImage} to the Input Classifier module \ref{ModuleIC} to return the \code{resultLabel} and \code{confPercent}, and converts
-the float value \code{confPercent} into a string
-\item output: The \code{inputImage} as ($\mathbf{I}_{x,y}$) and the predicted label \code{resultLabel} and
- confidence in the classification \code{resultConf} as strings, to be used by the Graphics Display module \ref{ModuleGD}.
+\item transition: \code{inputImage} := \code{input}(baseImage)
+\item output: \code{resultLabel}, \code{resultConf} := \code{labelData} (String)
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -379,13 +381,7 @@ None.
 
 \subsubsection{Exported Constants}
 
-\begin{itemize}
-  \item \code{MAX\_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for maximum acceptable 
-size of the input image (currently a square).
-  \item \code{MIN\_SIZE}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for minimum acceptable 
-size of the input image (currently a square).
-  \item \code{MODEL\_IMG\_SIZE}: The required size of the input image matrix to be used by the classification model $\mathbf{I}_{x,y}$.
-\end{itemize}
+None.
 
 \subsubsection{Exported Access Programs}
 
@@ -394,7 +390,7 @@ size of the input image (currently a square).
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{input} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{InvalidSize}, \code{InvalidFormat} \\
+\code{input} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{ValueError} \\
 \hline
 \end{tabular}
 \end{center}
@@ -402,8 +398,13 @@ size of the input image (currently a square).
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-None.
+\begin{itemize}
+\item \code{maxSize}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for maximum acceptable 
+size of the input image (currently a square).
+\item \code{minSize}: A value ($\mathbf{Z}_{+}$) describing both width and height (in pixels) for minimum acceptable 
+size of the input image (currently a square).
+\item \code{modelSize}: The required size of the input image matrix to be used by the classification model $\mathbf{I}_{x,y}$.
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
@@ -419,9 +420,9 @@ The input path location for base image is valid, readable and accessible.
 
 \noindent \code{input}(inputPath):
 \begin{itemize}
-\item output: Pre-processed \code{inputImage} as $\mathbf{I}_{x,y}$ ready for classification.
-\item exception: \code{InvalidSize} if the size of the base image is outside of the range of 
-\code{MIN\_SIZE} to \code{MAX\_SIZE}, \code{InvalidFormat} if the file type at the \code{inputPath} is not 
+\item output: \code{inputImage} := \code{preprocess}(baseImage) 
+\item exception: \code{ValueError} if the size of the base image is outside of the range of 
+\code{minSize} to \code{maxSize}, \code{ValueError} if the file type of the \code{baseImage} is not 
 supported by the OAR Program (according to R\ref{R1})
 \end{itemize}
 
@@ -447,7 +448,7 @@ None.
 
 \subsubsection{Exported Constants}
 
-None.
+\code{LABELS}:= (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z)
 
 \subsubsection{Exported Access Programs}
 
@@ -465,7 +466,12 @@ None.
 
 \subsubsection{State Variables}
 
-None.
+\begin{itemize}
+  \item \code{weight}: the weight portion of the \code{oarModel} input as $\mathbf{M}_{x,y}$ for each label.
+  \item \code{bias}: the bias portion of the \code{oarModel} input as $\mathbf{R}$ for each label.
+  \item \code{predictionMatrix}: $\mathbf{M}_{x,y}$, where each entry is the output of \code{predict}(inputImage, weight, bias), corresponding to each label
+  \item \code{bestPrediction}: \textbf{max}(\code{predictionMatrix}) $\leq 1$
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
@@ -479,8 +485,8 @@ The input image is valid.
 
 \noindent \code{classify}(inputImage):
 \begin{itemize}
-\item output: The predicted label of the input image \code{resultLabel} as a String and the associated confidence level in the 
-prediction as a $\mathbf{R}_{+}$, as described in IM\ref{Test}.
+\item output: \code{confPercent} := \code{bestPrediction}, 
+\code{resultLabel}:= the letter in the list of \code{LABELS} corresponding to the index of \code{bestPrediction} in the \code{predictionMatrix}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -571,11 +577,10 @@ None.
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
 \code{sigmoid} & \code{sigIn} ($\mathbf{R}$) & \code{sigOut} ($\mathbf{R}$) & - \\
-\code{logLossFunc} & \code{trueVal} ($\mathbf{R}$), \code{predVal} ($\mathbf{R}$) & \code{logLoss} ($\mathbf{R}$) & - \\
-\code{predict} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$) & \code{predVal} ($\mathbf{R}$) & - \\
-\code{gradientW} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$), \code{regParam} ($\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{gradW} ($\mathbf{R}$) & - \\
+\code{logLossFunc} & \code{trueVal} ($\mathbf{R}$), \code{predVal} ($\mathbf{R}$) & \code{logLoss} ($\mathbf{R}$) & \code{ValueError} \\
+\code{predict} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$) & \code{predVal} ($\mathbf{R}$) & \code{ValueError} \\
+\code{gradientW} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$), \code{regParam} ($\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{gradW} ($\mathbf{R}$) & \code{ValueError} \\
 \code{gradientB} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$)& \code{gradB} ($\mathbf{R}$) & - \\
-\code{gradientDescent} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$), \code{regParam} ($\mathbf{R}_{+}$), \code{learnRate} ($\mathbf{R}_{+}$), \code{trainSize} ($\mathbf{Z}_{+}$) & \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -598,39 +603,33 @@ The input image is valid.
 
 \noindent \code{sigmoid}(sigIn):
 \begin{itemize}
-\item output: Computes the sigmoid function of \code{sigIn} according to TM\ref{TM1}
-and returns the value \code{sigOut} as $\mathbf{R}$.
+\item output: \code{sigOut} := $\frac{1}{1 + e^{-\code{sigIn}}}$
 \end{itemize}
 
 \noindent \code{logLossFunc}(trueVal, predVal):
 \begin{itemize}
-\item output: Computes the value of the log loss function using \code{trueVal} and \code{predVal}
-according to TM\ref{TM2} and returns the value \code{logLoss} as $\mathbf{R}$.
+\item output: \code{logLoss} := $\code{trueVal} \cdot \log(\code{predVal}) + (1 - \code{trueVal}) \cdot \log(1 - \code{predVal})$
+\item exception: \code{ValueError} if \code{predVal} or $1 -$ \code{predVal} is negative
 \end{itemize}
 
 \noindent \code{predict}(inputImage, weight, bias):
 \begin{itemize}
-\item output: Calls \code{sigmoid} to calculate the predicted label of the \code{inputImage}
-using \code{weight} and \code{bias} from the model according to GD\ref{GD_sig}.
+\item output: sigIn:= \code{weight}^{\textbf{T}}$\cdot$\code{inputImage}$+$\code{bias}, 
+predVal := \code{sigmoid}(sigIn)
+\item exception: \code{ValueError} if \code{inputImage} and \code{weight} are matrices of the same size
 \end{itemize}
 
 \noindent \code{gradientW}(inputImage, trueVal, weight, bias, regParam, trainSize):
 \begin{itemize}
-\item output: Calculates the gradient of the log loss function using all the input variables
-with respect to the weights according to according to GD\ref{GD_gradw}.
+\item transition: \code{predVal} := \code{predict}(inputImage, weight, bias)
+\item output: \code{gradW}:= \code{inputImage}$\cdot$(\code{trueVal}$-$\code{predVal}) $- \frac{\code{regParam}}{\code{trainSize}}\cdot$\code{weight}^{$2$}
+\item exception: \code{ValueError} if \code{trainSize} is 0 
 \end{itemize}
 
 \noindent \code{gradientB}(inputImage, trueVal, weight, bias):
 \begin{itemize}
-  \item output: Calculates the gradient of the log loss function using all the input variables
-  with respect to the bias according to according to GD\ref{GD_gradb}.
-\end{itemize}
-
-\noindent \code{gradientDescent}(inputImage, trueVal, weight, bias, regParam, learnRate, trainSize):
-\begin{itemize}
-\item output: Calls \code{gradientW} and \code{gradientB} to
-execute the algorithm to update the weights and biases using all the input variables 
-for one epoch according to IM\ref{Train}.
+  \item transition: \code{predVal} := \code{predict}(inputImage, weight, bias)
+  \item output: \code{gradB}:= \code{trueVal}$-$\code{predVal}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -654,7 +653,7 @@ None.
 \subsubsection{Exported Constants}
 
 \begin{itemize}
-  \item \code{LAMBDA}: The regularization parameter used during model training as $\mathbf{R}_{+}$.
+  \item \code{REG\_PARAM}: The regularization parameter used during model training as $\mathbf{R}_{+}$.
   \item \code{ALPHA}: The learning rate parameter used during model training as $\mathbf{R}_{+}$.
 \end{itemize}
 
@@ -665,7 +664,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{train} & \code{trainSet} ($\mathbf{M}_{x,y}$),\code{trainVals} ($\mathbf{M}_{x,y}$), \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$) & - \\
+\code{train} & \code{trainData} ($\mathbf{M}_{x,y}$),\code{trainLabels} ($\mathbf{M}_{x,y}$), \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -677,6 +676,8 @@ None.
 \begin{itemize}
 \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{M}_{x,y}$ for each label.
 \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbf{R}$ for each label.
+\item \code{gradW}:= \code{gradientB}(trainData_{n}, trainLabels_{n}, REG\_PARAM, trainSize)
+\item \code{gradB}:= \code{gradientB}(trainData_{n}, trainLabels_{n}, weight, bias)
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -689,11 +690,11 @@ None.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \code{train}(trainSet, trainVals, weightBiasMatrix, trainSize):
+\noindent \code{train}(trainData, trainLabels, weightBiasMatrix, trainSize):
 \begin{itemize}
-\item output: Executes the algorithm for training the weights and biases of the model given the
-training dataset information and functions from the OAR Model Equations Module (\ref{ModuleOME}), and
-returns the updated version of the \code{weightBiasMatrix} as a tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$.
+\item transition: \code{weight}:= \code{weight} $+$ \code{ALPHA}$\cdot$\code{gradW}, 
+\code{bias}:= \code{bias} $+$ \code{ALPHA}$\cdot$\code{gradB}
+\item output: \code{weightBiasMatrix}:= (\code{weight},\code{bias})
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -712,7 +713,7 @@ None.
   \item OAR Model Data Module Specification (\ref{ModuleOME})
   \item OAR Model Equations Module Specification (\ref{ModuleOME})
   \item OAR Model Training Module Specification (\ref{ModuleOMTr})
-  \item Confusion Matrix Module Specification (\ref{ModuleCM})
+  \item Metrics Module Specification (\ref{ModuleCM})
 \end{itemize}
 
 \subsection{Syntax}
@@ -721,10 +722,9 @@ None.
 
 \begin{itemize}
 \item \code{EPOCHS}: The the number of times the model training regression algorithm is ran as $\mathbf{Z}_{+}$.
+\item \code{LABELS}:= (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z)
 \item \code{TRAIN\_SIZE}: The size of the training data used during model training as $\mathbf{Z}_{+}$.
 \item \code{TEST\_SIZE}: The size of the testing data used during model training as $\mathbf{Z}_{+}$.
-\item \code{DATA\_IMG\_SIZE}: The size of the input image matrix used during model training as $\mathbf{I}_{x,y}$.
-\item \code{LABELS}: The set of possible labels for the classification model as a tuple of Strings.
 \end{itemize}
 
 \subsubsection{Exported Access Programs}
@@ -734,7 +734,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{test} & - & \code{oarModel} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$), \code{performance} ($\mathbf{M}_{x, y}$) & - \\
+\code{test} & - & \code{oarModel} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$), \code{performance} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{I}_{x, y}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -744,6 +744,7 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
+  \item \code{dataSize}: The size of the input image matrix used during model training as $\mathbf{I}_{x,y}$.
   \item \code{dataSet}: The set of pre-processed images and their associated labels that will be used for training the classification model as a tuple of $\mathbf{I}_{x,y}$ and $\mathbf{Z}_{+}$.
   \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{M}_{x,y}$ for each label.
   \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbf{R}$ for each label.
@@ -752,21 +753,18 @@ None.
 
 \subsubsection{Environment Variables}
 
-\begin{itemize}
-  \item \code{dataSetPath}: the File System path or location as a string pointing to where the data set is located.
-\end{itemize}
+None.
 
 \subsubsection{Assumptions}
 
-The \code{dataSetPath} is valid, readible and accessible.
+None.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent \code{test}():
 \begin{itemize}
-\item transition: Calls routine to train and test a model of weights and biases.
-\item output: The matrix of weights and biases representing the \code{oarModel} as a tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$, 
-and the associated \code{performance} of the model as $\mathbf{M}_{x,y}$.
+\item transition: weightBiasMatrix:= $\mathbf{M}_{x,y}$ of randomized values from 0 to 1, \code{train}(trainData, trainLabels, weightBiasMatrix, trainSize)
+\item output: \code{oarModel}:= weightBiasMatrix, \code{performance}:= \code{confMatrix}(predictionData, trainLabels), \code{loss}(trainLoss).
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -777,24 +775,19 @@ and the associated \code{performance} of the model as $\mathbf{M}_{x,y}$.
     \item output: Takes the \code{dataSet} as an input and splits it into distinct parts for training and testing the classification model.
     The following values are output:
     \begin{itemize}
-      \item \code{trainData}: The part of the \code{dataSet} used to train the model as $\mathbf{M}_{x,y}$.
-      \item \code{trainVals}: The part of the \code{dataSet} corresponding to the true labels of the \code{trainData} as $\mathbf{M}_{x,y}$.
-      \item \code{testData}: The part of the \code{dataSet} used to test the model as $\mathbf{M}_{x,y}$.
-      \item \code{testVals}: The part of the \code{dataSet} corresponding to the true labels of the \code{testData} as $\mathbf{M}_{x,y}$.
+      \item \code{trainData}:= The part of the \code{dataSet} used to train the model as $\mathbf{M}_{x,y}$.
+      \item \code{trainLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{trainData} as $\mathbf{M}_{x,y}$.
+      \item \code{testData}:= The part of the \code{dataSet} used to test the model as $\mathbf{M}_{x,y}$.
+      \item \code{testLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{testData} as $\mathbf{M}_{x,y}$.
     \end{itemize}
-  \end{itemize}
-\item \code{evalModelData}(oarModel, confusionMatrix):
-  \begin{itemize}
-    \item output: Evaluates the performance of the \code{oarModel} based on the \code{confusionMatrix}
-    and returns the \code{performance} matrix that will be written to the OAR Model Data Module \ref{ModuleOMD}.
   \end{itemize}
 \end{itemize}
 
-\section{MIS of Confusion Matrix Module} \label{ModuleCM} 
+\section{MIS of Metrics Module} \label{ModuleCM} 
 
 \subsection{Module}
 
-\code{confMatrix}
+\code{metrics}
 
 \subsection{Uses}
 
@@ -813,8 +806,8 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{confMatrix} & \code{predictionData} ($\mathbf{M}_{x,y}$) & \code{confusionMatrix} ($\mathbf{M}_{x,y}$)  &  \\
-\code{printConfMatrix} & \code{confusionMatrix} ($\mathbf{M}_{x,y}$) & \code{confusionMatrix} ($\mathbf{I}_{x,y}$)  &  \\
+\code{confMatrix} & \code{predictionData} ($\mathbf{M}_{x,y}$), \code{trainLabels} ($\mathbf{M}_{x,y}$) & \code{confusionMatrix} ($\mathbf{I}_{x,y}$), \code{matrixData} ($\mathbf{M}_{x,y}$)  & - \\
+\code{loss} & \code{trainLoss} ($\mathbf{M}_{x,y}$) & \code{lossGraph} ($\mathbf{I}_{x,y}$)  & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -835,16 +828,16 @@ None.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \code{confMatrix}(predictionData):
+\noindent \code{confMatrix}(predictionData, trainLabels):
 \begin{itemize} 
-\item output: Outputs the confusion matrix representing the performance of the model based on the
-\code{predictionData} as $\mathbf{M}_{x,y}$.
+\item output: confusionMatrix:= ($\mathbf{M}_{x,y}$) of the form 
+($\sum$\code{predictionData} == \code{True} & \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{True} & \code{trainLabels} == \code{False}, $\sum$\code{predictionData} == \code{False} & \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{False} & \code{trainLabels} == \code{False})
+and it's graphical representation as $\mathbf{I}_{x,y}$.
 \end{itemize}
 
-\noindent \code{printConfMatrix}(confusionMatrix):
+\noindent \code{loss}(trainLoss):
 \begin{itemize} 
-\item output: Outputs the confusion matrix representing the performance of the model based on the
-\code{predictionData} as a graphical image ($\mathbf{I}_{x,y}$).
+\item output: \code{lossGraph}:= \code{trainLoss} as a graphical representation over some number of epochs.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -897,7 +890,8 @@ The format and parameters of the base image was already verified to be within th
 
 \noindent \code{preprocess}(baseImage):
 \begin{itemize} 
-\item output: Performs transformations on the \code{baseImage} such that the resulting \code{inputImage} 
+\item output: Performs transformations on the \code{baseImage} using functions provided by the 
+sci-kit learn library, such that the resulting \code{inputImage} 
 as $\mathbf{I}_{x,y}$, is normalized to be able to be used by the classification model.
 \end{itemize}
 
