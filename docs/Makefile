@@ -13,9 +13,6 @@ MG:
 MIS:
 	cd Design/SoftDetailedDes && make && cd ../..
 
-SystDes:
-	cd Design/SystDesign && make && cd ../..
-
 PS:
 	cd ProblemStatementAndGoals && make && cd ..
 
@@ -25,17 +22,8 @@ VnVP:
 VnVR:
 	cd VnVReport && make && cd ../..
 	
-DevP:
-	cd DevelopmentPlan && make && cd ../..
-	
-HazA:
-	cd HazardAnalysis && make && cd ../..
-	
 Refl:
 	cd Reflection && make && cd ../..
-	
-UGde:
-	cd UserGuide && make && cd ../..
 
 clean:	cleanSRS cleanMG cleanMIS cleanSystDes cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
 

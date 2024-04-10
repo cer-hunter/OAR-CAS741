@@ -201,18 +201,18 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mAC}:] Application Control Module
-\item [\refstepcounter{mnum} \mthemnum \label{mGD}:] Graphics Display Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Calculator Module
-\item [\refstepcounter{mnum} \mthemnum \label{mIDR}:] Input Data Read Module
-\item [\refstepcounter{mnum} \mthemnum \label{mIC}:] Input Classifier Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOMD}:] OAR Model Data Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOME}:] OAR Model Equations Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOMTr}:] OAR Model Training Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOMTs}:] OAR Model Testing Module
-\item [\refstepcounter{mnum} \mthemnum \label{mCMX}:] Confusion Matrix Module
-\item [\refstepcounter{mnum} \mthemnum \label{mIP}:] Input Processing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding
+\item [\refstepcounter{mnum} \mthemnum \label{mAC}:] Application Control 
+\item [\refstepcounter{mnum} \mthemnum \label{mGD}:] Graphics Display
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Calculator 
+\item [\refstepcounter{mnum} \mthemnum \label{mIDR}:] Input Data Read 
+\item [\refstepcounter{mnum} \mthemnum \label{mIC}:] Input Classifier
+\item [\refstepcounter{mnum} \mthemnum \label{mOMD}:] OAR Model Data 
+\item [\refstepcounter{mnum} \mthemnum \label{mOME}:] OAR Model Equations
+\item [\refstepcounter{mnum} \mthemnum \label{mOMTr}:] OAR Model Training 
+\item [\refstepcounter{mnum} \mthemnum \label{mOMTs}:] OAR Model Testing 
+\item [\refstepcounter{mnum} \mthemnum \label{mCMX}:] Metrics
+\item [\refstepcounter{mnum} \mthemnum \label{mIP}:] Input Processing 
 \item [\refstepcounter{mnum} \mthemnum \label{mGUI}:] Graphical User Interface
 \end{description}
 
@@ -393,13 +393,13 @@ module is stored in the OAR model data module \mref{mOMD}.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Confusion Matrix Module (\mref{mCMX})}
+\subsubsection{Metrics Module (\mref{mCMX})}
 
 \begin{description}
-\item[Secrets:] The algorithms to generate a confusion matrix of a classifier model.
+\item[Secrets:] The algorithms to generate a performance metrics calculations of a classifier model.
 \item[Services:] Provides the methods to take the outputs of testing the classification model and return the metrics that describe
 that models performance, in both graphical and numerical forms.
-\item[Implemented By:] scikit-learn
+\item[Implemented By:] scikit-learn, matplotlib
 \item[Type of Module:] Library
 \end{description}
 
@@ -409,7 +409,7 @@ that models performance, in both graphical and numerical forms.
 \item[Secrets:] The algorithms to process the input image to transform it into the desired data structure.
 \item[Services:] Provides the methods to perform pre-proccessing operations such as normalization, and converting an image to grayscale,
 used by the input data read module \mref{mIDR}.
-\item[Implemented By:] OpenCV and scikit-learn
+\item[Implemented By:] OpenCV
 \item[Type of Module:] Library
 \end{description}
 
