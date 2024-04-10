@@ -676,8 +676,8 @@ None.
 \begin{itemize}
 \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{M}_{x,y}$ for each label.
 \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbf{R}$ for each label.
-\item \code{gradW}:= \code{gradientB}(trainData_n, trainLabels_n, REG\_PARAM, trainSize)
-\item \code{gradB}:= \code{gradientB}(trainData_n, trainLabels_n, weight, bias)
+\item \code{gradW}:= \code{gradientW}(trainData, trainLabels, REG\_PARAM, trainSize)
+\item \code{gradB}:= \code{gradientB}(trainData, trainLabels, weight, bias)
 \end{itemize}
 
 \subsubsection{Environment Variables}
