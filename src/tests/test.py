@@ -1,9 +1,11 @@
 import pytest
 import numpy as np
-# from output import output
-from input import input
+import sys
+sys.path.insert(0, '../src/')
+from src.input import input
 
-PATH = "OAR-CAS741/src/test/test-images/"
+
+PATH = "./src/test/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]

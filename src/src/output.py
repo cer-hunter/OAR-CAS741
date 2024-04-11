@@ -1,5 +1,7 @@
-from input import input
-from classify import classify
+import sys
+sys.path.insert(0, '../src/')
+from src.input import input
+from src.classify import classify
 
 
 def output(imgPath):

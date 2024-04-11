@@ -1,6 +1,8 @@
 import cv2
 import os
-from preprocess import preprocess
+import sys
+sys.path.insert(0, '../src/')
+from src.preprocess import preprocess
 
 
 # Prompt for input done by GUI, this verifies and processes image

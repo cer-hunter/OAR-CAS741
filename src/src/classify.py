@@ -1,6 +1,8 @@
 import numpy as np
-from oarUtils import predictSigmoid
 import json
+import sys
+sys.path.insert(0, '../src/')
+from src.oarUtils import predictSigmoid
 
 LABEL_NUM = 26  # Number of labels
 LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
