@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from src.output import output
-from src.input import input
+# from output import output
+from input import input
 
 PATH = "C:/Users/MasqO/OneDrive/Documents/CAS-741/OAR-CAS741/test/"
 
