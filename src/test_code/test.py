@@ -20,6 +20,10 @@ LETTERS = [PATH+"A.jpg", PATH+"B.jpg", PATH+"C.jpg", PATH+"D.jpg",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 
+def test_test():
+    assert True
+
+
 def test_input_format():
     for i in INS:
         result1, result2 = input(INS[i])
