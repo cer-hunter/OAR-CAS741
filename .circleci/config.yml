@@ -21,7 +21,7 @@ jobs:
             flake8 src/ --extend-ignore E402
       - run:
           name: Run Tests
-          command: pytest
+          command: pytest src/
 
 
 # Orchestrate jobs using workflows
