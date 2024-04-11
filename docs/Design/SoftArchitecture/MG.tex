@@ -49,6 +49,7 @@
 March 8, 2024 & 1.0 & Initial Revision\\
 March 15, 2024 & 1.1 & Changes made according to Dr. Smith's Initial Comments\\
 April 10, 2024 & 1.2 & Changes made according to Primary and Secondary Reviewer Comments\\
+April 10, 2024 & 1.3 & Changes made according to Dr. Smith's Detailed Review\\
 \bottomrule
 \end{tabularx}
 
@@ -159,20 +160,16 @@ adapted here is called design for change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput2}:] The constraints on the initial input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acInputParams}:] The constraints on the
-initial input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format and constraints of the
+  initial input data, and the devices used for said input.
 \item[\refstepcounter{acnum} \actheacnum \label{acPreprocess}:] How the base data is processed into input data useable by the system.
 \item[\refstepcounter{acnum} \actheacnum \label{acModel}:] The equations used as the basis of the input classification model.
 \item[\refstepcounter{acnum} \actheacnum \label{acTrain}:] How the input classification model is trained.
 \item[\refstepcounter{acnum} \actheacnum \label{acTest}:] How the input classification model is tested.
 \item[\refstepcounter{acnum} \actheacnum \label{acCalc}:] How the input classification is calculated.
 \item[\refstepcounter{acnum} \actheacnum \label{acFlow}:] How the overall flow and control of the OAR program is organized.
-\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the
-  output data.
-\item[\refstepcounter{acnum} \actheacnum \label{acOutput2}:] The constraints on the output results.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format and constraints of the
+  output data, and the devices used for said output.
 \item[\refstepcounter{acnum} \actheacnum \label{acGui}:] The implementation of the GUI.
 \end{description}
 
@@ -186,8 +183,6 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The source of the input is always external to the software.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The outputs are displayed on the output device.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to classify characters in an image.
@@ -319,7 +314,7 @@ the application state accordingly.
 \subsubsection{Output Calculator Module (\mref{mOU})}
 
 \begin{description}
-\item[Secrets:] The format and structure of the output data.
+\item[Secrets:] The format, constraints and structure of the output data.
 \item[Services:] Outputs the results of the classification, including the predicted label and the confidence level.
 \item[Implemented By:] OAR
 \item[Type of Module:] Abstract Data Type
@@ -328,8 +323,8 @@ the application state accordingly.
 \subsubsection{Input Data Read Module (\mref{mIDR})}
 
 \begin{description}
-\item[Secrets:] The format and structure of the input data.
-\item[Services:] Prompts user for input image. Converts the input image data into the matrix data structure used OAR.
+\item[Secrets:] The format, constraints and structure of valid input data.
+\item[Services:] Prompts user for input image. Checks input is valid and converts the input image data into the matrix data structure used OAR.
 \item[Implemented By:] OAR
 \item[Type of Module:] Abstract Data Type
 \end{description}
@@ -454,8 +449,6 @@ R5 & \mref{mOU}, \mref{mIC}, \mref{mGD}, \mref{mGUI}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
 \acref{acInput} & \mref{mIDR}\\
-\acref{acInput2} & \mref{mIDR}\\
-\acref{acInputParams} & \mref{mIDR}\\
 \acref{acPreprocess} & \mref{mIP}\\
 \acref{acModel} & \mref{mOME}\\
 \acref{acTrain} & \mref{mOMTr}\\
@@ -463,7 +456,6 @@ R5 & \mref{mOU}, \mref{mIC}, \mref{mGD}, \mref{mGUI}\\
 \acref{acCalc} & \mref{mIC}\\
 \acref{acFlow} & \mref{mAC}\\
 \acref{acOutput} & \mref{mOU}\\
-\acref{acOutput2} & \mref{mOU}\\
 \acref{acGui} & \mref{mGD}\\
 \bottomrule
 \end{tabular}
