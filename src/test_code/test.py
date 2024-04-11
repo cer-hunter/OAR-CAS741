@@ -3,11 +3,13 @@ import numpy as np
 # from output import output
 from input import input
 
-PATH = "C:/Users/MasqO/OneDrive/Documents/CAS-741/OAR-CAS741/test/"
+PATH = "~/OAR-CAS741/test/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
 SIZES = []
+COLORS = [PATH+"A.png", PATH+"A_Blue.png", PATH+"A_Green.png",
+          PATH+"A_Red.png", PATH+"A_Gray.png"]
 LETTERS = [PATH+"A.jpg", PATH+"B.jpg", PATH+"C.jpg", PATH+"D.jpg",
            PATH+"E.jpg", PATH+"F.jpg", PATH+"G.jpg", PATH+"H.jpg",
            PATH+"I.jpg", PATH+"J.jpg", PATH+"K.jpg", PATH+"L.jpg",
@@ -15,8 +17,7 @@ LETTERS = [PATH+"A.jpg", PATH+"B.jpg", PATH+"C.jpg", PATH+"D.jpg",
            PATH+"Q.jpg", PATH+"R.jpg", PATH+"S.jpg", PATH+"T.jpg",
            PATH+"U.jpg", PATH+"V.jpg", PATH+"W.jpg", PATH+"X.jpg",
            PATH+"Y.jpg", PATH+"Z.jpg"]
-COLORS = []
-ERR_OUT = []
+ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 
 def test_input_format():
