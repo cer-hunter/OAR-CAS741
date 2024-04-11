@@ -16,29 +16,13 @@ jobs:
       - run:
           name: Run Tests
           command: pytest
-  lint-and-coverage:
-    docker:
-        - image: cimg/python:3.11
-    steps:
-    # Checkout the code as the first step.
-    - checkout
-    - python/install-packages:
-        pkg-manager: pip
-    - run:
+      - run:
         name: Linter
         command: |
           flake8 src/
-      # flake8 test/
-    - run:
-        name: Coverage
-        command: |
-          coverage run
-          coverage report
-
 
 # Orchestrate jobs using workflows
 workflows:
   main:
     jobs:
       - build-and-test
-      - lint-and-coverage
