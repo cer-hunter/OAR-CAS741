@@ -57,7 +57,8 @@ urlcolor=cyan          % color of external links
 \midrule
 March 8, 2024 & 1.0 & Initial Revision\\
 March 15, 2024 & 1.1 & Changes made according to Dr. Smith's Initial Comments\\
-April 10, 2024 & 1.2 & Updates according to Comments from Primary and Secondary Reviewers\\
+April 10, 2024 & 1.2 & Changes made according to Comments from Primary and Secondary Reviewers\\
+April 10, 2024 & 1.3 & Changes made according to Dr. Smith's Detailed Comments\
 \bottomrule
 \end{tabularx}
 
@@ -110,11 +111,6 @@ unsigned 8-bit integer & $\mathbf{U}$ & a number without a fractional component 
 natural number & $\mathbf{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbf{R}$ & any number in (-$\infty$, $\infty$)\\
 positive real & $\mathbf{R}_{+}$ & any real number ($\mathbf{R}$) in ($0$, $\infty$) \\
-image data & $\mathbf{I}_{x,y}$ & \code{data}: a one-dimensional array of unsigned 8-bit integers in order from the 
-top-left pixel of the image to the bottom-right pixel. Has a \code{width}: $\mathbf{Z}_{+}$ width of \textit{x} and 
-\code{height}: $\mathbf{Z}_{+}$ height of \textit{y}.\\
-matrix & $\mathbf{M}_{x,y}$ & \code{data}: a one-dimensional array of real numbers, with a 
-\code{width}: $\mathbf{Z}_{+}$ width of \textit{x} and \code{height}: $\mathbf{Z}_{+}$ height of \textit{y}.\\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -177,6 +173,7 @@ The following table is taken directly from the Module Guide document for this pr
 
 \begin{itemize}
   \item Graphics Display Module Specification (\ref{ModuleGD})
+  \item Output Module Specification
 \end{itemize}
 
 \subsection{Syntax}
@@ -217,7 +214,7 @@ The GUI Display is running and displayed without issue.
 
 \noindent \code{main}():
 \begin{itemize}
-  \item transition: Initializes the program and the Graphics Display module \ref{ModuleGD}
+  \item transition: Connects the Output Module \ref{ModuleO} to the Graphics Display module \ref{ModuleGD}
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -255,7 +252,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{display} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow}, event handlers & \code{guiException} \\
+\code{display} & \code{inputImage} ($\mathbf{U}^{m \times n}$), \code{resultLabel} (String), \code{resultConf} (String) & \code{displayWindow} ($\mathbf{Z}_{+}^{m \times n}$), event handlers & \code{guiException} \\
 \hline
 \end{tabular}
 \end{center}
@@ -265,9 +262,9 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
-  \item inputImage: The processed input image and given by the Output Calculator Module \ref{ModuleO} as $\mathbf{I}_{x,y}$
-  \item resultLabel: The label output as given by the Output Calculator Module \ref{ModuleO} as a string.
-  \item resultConf: The confidence probability output as given by the Output Calculator Module \ref{ModuleO} as a string.
+  \item inputImage ($\mathbf{U}^{m \times n}$): The processed input image and given by the Output Calculator Module \ref{ModuleO}
+  \item resultLabel (String): The label output as given by the Output Calculator Module \ref{ModuleO} as a string.
+  \item resultConf ($\mathbf{R}$): The confidence probability output as given by the Output Calculator Module \ref{ModuleO} as a string.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -332,7 +329,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{output} & \code{baseImage} ($\mathbf{M}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
+\code{output} & \code{baseImage} ($\mathbf{Z}^{m,n}$) & \code{displayImage} ($\mathbf{U}^{m \times n}$), \code{resultLabel} (String), \code{resultConf} (String) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -342,7 +339,7 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
-\item \code{labelData} := $\mathbf{M}_{x,y}$ of outputs from \code{classify}(inputImage) containing the label string, and confidence in the prediction
+\item \code{labelData} (tuple):= outputs from \code{classify}(displayImage) containing the label (string), and confidence ()$\mathbf{R}_{+}$) in the prediction
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -357,8 +354,8 @@ The input image is valid.
 
 \noindent \code{output}():
 \begin{itemize}
-\item transition: \code{inputImage} := \code{input}(baseImage)
-\item output: \code{resultLabel}, \code{resultConf} := \code{labelData} (String)
+\item output: \code{resultLabel}, \code{resultConf} := \code{labelData} (String)\\
+\code{displayImage} := \code{input}(baseImage)
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -390,7 +387,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{input} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{ValueError} \\
+\code{input} & \code{inputPath} (String) & \code{inputImage} ($\mathbf{I}_{x,y}$) & \code{ValueError} \\
 \hline
 \end{tabular}
 \end{center}
@@ -414,7 +411,7 @@ size of the input image (currently a square).
 
 \subsubsection{Assumptions}
 
-The input path location for base image is valid, readable and accessible.
+The \code{inputPath} location for the \code{baseImage} is valid, readable and accessible.
 
 \subsubsection{Access Routine Semantics}
 
@@ -457,7 +454,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{classify} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{oarModel} ($\mathbf{M}_{x,y}$) & \code{resultLabel} (String), \code{confPercent} ($\mathbf{R}_{+}$) & - \\
+\code{classify} & \code{inputImage} ($\mathbf{U}^{m \times n}$), \code{oarModel} ($\mathbf{R}^{m \times n}$) & \code{resultLabel} (String), \code{confPercent} ($\mathbf{R}_{+}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -546,7 +543,7 @@ None.
 
 \noindent \code{model}():
 \begin{itemize}
-\item transition: This module is a simple tuple ($\mathbf{M}_{x,y}$ and $\mathbf{R}$) data structure for storing the OAR classification model weights and biases and corresponding performance matrix.
+\item transition: This module is a simple tuple ($\mathbf{R}^{m \times n}$ and $\mathbf{R}$) data structure for storing the OAR classification model weights and biases and corresponding performance matrix.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -578,9 +575,9 @@ None.
 \hline
 \code{sigmoid} & \code{sigIn} ($\mathbf{R}$) & \code{sigOut} ($\mathbf{R}$) & - \\
 \code{logLossFunc} & \code{trueVal} ($\mathbf{R}$), \code{predVal} ($\mathbf{R}$) & \code{logLoss} ($\mathbf{R}$) & \code{ValueError} \\
-\code{predict} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$) & \code{predVal} ($\mathbf{R}$) & \code{ValueError} \\
-\code{gradientW} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$), \code{regParam} ($\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{gradW} ($\mathbf{R}$) & \code{ValueError} \\
-\code{gradientB} & \code{inputImage} ($\mathbf{I}_{x,y}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{M}_{x,y}$), \code{bias} ($\mathbf{R}$)& \code{gradB} ($\mathbf{R}$) & - \\
+\code{predict} & \code{inputImage} ($\mathbf{U}^{m \times n}$), \code{weight} ($\mathbf{R}^{m \times n}$), \code{bias} ($\mathbf{R}$) & \code{predVal} ($\mathbf{R}$) & \code{ValueError} \\
+\code{gradientW} & \code{inputImage} ($\mathbf{U}^{m \times n}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{R}^{m \times n}$), \code{bias} ($\mathbf{R}$), \code{regParam} ($\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{gradW} ($\mathbf{R}$) & \code{ValueError} \\
+\code{gradientB} & \code{inputImage} ($\mathbf{U}^{m \times n}$), \code{trueVal} ($\mathbf{R}$), \code{weight} ($\mathbf{R}^{m \times n}$), \code{bias} ($\mathbf{R}$)& \code{gradB} ($\mathbf{R}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -664,7 +661,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{train} & \code{trainData} ($\mathbf{M}_{x,y}$),\code{trainLabels} ($\mathbf{M}_{x,y}$), \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{M}_{x,y}$ and $\mathbf{R}$) & - \\
+\code{train} & \code{trainData} ($\mathbf{U}^{m \times n}$),\code{trainLabels} ($\mathbf{Z}_{+}^{m \times n}$), \code{weightBiasMatrix} (tuple of $\mathbf{R}^{m \times n}$ and $\mathbf{R}$), \code{trainSize} ($\mathbf{Z}_{+}$)& \code{weightBiasMatrix} (tuple of $\mathbf{R}^{m \times n}$ and $\mathbf{R}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -674,7 +671,7 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
-\item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{M}_{x,y}$ for each label.
+\item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{R}^{m \times n}$ for each label.
 \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbf{R}$ for each label.
 \item \code{gradW}:= \code{gradientW}(trainData, trainLabels, REG\_PARAM, trainSize)
 \item \code{gradB}:= \code{gradientB}(trainData, trainLabels, weight, bias)
@@ -722,7 +719,7 @@ None.
 
 \begin{itemize}
 \item \code{EPOCHS}: The the number of times the model training regression algorithm is ran as $\mathbf{Z}_{+}$.
-\item \code{LABELS}:= (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z)
+\item \code{LABELS}:= (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z) (tuple of Strings)
 \item \code{TRAIN\_SIZE}: The size of the training data used during model training as $\mathbf{Z}_{+}$.
 \item \code{TEST\_SIZE}: The size of the testing data used during model training as $\mathbf{Z}_{+}$.
 \end{itemize}
@@ -734,7 +731,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{test} & - & \code{oarModel} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{R}$), \code{performance} (tuple of $\mathbf{M}_{x, y}$ and $\mathbf{I}_{x, y}$) & - \\
+\code{test} & - & \code{oarModel} (tuple of $\mathbf{R}^{m \times n}$ and $\mathbf{R}$), \code{performance} (tuple of $\mathbf{R}^{m \times n}$ and $\mathbf{U}^{m \times n}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -744,11 +741,11 @@ None.
 \subsubsection{State Variables}
 
 \begin{itemize}
-  \item \code{dataSize}: The size of the input image matrix used during model training as $\mathbf{I}_{x,y}$.
+  \item \code{dataSize}: The size of the input image matrix used during model training as $\mathbf{Z}_{+}$.
   \item \code{dataSet}: The set of pre-processed images and their associated labels that will be used for training the classification model as a tuple of $\mathbf{I}_{x,y}$ and $\mathbf{Z}_{+}$.
-  \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{M}_{x,y}$ for each label.
+  \item \code{weight}: the weight portion of the \code{weightBiasMatrix} input as $\mathbf{R}^{m \times n}$ for each label.
   \item \code{bias}: the bias portion of the \code{weightBiasMatrix} input as $\mathbf{R}$ for each label.
-  \item \code{predictionData}: matrix which tracks the number predictions made for each test image as $\mathbf{M}_{x,y}$.
+  \item \code{predictionData}: matrix which tracks the predictions made for each test image as $\mathbf{R}_{+}^{m \times n}$.
 \end{itemize}
 
 \subsubsection{Environment Variables}
@@ -763,7 +760,7 @@ None.
 
 \noindent \code{test}():
 \begin{itemize}
-\item transition: weightBiasMatrix:= $\mathbf{M}_{x,y}$ of randomized values from 0 to 1, \code{train}(trainData, trainLabels, weightBiasMatrix, trainSize)
+\item transition: weightBiasMatrix:= $\mathbf{R}^{m \times n}$ of randomized values from 0 to 1, \code{train}(trainData, trainLabels, weightBiasMatrix, trainSize)
 \item output: \code{oarModel}:= weightBiasMatrix, \code{performance}:= \code{confMatrix}(predictionData, trainLabels), \code{loss}(trainLoss).
 \end{itemize}
 
@@ -775,10 +772,10 @@ None.
     \item output: Takes the \code{dataSet} as an input and splits it into distinct parts for training and testing the classification model.
     The following values are output:
     \begin{itemize}
-      \item \code{trainData}:= The part of the \code{dataSet} used to train the model as $\mathbf{M}_{x,y}$.
-      \item \code{trainLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{trainData} as $\mathbf{M}_{x,y}$.
-      \item \code{testData}:= The part of the \code{dataSet} used to test the model as $\mathbf{M}_{x,y}$.
-      \item \code{testLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{testData} as $\mathbf{M}_{x,y}$.
+      \item \code{trainData}:= The part of the \code{dataSet} used to train the model as $\mathbf{U}^{m \times n}$.
+      \item \code{trainLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{trainData} as $\mathbf{Z}_{+}^{m \times n}$.
+      \item \code{testData}:= The part of the \code{dataSet} used to test the model as $\mathbf{U}^{m \times n}$.
+      \item \code{testLabels}:= The part of the \code{dataSet} corresponding to the true labels of the \code{testData} as $\mathbf{Z}_{+}^{m \times n}$.
     \end{itemize}
   \end{itemize}
 \end{itemize}
@@ -806,8 +803,8 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{confMatrix} & \code{predictionData} ($\mathbf{M}_{x,y}$), \code{trainLabels} ($\mathbf{M}_{x,y}$) & \code{confusionMatrix} ($\mathbf{I}_{x,y}$), \code{matrixData} ($\mathbf{M}_{x,y}$)  & - \\
-\code{loss} & \code{trainLoss} ($\mathbf{M}_{x,y}$) & \code{lossGraph} ($\mathbf{I}_{x,y}$)  & - \\
+\code{confMatrix} & \code{predictionData} ($\mathbf{R}_{+}^{m \times n}$), \code{trainLabels} ($\mathbf{Z}_{+}^{m \times n})$ & \code{confusionMatrix} ($\mathbf{U}^{m \times n}$), \code{matrixData} ($\mathbf{Z}_{+}^{m \times n}$)  & - \\
+\code{loss} & \code{trainLoss} ($\mathbf{R}^{m \times n}$) & \code{lossGraph} ($\mathbf{U}^{m \times n}$)  & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -830,14 +827,14 @@ None.
 
 \noindent \code{confMatrix}(predictionData, trainLabels):
 \begin{itemize} 
-\item output: confusionMatrix:= ($\mathbf{M}_{x,y}$) of the form 
-($\sum$\code{predictionData} == \code{True} \& \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{True} \& \code{trainLabels} == \code{False}, $\sum$\code{predictionData} == \code{False} \& \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{False} \& \code{trainLabels} == \code{False})
-and it's graphical representation as $\mathbf{I}_{x,y}$.
+\item output: \code{matrixData}:= ($\sum$\code{predictionData} == \code{True} \& \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{True} \& \code{trainLabels} == \code{False}, $\sum$\code{predictionData} == \code{False} \& \code{trainLabels} == \code{True}, $\sum$\code{predictionData} == \code{False} \& \code{trainLabels} == \code{False}) \\
+\code{confMatrix}:= The graphical representation of \code{matrixData}
+
 \end{itemize}
 
 \noindent \code{loss}(trainLoss):
 \begin{itemize} 
-\item output: \code{lossGraph}:= \code{trainLoss} as a graphical representation over some number of epochs.
+\item output: \code{lossGraph}:= \code{trainLoss} as a graphical representation over some number of epochs ($\mathbf{Z}_{+})$.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -867,7 +864,7 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\code{preprocess} & \code{baseImage} ($\mathbf{I}_{x,y}$) & \code{inputImage} ($\mathbf{I}_{x,y}$) & - \\
+\code{preprocess} & \code{baseImage} ($\mathbf{Z}^{m \times n}$) & \code{inputImage} ($\mathbf{U}^{m \times n}$) & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -892,7 +889,7 @@ The format and parameters of the base image was already verified to be within th
 \begin{itemize} 
 \item output: Performs transformations on the \code{baseImage} using functions provided by the 
 sci-kit learn library, such that the resulting \code{inputImage} 
-as $\mathbf{I}_{x,y}$, is normalized to be able to be used by the classification model.
+as ($\mathbf{U}^{m \times n}$), is normalized to be able to be used by the classification model.
 \end{itemize}
 
 \subsubsection{Local Functions}
