@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../src/')
+sys.path.insert(0, '../OAR-CAS741/')
 from src.oarUtils import gradientW, gradientB
 
 

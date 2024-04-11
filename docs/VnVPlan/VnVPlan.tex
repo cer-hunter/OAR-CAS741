@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Optical Alphabet Recognition: System Verification and Validation Plan for OAR} 
+\title{Optical Alphabet Recognition: System Verification and Validation Plan} 
 \author{Hunter Ceranic}
 \date{February 19, 2024}
 	
@@ -145,8 +145,7 @@ The members of the VnV team as well their individual roles are listed in the fol
 
 \subsection{SRS Verification Plan}
 
-The SRS will be reviewed by the project supervisor, the SRS reviewer and the author. Some input
-may be given by the expert consultants if time permits. Most of the feedback has been provided 
+The SRS will be reviewed by the project supervisor, the SRS reviewer and the author. Most of the feedback has been provided 
 through issues on GitHub, as annotated documents, or by verbal exchange. 
 Throughout the development of the project, the author is expected 
 to make changes needed to the resolve the issues. The reviewers may refer to the SRS checklist \citep{SRS_checklist}.
@@ -157,8 +156,8 @@ and coherent to the intended audience as defined in the SRS.
 
 Design decisions were made with a focus on performance and code understandability, so that the program could also be used 
 as an educational tool for learning about image recognition. The design and implementation is documented in the 
-MG\citep{MG}/MIS\citep{MIS} which will be verified with the MG \cite{MG_checklist}
-and MIS \cite{MIS_checklist} checklists.
+MG\citep{MG}/MIS\citep{MIS} which will be verified with the MG 
+and MIS \citep{MG_checklist, MIS_checklist} checklists.
 The VnV team will provide their input using these checklists through GitHub issues. 
 
 \subsection{Verification and Validation Plan Verification Plan}
@@ -174,7 +173,7 @@ against the VnV checklist \citep{VnV_checklist}, before a final review by the re
 \subsection{Implementation Verification Plan}
 
 Both automated and manual testing will be performed for this project. This will include checking for any unexpected outputs or bugs that may be encountered.
-To ensure code consistency, linters and coverage tools will be implemented as described in \ref{Tools}. Furthermore,
+To ensure code consistency, linting tools will be implemented as described in \ref{Tools}. Furthermore,
 tests for the program based on requirements will be performed using an automated test suite. Manual tests will be 
 performed to benchmark the performance of the OAR project against already existing solutions.
 
@@ -183,7 +182,7 @@ performed to benchmark the performance of the OAR project against already existi
 
 Continous integration will be implemented for this project using CircleCI, which 
 is easily integrated with GitHub and Python the programming language for the project. CircleCI automates the testing 
-pipeline for the project, by running tests created using the pytest library and code coverage tests using the coverage.py library, 
+pipeline for the project by building the project, running tests created using the pytest library, and linting,
 on selected pushes or pulls to the repository \citep{CircleCI}. The test created with pytest are performed by predetermining potential user
 inputs and comparing them with expected values. In addition to the continous integration suite, Flake 8 will be used as a 
 linter for the code created through the VSCode IDE \citep{Flake8}.
@@ -193,7 +192,11 @@ linter for the code created through the VSCode IDE \citep{Flake8}.
 Software validation is beyond the scope of the OAR project due to the sheer amount of experimental data needed to be collected to 
 validate the system behaviour not being feasible, given the time constraints.
 
-\section{System Test Description}
+\section{System Tests}
+
+This section outlines the tests that will be performed on the program to address the functional and nonfunctional requirements
+found in the SRS \citep{SRS}.
+
 	
 \subsection{Tests for Functional Requirements}
 
@@ -220,13 +223,12 @@ accepted provided they follow the input data constraints.
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) PNG, JPG, BMP and PDF image files depicting valid label characters (see Figure \ref{Fig_A}).
+  Input: A subset of non-corrupt (valid) PNG, JPG, and BMP image files depicting valid label characters (see Figure \ref{Fig_A}).
   The exact list of files is as follows:
   \begin{itemize}
     \item{A.png}
     \item{A.jpg}
     \item{A.bmp}
-    \item{A.pdf}
   \end{itemize}
             
   Output: The program should give a valid output as assigned by the oracle (the author). These outputs corresponding to the above
@@ -235,10 +237,32 @@ accepted provided they follow the input data constraints.
     \item{Some classification output (regardless of if it's correct)}
     \item{Some classification output (regardless of if it's correct)}
     \item{Some classification output (regardless of if it's correct)}
-    \item{Value Error, No Output}
   \end{itemize}
             
   Test Case Derivation: These are some of the most common image file formats and should be compatible with the software.
+            
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+\end{enumerate}
+
+\begin{enumerate}
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputImage}}: Test input for Invalid formats\\}
+            
+  Control: Automatic
+            
+  Initial State: OAR loaded and idle.
+            
+  Input: A subset of directory paths pointing to a PDF image file, an empty file path, and no file path.
+  The exact list of files is as follows:
+  \begin{itemize}
+    \item{A.png}
+    \item{A.jpg}
+    \item{A.bmp}
+  \end{itemize}
+            
+  Output: The program should output a ValueError for all of these inputs.
+            
+  Test Case Derivation: These are some common input paths that would not be valid given the requirements.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
@@ -260,7 +284,7 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white(Figure \ref{Fig_BWA}), 
+  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white (Figure \ref{Fig_BWA}), 
   grayscale (Figure \ref{Fig_grayA}), red (Figure \ref{Fig_redA}), green (Figure \ref{Fig_greenA}) and blue (Figure \ref{Fig_blueA}).
   
   Output:  The program should give a valid output as assigned by the oracle (the author), meaning some classification result regardless
@@ -276,11 +300,10 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters (see Figure \ref{Fig_A}) of the following sizes:
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (Figure \ref{Fig_A}) of the following sizes:
   \begin{itemize}
     \item{8192px $\times$ 8192px}
     \item{4096px $\times$ 4096px}
-    \item{1024px $\times$ 1024px}
     \item{20px $\times$ 20px}
     \item{10px $\times$ 10px}
   \end{itemize}
@@ -299,20 +322,16 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid classifiable label characters (see Figure \ref{Fig_angleA}) at the following orientations:
+  Input: A set of non-corrupt (valid) image files depicting valid classifiable label characters generated by paint.net (see Figure \ref{Fig_angleA}) at the following orientations:
   \begin{itemize}
     \item{$0\degree$}
+    \item{$\pm 1\degree$}
+    \item{$\pm 2\degree$}
+    \item{$\pm 5\degree$}
     \item{$\pm 15\degree$}
-    \item{$\pm 30\degree$}
     \item{$\pm 45\degree$}
-    \item{$\pm 60\degree$}
-    \item{$\pm 75\degree$}
     \item{$\pm 90\degree$}
-    \item{$\pm 105\degree$}
-    \item{$\pm 120\degree$}
     \item{$\pm 135\degree$}
-    \item{$\pm 150\degree$}
-    \item{$\pm 165\degree$}
     \item{$180\degree$}
   \end{itemize}
             
@@ -328,55 +347,47 @@ be processed into a format usable by the program. In addition, pixel sizes are c
 
 \subsubsection{Output Labels}
 
-To satisfy R4 (and by extension R3) from the SRS \citep{SRS}, any input image should be properly classified and related to the 
-correct output label from the set of 26 letters: {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}
+To satisfy R4 and R5 (and by extension R3) from the SRS \citep{SRS}, any input image should be properly classified with a confidence level and related to the 
+correct output label from the set of 26 letters: {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
 
 \begin{enumerate}
 
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputLabel}}: Test input for images with different pixel sizes\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputLabel}}: Test Output of Each Possible Label\\}
             
   Control: Automatic
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters(Figure \ref{Fig_A}), and a blank image depicting no character (\ref{Fig_blank}).
+  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters (Figure \ref{Fig_A}).
             
-  Output: The predicted label output should match the actual label as assigned by the oracle (the author). The output for the blank image
-  should state "Not Classified".
-            
+  Output: The predicted label output should match the actual label as assigned by the oracle (the author).
+
   Test Case Derivation: These images cover the range of possible label outputs for the program.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
 
-\subsubsection{Output Label Confidence Level}
-
-To satisfy R5 from the SRS \citep{SRS}, any classified input image should also have an associated valid confidence level in the range of
-0-100\%.
 
 \begin{enumerate}
 
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputConf}}: Test input for images with different pixel sizes\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputLabel}}: Test Output of Degenerate Cases\\}
             
   Control: Automatic
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting an input character from the training set, an input character from the test set,
-  an image depicting multiple characters and a blank image depicting no characters.
+  Input: A set of non-corrupt (valid) image files depicting degenerate cases such as multiple letters (Figure \ref{abc_image}), a picture, and a blank image depicting no character (Figure \ref{Fig_blank}).
             
-  Output: For each case the outputs would be as follows:
-  \begin{itemize}
-    \item{Training Set Image (Figure \ref{Fig_trainA}): Confidence $> 90\%$}
-    \item{Test Set Image (Figure \ref{Fig_trainA}): Confidence $> 50\%$}
-    \item{Multiple Character Image (Figure \ref{Fig_ABC}): Confidence $< 50\%$}
-    \item{Blank Image (Figure \ref{Fig_blank}): Confidence $< 10\%$ (Corresponding to the "No Label Detected" Output)}
-  \end{itemize}
- 
-  Test Case Derivation: These images likely cover the range of possible confidence level outputs for the program.
+  Output: The output for all degenerate cases should state "Not Classified".
+            
+  Test Case Derivation: These images cover the range of possible "valid" inputs for the program, that should not produce an associated labal.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
+
+
+
+
 
 
 \subsection{Tests for Nonfunctional Requirements}
@@ -451,16 +462,16 @@ the user should be run the software on their platform and environment of choice.
   the style and ease of understanding of the code as well as perceptions about how easy it will 
   be to build upon the code for those who are learning.
 
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_linters}}: Static code analysis\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_linters}}: Static Code Analysis\\}
 
   Type: Automatic
             
-  Condition: The software code will be tested through the use of Flake 8.
+  Condition: The software code will be tested through the use of Flake 8 \citep{Flake8}.
             
   Result: The code linters should list zero warnings, and zero errors.
             
   How test will be performed: Flake 8 is a VSCode Extension and it's messages are present at all times while 
-  viewing and writing code.
+  viewing and writing code. The standard version of Flake 8 will be used, no config file will be needed.
 
   \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_duckTest}}: Duck Test Code Review\\}
 
@@ -476,29 +487,6 @@ the user should be run the software on their platform and environment of choice.
 \end{enumerate}
 
 
-
-\subsubsection{Usability Testing}
-
-\begin{enumerate}
-
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_useSurvey}}: Code Useability Survey\\}
-            
-  Type: Manual
-            
-  Condition: A group of intended users, and the survey questions on topics related 
-  to the program quality and clarity.
-            
-  Result: The completed user surveys (see \ref{survey_useability}).
-            
-  Note: The information collected from the surveys
-  will be aggregated and analyzed for any patterns to
-  change or adapt the user interface to the results.
-            
-  How test will be performed: The users will be given a series of questions to evaluate 
-  the style and ease of understanding of the code as well as perceptions about how easy it will 
-  be to build upon the code for those who are learning.
-\end{enumerate} 
-
 \subsubsection{Portability Testing}
 
 \begin{enumerate}
@@ -511,8 +499,8 @@ the user should be run the software on their platform and environment of choice.
             
   Result: Program Built Successfully.
             
-  Note: CircleCI tests are built and executed in a Docker Image, a container that enables the program to be portable,
-  as it contains all the libraries and dependencies needed to build the code.
+  Note: CircleCI tests are built and executed in a Docker Image, a container that enables the program to be run on Linux or Windows systems,
+  and ensures libraries and dependencies needed to build the code can be installed.
             
   How test will be performed: CircleCI will automatically run this test whenever a jobflow is executed.
 \end{enumerate} 
@@ -698,42 +686,42 @@ How test will be performed:
 \subsubsection{Accuracy Calculation} \label{accuracy_calc}
 
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
-that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+that represent True Positive ($\mathit{TA}$), False Negative ($\mathit{FN}$), False Positive ($\mathit{FP}$), and True Negative ($\mathit{TN}$) values can be obtained 
 from that we define the definition of accuracy as:
 \begin{gather}
-\frac{TP + TN}{TP + TN + FP + FN}
+\frac{\mathit{TP} + \mathit{TN}}{\mathit{TP} + \mathit{TN} + \mathit{FP} + \mathit{FN}}
 \end{gather}
 
 We can then use this definition to evaluate the overall accuracy of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|OAR Accuracy - Library Accuracy|}{|Library Accuracy|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Accuracy} - \mathit{Library Accuracy}|}{|\mathit{Library Accuracy}|} \times 100\% < \epsilon
 \end{gather}
 \subsubsection{Misclassification Calculation} \label{misclass_calc}
 
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
-that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+that represent True Positive ($\mathit{TA}$), False Negative ($\mathit{FN}$), False Positive ($\mathit{FP}$), and True Negative ($\mathit{TN}$) values can be obtained 
 from that we define the definition of misclassification as:
 \begin{gather}
-\frac{FP + FN}{TP + TN + FP + FN}
+\frac{\mathit{FP} + \mathit{FN}}{\mathit{TP} + \mathit{TN} + \mathit{FP} + \mathit{FN}}
 \end{gather}
 We can then use this definition to evaluate the overall misclassifications of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|OAR Misclassification - Library Misclassification|}{|Library Misclassification|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Misclassification} - \mathit{Library Misclassification}|}{|\mathit{Library Misclassification}|} \times 100\% < \epsilon
 \end{gather}
 \subsubsection{Precision Calculation} \label{precision_calc}
 
 Using generated confusion matrices the metrics for a given label prediction can be produced. The percent of predictions made
-that represent True Positive ($TA$), False Negative ($FN$), False Positive ($FP$), and True Negative ($TN$) values can be obtained 
+that represent True Positive ($\mathit{TA}$), False Negative ($\mathit{FN}$), False Positive ($\mathit{FP}$), and True Negative ($\mathit{TN}$) values can be obtained 
 from that we define the definition of precision as:
 \begin{gather}
-\frac{TP}{TP + FP}
+\frac{\mathit{TP}}{\mathit{TP} + \mathit{FP}}
 \end{gather}
 We can then use this definition to evaluate the overall precision of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|OAR Precision - Library Precision|}{|Library Precision|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Precision} - \mathit{Library Precision}|}{|\mathit{Library Precision}|} \times 100\% < \epsilon
 \end{gather}
 \subsection{Symbolic Parameters}
 

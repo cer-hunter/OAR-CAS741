@@ -1,7 +1,7 @@
 import numpy as np
 import json
 import sys
-sys.path.insert(0, '../src/')
+sys.path.insert(0, '../OAR-CAS741/')
 from src.oarUtils import predictSigmoid
 
 LABEL_NUM = 26  # Number of labels

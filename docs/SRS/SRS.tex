@@ -127,7 +127,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for \progname: OAR - Optical Alphabet Recognition} 
+\title{Software Requirements Specification for OAR - Optical Alphabet Recognition} 
 \author{Hunter Ceranic}
 \date{February 19, 2024}
 	
@@ -193,7 +193,7 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$\mathbf{x}_{n \times m}$ & Pixel & Matrix representing pixels of the input image with n rows and m columns, 
+$\mathbf{x}_{n \times m}$ & Pixel & Matrix representing pixels of the input image with $n$ rows and $m$ columns, 
 \\
 $\mathbf{y}_{n \times m}$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
 \\
@@ -201,9 +201,9 @@ $\mathbf{\hat{y}}_{n \times m}$ & Unitless & Matrix representing the probability
 \\
 $\mathbf{z}_{n \times m}$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biaseses, used in the Predicted Label Matrix $\mathbf{\hat{y}}$
 \\
-$x_{i,j}$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at i, j) which represents the level of intensity of the pixel
+$x_{i,j}$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at $i$, $j$) which represents the level of intensity of the pixel
 \\
-$\mathbf{w}_{m \times n}$ & Unitless & Matrix of weights that is used by the classifier model with m rows and n columns
+$\mathbf{w}_{n \times m}$ & Unitless & Matrix of weights that is used by the classifier model with $n$ rows and $m$ columns
 \\
 $b$ & Unitless & Bias value that is used by the classifier model
 \\
@@ -253,9 +253,9 @@ all other variables are represented by regular printed letters.
 \section{Introduction}
 
 Images often contain important information to be used in many different modern applications. One such type 
-of information that can be contained within images are readable characters, and the motivation for the Optical Alphabet 
-Recognition project is to create a system from scratch, that can classify upper-case English letter characters characters accurately.
-More information about the problem itself can be found within the Problem Statement document. Furthermore, a foundational goal of
+of information that can be contained within images are readable characters. The motivation for the Optical Alphabet 
+Recognition project is to create a system from scratch that can classify upper-case English letter characters characters accurately.
+More information about the problem itself can be found within the Problem Statement document \citep{Prob_Statement}. Furthermore, a foundational goal of
 this project is to be useful for educating people about the fundamentals of image classification.
 
 The following section is an overview of the Software Requirement Specifications for the OAR project, specifically outlining the 
@@ -271,7 +271,7 @@ supporting the project.
 \subsection{Scope of Requirements} 
 
 The scope for this project is constrained to the recognition of images of singular, handwritten and printed, capital-letter English
-alphabet characters, in their correct orientations. Character images can be black and white, grayscale or RGB images.
+alphabet characters, in their standard written orientations. Character images can be black and white, grayscale or RGB images.
 However, this does not include hand-written cursive letters. Any pre-processing needed will be handled by supporting libraries,
 to perform the calculations described in this document.
 See the assumptions section, \ref{sec_assumpt}, for further details.
@@ -312,7 +312,7 @@ characteristics and lists the system constraints.
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item Provide an image of a character to the program in the proper orientation.
+\item Provide an image of a character to the program in the standard written orientation.
 \item Be able to interact with the software program using a keyboard, computer mouse, and monitor.
 \item Run the software on a system with the capabilities to sufficently process computer graphics.
 \end{itemize}
@@ -321,7 +321,7 @@ characteristics and lists the system constraints.
 \item Provide the ability to load or change image files to be classified.
 \item Detect and warn about invalid or corrupt image files, upon input.
 \item Display the confidence in the result of classified characters.
-\item Provide a user interface which is able to take user input at anytime, with minimal down time where the program is unresponsive.
+\item Provide a user interface that is able to take user input at anytime.
 \end{itemize}
 \end{itemize}
 
@@ -329,7 +329,7 @@ characteristics and lists the system constraints.
 
 The end user of the OAR software is anyone who can use character recognition software or wants to learn about it. This may include 
 the intended readers of this document (as described in Section 2.3), however none of those reader requirements are neccessary 
-to use the software.
+to use the software. The basic skillset needed to use this software is basic computer literacy and knowledge of the complete English alphabet.
 
 \subsection{System Constraints}
 
@@ -386,7 +386,7 @@ includes the following elements:
   \end{center}
   \end{figure}
 
-  To maintain consistency within the software the images will be normalized to some set of n$\times$m pixels such that
+  To maintain consistency within the software the images will be normalized to some set of $n\timesm$ pixels such that
   the trained model can classify any given input image. The physical representation of what this resizing will look like
   is seen in Figure 3.
 
@@ -408,7 +408,7 @@ includes the following elements:
 \begin{itemize}
 
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{GS_label}:] Calculate and display the predicted 
-corresponding character label for the unknown character in the image.
+corresponding character label (or the inability to calculate the label) for the unknown character in the image.
 
  \item[GS\refstepcounter{goalnum}\thegoalnum \label{GS_conf}:] Calculate and display the confidence level that
  the predicted label is correct.
@@ -470,11 +470,11 @@ Label &\bf Sigmoid Function \\
 Equation & $ \sigma(z) = \frac{1}{1 + e^{-z}} $ \\
 \hline
 Description &
-The sigmoid function takes input $z$ and returns a value between 0 and 1. This function will be used to calculate
+The sigmoid function takes input $z$ of type $\mathbf{R}$, and returns a value between 0 and 1. This function will be used to calculate
 the confidence level of the predicted value, to satisfy \gsref{GS_conf}.
 \\
 \hline
-Notes & The value of $z$ can be a scalar or matrix.
+Notes & None.
 \\
 \hline
   Source & \cite{Turin2020}\\
@@ -498,13 +498,15 @@ Label &\bf Log Loss Function \\
 \hline
 % Units&$MLt^{-3}T^0$\\
 % \hline
-Equation & $ L_{(y,\hat{y})} = -\frac{1}{n} \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
+Equation & $ L(y,\hat{y}) = -\frac{1}{n} \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
 \hline
 Description &
-$y$ represents the actual label value \\
-& $\hat{y}$ represents the predicted label value \\
-& $n$ is the total number of input values \\
-& $i$ is the current step in the summation \\
+$y$ of type $\mathbf{R}$ represents the actual label value ($0 or 1$)\\
+& $\hat{y}$ of type $\mathbf{R}$ represents the predicted label value ($0 \leq \hat{y} \leq 1$)\\
+& $n$ of type $\mathbf{R}$ is the total number of input values \\
+& $i$ of type $\mathbf{R}$ is the current step in the summation \\
+& This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
+predicted value $\hat{y}$. \\
 & \[
     L_{\hat{y}} = 
     \begin{cases}
@@ -512,11 +514,9 @@ $y$ represents the actual label value \\
     -\log(1 - \hat{y}) & \text{, if } y = 0
     \end{cases}
 \]\\
-& This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
-predicted value $\hat{y}$. \\
 
 \hline
-Notes & The values of $y$ and $\hat{y}$ can be scalar or matrices, but they must be the of the same size (see \aref{A1}).
+Notes & None
 \\
 \hline
   Source & \cite{Turin2020} \\
@@ -785,7 +785,7 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, N$ which is the number of training images\\
+  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, n$ which is the number of training images\\
   & The input is constrained so that \aref{A2} and \aref{A3} can be satisfied.\\
   \hline
   Output & $\mathbf{w}, b $ \\
@@ -833,8 +833,8 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   Description &
   Using the optimized weights and biases from \iref{Train} and combining that with an unknown input $\mathbf{x}$ in
   the Sigmoid function (see \dref{GD_sig}), $\mathbf{\hat{y}}$ is calculated. The output of the Sigmoid function can be compared across
-  each of the 26 label models to determine the most likely label. In addition 
-  the confidence level in the prediction is represented by this same sigmoid output.
+  each of the 26 label models to determine the most likely label as the Sigmoid Output that is in value to 1. In addition 
+  the confidence level in the prediction is represented by the output of the sigmoid function for the predicted label.
   \\
   \hline
   Sources & \citet{Turin2020, SharmaLogReg2022} \\
@@ -904,7 +904,7 @@ Table~\ref{TblSpecParams}.
 
 \noindent
 A correct solution must come in the form of one of the 26 possible labels,
-\newline{\{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\}}, as well as an associated 
+\newline{\{A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z\}}, as well as an associated 
 confidence level, as a percentage, that the label assigned is correct.
 
 \section{Requirements}
@@ -941,7 +941,7 @@ label is correct (see \iref{Test}).
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR1}:]
   \textbf{Accuracy} The accuracy of the computed label confidence should be consistent enough that the results 
-  could be considered comparable to other existing solutions for this problem. As such, the accuracy of the model
+  could be considered comparable to other losigistic regression solutions for this problem. As such, the accuracy of the model
   on the training data set should be output in the form of a confusion matrix. In addition the confidence level output has to
   be calculated in a similar way to existing solutions so that the output can be verified and compared to other algorithms.
 
