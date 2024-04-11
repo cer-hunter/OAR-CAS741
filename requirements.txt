@@ -1,6 +1,5 @@
 pytest
 flake8
-coverage
 tk
 numpy
 matplotlib
