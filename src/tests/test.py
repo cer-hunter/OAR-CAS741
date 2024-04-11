@@ -3,7 +3,7 @@ import numpy as np
 # from output import output
 from input import input
 
-PATH = "~/OAR-CAS741/test/test-images/"
+PATH = "OAR-CAS741/src/test/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
@@ -20,8 +20,8 @@ LETTERS = [PATH+"A.jpg", PATH+"B.jpg", PATH+"C.jpg", PATH+"D.jpg",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 
-def test_test():
-    assert True
+def test_simple():
+    assert True is True
 
 
 def test_input_format():
