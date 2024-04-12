@@ -15,11 +15,11 @@ def preprocess(baseImg):
     dispImg = cv2.merge((r, g, b))
 
     # Now for processing the image to be classified...
-    # First convert resized image to grayscale
+    # First convert resized image to grayscale (Normalization)
     grayImage = cv2.cvtColor(inputResize, cv2.COLOR_BGR2GRAY)
     # Flatten Image into one array
     inputImg = grayImage.flatten()
-    # Normalize values
+    # Change scale of image data from 0-255 to 0-1
     inputImg = inputImg.astype('float32')/PX_VAL
 
     return dispImg, inputImg

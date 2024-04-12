@@ -151,6 +151,7 @@ February 19, 2024 & 1.1 & Updated with Feedback from Primary and Secondary Revie
 February 19, 2024 & 1.2 & Updated with better understanding of bias value\\
 March 17, 2024 & 1.3 & Updated with better understanding of Testing Instance Model\\
 April 10, 2024 & 1.4 & Updated Testing Instance Model and ensured tracibility to implementation\\
+April 12, 2024 & 1.5 & Updated according to Detailed Comments from Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -195,11 +196,11 @@ systems.  The symbols are listed in alphabetical order.
 \midrule 
 $\mathbf{x}_{n \times m}$ & Pixel & Matrix representing pixels of the input image with $n$ rows and $m$ columns, 
 \\
-$\mathbf{y}_{n \times m}$ & Unitless & Matrix representing the probability values of the pixels of the actual label of the input image
+$y$ & Unitless & Number of type $\mathbf{R}$ representing the label of the input image (has typical values 0 or 1)
 \\
-$\mathbf{\hat{y}}_{n \times m}$ & Unitless & Matrix representing the probability values of the pixels of the predicted label of the input image
+$\hat{y}$ & Unitless & Number of type $\mathbf{R}$ representing the probability of the predicted label of the input image
 \\
-$\mathbf{z}_{n \times m}$ & Unitless & Matrix representing the combination of pixels from the input image and weights and biaseses, used in the Predicted Label Matrix $\mathbf{\hat{y}}$
+$z$ & Unitless & Scalar number of type $\mathbf{R}$ representing the combination of the input image and weights and biaseses, used to calculate the Predicted Label $\hat{y}$
 \\
 $x_{i,j}$ & Unitless & An entry in the input matrix $\mathbf{x}$ (at $i$, $j$) which represents the level of intensity of the pixel
 \\
@@ -465,8 +466,6 @@ Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM1}\\
 \hline
 Label &\bf Sigmoid Function \\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
 Equation & $ \sigma(z) = \frac{1}{1 + e^{-z}} $ \\
 \hline
 Description &
@@ -479,7 +478,7 @@ Notes & None.
 \hline
   Source & \cite{Turin2020}\\
   \hline
-  Ref.\ By & \dref{GD_sig}\\
+  Ref.\ By & \aref{A1}, \dref{GD_sig}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -496,8 +495,6 @@ Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM2}\\
 \hline
 Label &\bf Log Loss Function \\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
 Equation & $ L(y,\hat{y}) = -\frac{1}{n} \cdot \sum_{i = 1}^{n} (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) $ \\
 \hline
 Description &
@@ -506,7 +503,7 @@ $y$ of type $\mathbf{R}$ represents the actual label value ($0 or 1$)\\
 & $n$ of type $\mathbf{R}$ is the total number of input values \\
 & $i$ of type $\mathbf{R}$ is the current step in the summation \\
 & This function utilizes the properties of the natural logarithm to determine how similar the actual value $y$ is to the 
-predicted value $\hat{y}$. \\
+predicted value $\hat{y}$. The goal of the system is to minimize the Loss such that $\hat{y}$ is as close in value to $y$ as possible.\\
 & \[
     L_{\hat{y}} = 
     \begin{cases}
@@ -538,8 +535,6 @@ Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM3}\\
 \hline
 Label &\bf Chain Rule \\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
 Equation & $\frac{d}{{dx}}\left[ {f\left( u \right)} \right] = \frac{d}{{du}}\left[ {f\left( u \right)} \right]\frac{{du}}{{dx}}$ \\
 \hline
 Description &
@@ -555,6 +550,39 @@ This formula is used to derive the composition of two differentiable functions.
 \end{minipage}\\
 
 ~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& TM\refstepcounter{theorynum}\thetheorynum \label{TM4}\\
+\hline
+Label &\bf Image Normalization \\
+\hline
+Equation & $ \mathbf{I}_{N} = (\mathbf{I} - \mathit{Min}) \cdot \frac{(\mathit{newMax} - \mathit{newMin})}{(\mathit{Max} - \mathit{Min})} + \mathit{newMin}$ \\
+\hline
+Description &
+$\mathbf{I}$ is an $n$-dimensional image matrix of type $\mathbf{R}$, with px intensity values in the range of
+$(\mathit{Min}, \mathit{Max})$ \\
+& $\mathbf{I}_{N}$ is the target new $n$-dimensional image matrix of type $\mathbf{R}$, with px intensity values in the range of
+$(\mathit{newMin}, \mathit{newMax})$ \\
+& This theory is used to ensure all image data is of the same form such that the classification model used can be properly applied to every input.
+\\
+\hline
+Notes & None.
+\\
+\hline
+  Source & \cite{Norm}\\
+  \hline
+  Ref.\ By & \aref{A1}, \rref{R2}, \iref{Test}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
@@ -573,19 +601,18 @@ Number& GD\refstepcounter{defnum}\thedefnum \label{GD_sig}\\
 \hline
 Label &\bf Sigmoid Function with Input Image and Weights \\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \mathbf{\hat{y}} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
+Equation&$ \hat{y} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + b$ \\
 \hline
 Description &
 This is a refinement of the Sigmoid function (see \tref{TM1}) to represent how it will be utilized as the basis of the model.
 \\
-& $\mathbf{x}$ is the input image matrix.\\
-& $\mathbf{w}$ is the matrix of weights\\
-&$b$ is the matrix of biases\\
-& Note that the predicted value $\mathbf{\hat{y}}$ from \tref{TM2} will be determined from the sigmoid function.\\
+& $\mathbf{x}$ is an input image matrix of type $\mathbf{R}$.\\
+& $\mathbf{w}$ is a matrix of weights of type $\mathbf{R}$\\
+& $b$ is a bias value of type $\mathbf{R}$\\
+& The weights an biases are optimized in \iref{Train} to better identify features of $\mathbf{x}$ which correlate to  label to be predicted.\\
+& This is then converted into a value from $0 \leq  \hat{y} \leq 1$ by the sigmoid function.\\
 \hline
   Source & \cite{Turin2020} \\
   \hline
@@ -610,10 +637,10 @@ Label &\bf Gradient of Log Loss Function with respect to $\mathbf{w}$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_\mathbf{w}  (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n)   $\\
+Equation&$ \nabla_\mathbf{w}  (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) = \mathbf{x}_n \cdot (y_n - \hat{y}_n)   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\mathbf{\hat{y}} $
+Here we derive the Log Loss Function with respect to $\mathbf{w}$  using chain rule from \tref{TM3}, with $\hat{y} $
 defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \citet{Turin2020, SharmaLogReg2022} \\
@@ -639,10 +666,10 @@ Label &\bf Gradient of Log Loss Function with respect to $b$ \\
 % \hline
 SI Units&Unitless\\
 \hline
-Equation&$ \nabla_b (\mathbf{y}_i \cdot \log(\mathbf{\hat{y}}_i) + (1 - \mathbf{y}_i) \cdot \log(1 - \mathbf{\hat{y}}_i)) = \mathbf{y}_n - \mathbf{\hat{y}}_n   $\\
+Equation&$ \nabla_b (y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i)) = y_n - \hat{y}_n   $\\
 \hline
 Description &
-Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\mathbf{\hat{y}}$ 
+Here we derive the Log Loss Function with respect to $b$ using chain rule from \tref{TM3}, with $\hat{y}$ 
 defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize the Log Loss Function to train the model (see \iref{Train}).\\
 \hline
   Source & \citet{Turin2020, SharmaLogReg2022}  \\
@@ -657,27 +684,27 @@ defined using the Sigmoid Function (see \dref{GD_sig}), so that we can minimize 
 There are three steps to derive the Gradients of the Log Loss Function, using \tref{TM3}. First the outer-most derivative:
 \begin{center}
   $$
-    [-\mathbf{y} \cdot \log(\mathbf{\hat{y}})]' = \frac{-\mathbf{y}}{\mathbf{\hat{y}}},
+    [-y \cdot \log(\hat{y})]' = \frac{-y}{\hat{y}},
   $$
   ~\newline
     and, 
     ~\newline
     $$
-    [-(1 - \mathbf{y}) \cdot \log(1 - \mathbf{\hat{y}})]' = \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})}, 
+    [-(1 - y) \cdot \log(1 - \hat{y})]' = \frac{(1 - y)}{(1 - \hat{y})}, 
     $$
     ~\newline
     which combines to,
     ~\newline
     $$
-    \frac{-\mathbf{y}}{\mathbf{\hat{y}}} + \frac{(1 - \mathbf{y})}{(1 - \mathbf{\hat{y}})} = \frac{(\mathbf{\hat{y}} - \mathbf{y})}{(\mathbf{\hat{y}} \cdot (1 - \mathbf{\hat{y}}))}
+    \frac{-y}{\hat{y}} + \frac{(1 - y)}{(1 - \hat{y})} = \frac{(\hat{y} - y)}{(\hat{y} \cdot (1 - \hat{y}))}
     $$
 \end{center}
-Then we take the derivative of $\mathbf{\hat{y}} = \sigma(\mathbf(z))$ using the following identities:
+Then we take the derivative of $\hat{y} = \sigma(z)$ using the following identities:
 \begin{center}
 1. $ 1 - \sigma(z) = 1 - \frac{e^z}{(1 + e^z)} = \frac{1}{(1 + e^z)} = \sigma(-z)$\\
 2.$ \frac{d}{dz} \cdot \sigma(z) = \frac{d}{dz} \cdot (1 + e^z)^{-1} = \frac{e^{-z}}{(1 + e^{-z})^2} = \frac{e^{-z}}{(1 + e^{-z})} \cdot \frac{1}{(1 + e^{-z})} = \sigma(-z) \cdot \sigma(z) = (1 - \sigma(z)) \cdot \sigma(z) $
 \end{center}
-Which gives $ \mathbf{y}_n' = \mathbf{y}_n \cdot (1 - \mathbf{y}_n)$
+Which gives $ y_n' = y_n \cdot (1 - y_n)$
 ~\newline
 Then finally we take the last derivative in the chain, which is where the gradient derivations differentiate:
 \begin{center}
@@ -686,7 +713,7 @@ For \dref{GD_gradb}: $\frac{d}{db} \cdot (b + \mathbf{x}_1 \cdot \mathbf{w}_1 + 
 \end{center}
 
 Then each derivative in the chain is multiplied together for $\nabla_\mathbf{w}$ and $\nabla_b$ respectively, resulting in
-the final formulas seen in \dref{GD_gradw} and \dref{GD_gradb}. 
+the final formulas seen in \dref{GD_gradw} and \dref{GD_gradb}. These derivations are referenced from \citet{SharmaLogReg2022}.
 
 
 \subsubsection{Data Definitions}\label{sec_datadef}
@@ -785,23 +812,23 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \hline
   Label& \bf Model Training via Gradient Descent\\
   \hline
-  Input&$\mathbf{x}_n$, $\mathbf{y}_n$, $\mathbf{\hat{y}}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, n$ which is the number of training images\\
+  Input&$\mathbf{x}_n$, $y_n$, $\hat{y}_n = \frac{1}{1 + (e^(\mathbf{w}^T \cdot \mathbf{x} + b))}, \alpha \text{ from \ddref{DD1}}, \lambda \text{ from \ddref{DD2}}, N$ which is total the number of training images\\
   & The input is constrained so that \aref{A2} and \aref{A3} can be satisfied.\\
   \hline
-  Output & $\mathbf{w}, b $ \\
+  Output & $\mathbf{w}, b, L$ \\
   \hline
   Description &
   Using gradient descent we minimize the Log Loss Function to optimize the weights and biases for better predictions\\
-  & This is executed in the following order, over multiple epochs ($t$) to further optimize the values:
+  & This is executed as a multi-step summation in the following order, for each image in the training set $\mathbf{x}_n$ over multiple epochs, where $t$ represents one step in the summation to further optimize the values:
   \begin{itemize}
     \item 1. For each set of training images, calculate the following:
     \begin{itemize}
-        \item 1.1. $d\mathbf{w}^{(t)} = \mathbf{x}_n \cdot (\mathbf{y}_n - \mathbf{\hat{y}}_n) - \frac{\lambda}{N} \cdot \mathbf{w}^{(t)^2} $
-        \item 1.2. $db^{(t)} = \mathbf{y}_n - \mathbf{\hat{y}}_n$
+        \item 1.1. $d\mathbf{w}^{(t)} = \mathbf{x}_n \cdot (y_n - \hat{y}_n) - \frac{\lambda}{N} \cdot \mathbf{w}^{(t)^2} $
+        \item 1.2. $db^{(t)} = y_n - \hat{y}_n$
         \item 1.3. $\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} + \alpha \cdot d\mathbf{w}^{(t)}$
         \item 1.4. $b^{(t+1)} = b^{(t)} + \alpha \cdot db^{(t)}$
     \end{itemize}
-    \item 2. Calculate the Log Loss and test the results using the updated weights.
+    \item 2. Calculate the Log Loss $L$ to ensure it is being minimized and test the results using the updated weights.
  \end{itemize}
   \\
   \hline
@@ -826,20 +853,22 @@ to train the model so that \iref{Test} can be used reliably and efficiently.
   \hline
   Label& \bf Label Classification\\
   \hline
-  Input&$\mathbf{x}$, $\mathbf{y}_n$, $\mathbf{w}$, $b$\\
+  Input&$\mathbf{x}$, $\mathbf{w}$, $b$\\
+  & The input is constrained such that $\mathbf{x}$ is normalized by \tref{TM4} so that \aref{A1} can be satisfied.\\
   \hline
-  Output & $\mathbf{\hat{y}}$, and the string representation of the corresponding predicted label \\
+  Output & $\hat{y}$\\
   \hline
   Description &
-  Using the optimized weights and biases from \iref{Train} and combining that with an unknown input $\mathbf{x}$ in
-  the Sigmoid function (see \dref{GD_sig}), $\mathbf{\hat{y}}$ is calculated. The output of the Sigmoid function can be compared across
-  each of the 26 label models to determine the most likely label as the Sigmoid Output that is in value to 1. In addition 
-  the confidence level in the prediction is represented by the output of the sigmoid function for the predicted label.
+  Using the equation:\\
+  &$ \hat{y} = \sigma(z) = \frac{1}{1 + (e^{-\mathbf{z}})} \text{, where } z = \mathbf{w}^T \cdot \mathbf{x} + b$, see \dref{GD_sig}\\
+  & Where $\mathbf{w}$ and $b$ are the optimized weights and biases from \iref{Train}, $\mathbf{x}$ is the normalized input, and $\hat{y}$ of type $\mathbf{R}$ is the prediction\\
+  &$\hat{y}$ is the output of the Sigmoid function, calculated for each of the 26 labels, and can be compared to determine the most likely label as the $\hat{y}$ value that is closest to 1. In addition 
+  the confidence level in the prediction is represented by the numerical value of $\hat{y}$ for the best predicted label.
   \\
   \hline
   Sources & \citet{Turin2020, SharmaLogReg2022} \\
   \hline
-  Ref.\ By & \rref{R4}, \rref{R5}\\
+  Ref.\ By & \rref{R4}, \rref{R5}, \dref{GD_sig}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -923,7 +952,7 @@ qualities that the software is expected to exhibit.
   \item BMP (Bitmap)
 \end{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R2}:] The input image shall be pre-processed to normalize data to be used in calculations.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R2}:] The input image shall be pre-processed to normalize data to be used in calculations (see \tref{TM4}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R3}:] OAR shall provide a trained model that can accurately classify images using
 26 different labels (see \iref{Train}).
@@ -1014,6 +1043,7 @@ the assumptions.
 \tref{TM1}        & & & &  \\ \hline
 \tref{TM2}        & & & &  \\ \hline
 \tref{TM3}        & & & & \\ \hline
+\tref{TM4}        &X& & & \\ \hline
 \dref{GD_sig}        & & & &  \\ \hline
 \dref{GD_gradw}        & & & & \\ \hline
 \dref{GD_gradb}       & & & & \\ \hline
@@ -1035,18 +1065,19 @@ the assumptions.
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{TM1}& \tref{TM2}& \tref{TM3}& \dref{GD_sig}& \dref{GD_gradw} & \dref{GD_gradb}& \ddref{DD1} & \ddref{DD2}& \iref{Train}& \iref{Test}\\
+	& \tref{TM1}& \tref{TM2}& \tref{TM3}& & \tref{TM4}& \dref{GD_sig}& \dref{GD_gradw} & \dref{GD_gradb}& \ddref{DD1} & \ddref{DD2}& \iref{Train}& \iref{Test}\\
 \hline
-\tref{TM1}        & & & &X&X&X& & &X&X\\ \hline
-\tref{TM2}        & & & & &X&X& & &X& \\ \hline
-\tref{TM3}        & & & & &X&X& & &X&  \\ \hline
-\dref{GD_sig}     & & & & & & & & &X&X \\ \hline
-\dref{GD_gradw}   & & & & & & & & &X&  \\ \hline
-\dref{GD_gradb}   & & & & & & & & &X&  \\ \hline
-\ddref{DD1}       & & & & & & & & &X&  \\ \hline
-\ddref{DD2}       & & & & & & & & &X&  \\ \hline
-\iref{Train}      & & & & & & & & & &  \\ \hline
-\iref{Test}       & & & & & & & & & &X \\ 
+\tref{TM1}        & & & & &X&X&X& & &X&X\\ \hline
+\tref{TM2}        & & & & & &X&X& & &X& \\ \hline
+\tref{TM3}        & & & & & &X&X& & &X&  \\ \hline
+\tref{TM4}        & & & & & & & & & & &X \\ \hline
+\dref{GD_sig}     & & & & & & & & & &X&X \\ \hline
+\dref{GD_gradw}   & & & & & & & & & &X&  \\ \hline
+\dref{GD_gradb}   & & & & & & & & & &X&  \\ \hline
+\ddref{DD1}       & & & & & & & & & &X&  \\ \hline
+\ddref{DD2}       & & & & & & & & & &X&  \\ \hline
+\iref{Train}      & & & & & & & & & &X&  \\ \hline
+\iref{Test}       & & & & &X& & & & & &X \\ 
 \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}

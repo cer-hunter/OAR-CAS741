@@ -1,1 +1,2 @@
-__all__ = ["oarUtils", "preprocess", "input", "classify", "oarTrain", "output"]
+__all__ = ["oarUtils", "preprocess", "input", "classify", "oarTrain", "output",
+           "metrics", "oarTest", "gui", "main"]
