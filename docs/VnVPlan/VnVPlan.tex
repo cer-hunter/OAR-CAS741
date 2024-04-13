@@ -558,66 +558,66 @@ The test names are related to the function that it tests.
 
 \begin{enumerate}
 
-\item{\textbf{UT1}: \code{sigmoid}}
+\item{\textbf{UT1}: Sigmoid}
 
 Type: Automatic
 					
 Input: \textbf{String} (see Table \ref{table_unittest})
 					
-Output: \code{ValueError}
+Output: \textit{ValueError}
 
-Test Case Derivation: The input to the \code{sigmoid} Function must be a float or integer.
+Test Case Derivation: The input to the Sigmoid Function must be a float or integer.
 
 How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
 
-\item{\textbf{UT2}: \code{logLossFunc}}
+\item{\textbf{UT2}: LogLossFunc}
 
 Type: Automatic
 					
 Input: \textbf{Valid Integer, Invalid Float}; \textbf{Invalid Integer, Valid Float}; \textbf{String, String}
 					
-Output: \code{ValueError}
+Output: \textit{ValueError}
 
-Test Case Derivation: The input \code{trueVal} must be an integer either 0 or 1, and the input \code{predVal} must be a float $0 \leq \code{predVal} \leq 1$.
+Test Case Derivation: The input trueVal must be an integer either 0 or 1, and the input predVal must be a float $0 \leq \text{predVal} \leq 1$.
 
 How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
-\item{\textbf{UT3}: \code{predict}}
+\item{\textbf{UT3}: Predict}
 
 Type: Automatic
 					
 Input: \textbf{Matrix 1, Matrix 2, ValidInteger}; \textbf{String, String, ValidInteger}; \textbf{Matrix 1, Matrix 1, String}
 					
-Output: \code{ValueError}
+Output: \textit{ValueError}
 
-Test Case Derivation: The inputs \code{inputImage} and \code{weight} must be matrices of the same size, and the input \code{bias} must be an integer or float.
+Test Case Derivation: The inputs inputImage and weight must be matrices of the same size, and the input bias must be an integer or float.
 
 How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
-\item{\textbf{UT4}: \code{gradientW}}
+\item{\textbf{UT4}: GradientW}
 
 Type: Automatic
 					
 Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, String, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidInteger, String}
 					
-Output: \code{ValueError}
+Output: \textit{ValueError}
 
-Test Case Derivation: The inputs \code{inputImage}, \code{weight} and \code{bias} will be tested by \textbf{UT3} as the \code{predict} Function is called in this function. 
-The input \code{trueVal} must be an integer either 0 or 1, the input \code{regParam} must be a float, and the input \code{trainSize} must be an integer.
+Test Case Derivation: The inputs inputImage, weight and bias will be tested by \textbf{UT3} as the Predict Function is called in this function. 
+The input trueVal must be an integer either 0 or 1, the input regParam must be a float, and the input trainSize must be an integer.
 
 How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
-\item{\textbf{UT5}: \code{gradientB}}
+\item{\textbf{UT5}: GradientB}
 
 Type: Automatic
 					
 Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger}
 					
-Output: \code{ValueError}
+Output: \textit{ValueError}
 
-Test Case Derivation: The inputs \code{inputImage}, \code{weight} and \code{bias} will be tested by \textbf{UT3} as the \code{predict} Function is called in this function. 
-The input \code{trueVal} must be an integer either 0 or 1.
+Test Case Derivation: The inputs inputImage, weight and bias will be tested by \textbf{UT3} as the Predict Function is called in this function. 
+The input trueVal must be an integer either 0 or 1.
 
 How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
@@ -628,16 +628,16 @@ The test names are related to the function that it tests, and the inputs are der
 
 \begin{enumerate}
 
-  \item{\textbf{UT6}:\code{train}}
+  \item{\textbf{UT6}: Train}
 
   Type: Automatic
             
   Input: \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidFloat, String, ValidInteger}
             
-  Output: \code{ValueError}
+  Output: \textit{ValueError}
   
-  Test Case Derivation: The inputs \code{inputImage}, \code{trueVal}, \code{weight}, \code{bias}, \code{regParam}, and \code{trainSize} will be tested by \textbf{UT3}, \textbf{UT4} and \textbf{UT5} as the \code{predict}, \code{gradientW} and \code{gradientB} Functions are called in this function. 
-  The input \code{alpha} must be a float.
+  Test Case Derivation: The inputs inputImage, trueVal, weight, bias, regParam, and trainSize will be tested by \textbf{UT3}, \textbf{UT4} and \textbf{UT5} as the Predict, GradientW and GradientB Functions are called in this function. 
+  The input alpha must be a float.
   
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
@@ -909,11 +909,11 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Name} & \textbf{Code Description} \\ \hline
-    \textbf{String} & A string input that takes the form: \code{"test"} \\ \hline
-    \textbf{Valid Integer} & An integer of the value: \code{1} \\ \hline
-    \textbf{Valid Float} & A float of the value: \code{0.5} \\ \hline
-    \textbf{Invalid Integer} & An integer of the value: \code{2} \\ \hline
-    \textbf{Invalid Float} & A float of the value: \code{-5.4} \\ \hline
+    \textbf{String} & A string input that takes the form: \textit{"test"} \\ \hline
+    \textbf{Valid Integer} & An integer of the value: 1 \\ \hline
+    \textbf{Valid Float} & A float of the value: 0.5 \\ \hline
+    \textbf{Invalid Integer} & An integer of the value: 2 \\ \hline
+    \textbf{Invalid Float} & A float of the value: -5.4 \\ \hline
     \textbf{Matrix 1} & A matrix of ones of the size $3 \times 1$ \\ \hline
     \textbf{Matrix 2} & A matrix of zeros of the size $2 \times 2$ \\ \hline
     
