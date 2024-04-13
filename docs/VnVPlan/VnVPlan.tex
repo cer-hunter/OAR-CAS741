@@ -44,6 +44,7 @@
 February 18, 2024 & 1.0 & Initial Revision\\
 February 19, 2024 & 1.1 & Added Input Image Orientation Test\\
 April 10, 2024 & 1.2 & Updated Document according to feedback from Primary and Secondary Reviewers\\
+April 13, 2024 & 1.3 & Updated Document according to detailed comments from Dr. Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -190,12 +191,13 @@ linter for the code created through the VSCode IDE \citep{Flake8}.
 \subsection{Software Validation Plan}
 
 Software validation is beyond the scope of the OAR project due to the sheer amount of experimental data needed to be collected to 
-validate the system behaviour not being feasible, given the time constraints.
+validate the system behaviour not being feasible, given the time constraints. 
 
 \section{System Tests}
 
 This section outlines the tests that will be performed on the program to address the functional and nonfunctional requirements
-found in the SRS \citep{SRS}.
+found in the SRS \citep{SRS}. The tests and test images are located here:
+\url{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests}
 
 	
 \subsection{Tests for Functional Requirements}
@@ -223,21 +225,9 @@ accepted provided they follow the input data constraints.
             
   Initial State: OAR loaded and idle.
             
-  Input: A subset of non-corrupt (valid) PNG, JPG, and BMP image files depicting valid label characters (see Figure \ref{Fig_A}).
-  The exact list of files is as follows:
-  \begin{itemize}
-    \item{A.png}
-    \item{A.jpg}
-    \item{A.bmp}
-  \end{itemize}
+  Input: A subset of non-corrupt (valid) PNG, JPG, and BMP image files depicting valid label characters (see Table \ref{table_ext}, Figure \ref{Fig_A}).
             
-  Output: The program should give a valid output as assigned by the oracle (the author). These outputs corresponding to the above
-  inputs should be:
-  \begin{itemize}
-    \item{Some classification output (regardless of if it's correct)}
-    \item{Some classification output (regardless of if it's correct)}
-    \item{Some classification output (regardless of if it's correct)}
-  \end{itemize}
+  Output: The program should give a valid output as assigned by the oracle (the author).
             
   Test Case Derivation: These are some of the most common image file formats and should be compatible with the software.
             
@@ -246,19 +236,13 @@ accepted provided they follow the input data constraints.
 
 \begin{enumerate}
 
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputImage}}: Test input for Invalid formats\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputError}}: Test input for Invalid formats\\}
             
   Control: Automatic
             
   Initial State: OAR loaded and idle.
             
-  Input: A subset of directory paths pointing to a PDF image file, an empty file path, and no file path.
-  The exact list of files is as follows:
-  \begin{itemize}
-    \item{A.png}
-    \item{A.jpg}
-    \item{A.bmp}
-  \end{itemize}
+  Input: A subset of directory paths pointing to a PDF image file (see Table \ref{table_exterr}), an empty file path, and no file path.
             
   Output: The program should output a ValueError for all of these inputs.
             
@@ -284,13 +268,14 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters in black and white (Figure \ref{Fig_BWA}), 
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (see Table \ref{table_colour}) in black and white (Figure \ref{Fig_A}), 
   grayscale (Figure \ref{Fig_grayA}), red (Figure \ref{Fig_redA}), green (Figure \ref{Fig_greenA}) and blue (Figure \ref{Fig_blueA}).
+
   
   Output:  The program should give a valid output as assigned by the oracle (the author), meaning some classification result regardless
   of whether it is correct.
             
-  Test Case Derivation: These images cover the cases of greyscale, black and white and RGB images which should be compatible with the software.
+  Test Case Derivation: These images cover the cases of grayscale, black and white and the primary colours of RGB images which should be compatible with the software.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
@@ -300,7 +285,7 @@ be processed into a format usable by the program. In addition, pixel sizes are c
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting valid label characters (Figure \ref{Fig_A}) of the following sizes:
+  Input: A set of non-corrupt (valid) image files depicting valid label characters (see Table \ref{table_size}, Figure \ref{Fig_A}) of the following sizes:
   \begin{itemize}
     \item{8192px $\times$ 8192px}
     \item{4096px $\times$ 4096px}
@@ -312,43 +297,15 @@ be processed into a format usable by the program. In addition, pixel sizes are c
   the program should give a valid output as assigned by the oracle (the author), meaning some classification result regardless
   of whether it is correct.
             
-  Test Case Derivation: These images cover the range of acceptable pixel sizes, as well as outside of the range which should be compatible with the software.
+  Test Case Derivation: These images cover the edge cases of acceptable pixel sizes, as well as outside of the range which should be compatible with the software.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
-\item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputAngle}}: Test input for images with different orientations\\}
-            
-  Control: Automatic
-            
-  Initial State: OAR loaded and idle.
-            
-  Input: A set of non-corrupt (valid) image files depicting valid classifiable label characters generated by paint.net (see Figure \ref{Fig_angleA}) at the following orientations:
-  \begin{itemize}
-    \item{$0\degree$}
-    \item{$\pm 1\degree$}
-    \item{$\pm 2\degree$}
-    \item{$\pm 5\degree$}
-    \item{$\pm 15\degree$}
-    \item{$\pm 45\degree$}
-    \item{$\pm 90\degree$}
-    \item{$\pm 135\degree$}
-    \item{$180\degree$}
-  \end{itemize}
-            
-  Output: In the 0\% case, the predicted label should match the actual label as assigned by the oracle (the author). In all other cases,
-  the resulting value is unknown, although likely it will be incorrect, as this test is a degenerate edge case test that is covered by A4.
-            
-  Test Case Derivation: These images are not compatible with the software according to A4, however detecting that orientation is
-  skewed will be difficult in the scope of the project. Therefore, this test is performed to evaluate the performance of the program in 
-  these degenerate cases.
-            
-  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
 
 \subsubsection{Output Labels}
 
-To satisfy R4 and R5 (and by extension R3) from the SRS \citep{SRS}, any input image should be properly classified with a confidence level and related to the 
-correct output label from the set of 26 letters: {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
+To satisfy R4 and R5 (and by extension R3) from the SRS \citep{SRS}, any input image should be properly classified with a confidence level from the set of 26 letters: {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z}
 
 \begin{enumerate}
 
@@ -358,31 +315,55 @@ correct output label from the set of 26 letters: {A, B, C, D, E, F, G, H, I, J, 
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters (Figure \ref{Fig_A}).
+  Input: A set of non-corrupt (valid) image files depicting all 26 valid label characters (see Table \ref{table_labels}, Figure \ref{Fig_A}).
             
   Output: The predicted label output should match the actual label as assigned by the oracle (the author).
 
   Test Case Derivation: These images cover the range of possible label outputs for the program.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
-\end{enumerate}
 
-
-\begin{enumerate}
-
-  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputLabel}}: Test Output of Degenerate Cases\\}
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_outputDegen}}: Test Output of Degenerate Cases\\}
             
   Control: Automatic
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files depicting degenerate cases such as multiple letters (Figure \ref{abc_image}), a picture, and a blank image depicting no character (Figure \ref{Fig_blank}).
+  Input: A set of non-corrupt (valid) image files (see Table \ref{table_degen}) depicting degenerate cases such as multiple letters (Figure \ref{abc_image}), a picture, and a blank image depicting no character (Figure \ref{Fig_blank}).
             
-  Output: The output for all degenerate cases should state "Not Classified".
+  Output: The output for all degenerate cases should state Not Classified.
             
   Test Case Derivation: These images cover the range of possible "valid" inputs for the program, that should not produce an associated labal.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+  \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_inputAngle}}: Test Output for input images with different orientations\\}
+              
+    Control: Automatic
+              
+    Initial State: OAR loaded and idle.
+              
+    Input: A set of non-corrupt (valid) image files depicting valid classifiable label characters generated by paint.net (see Table \ref{table_angle}, Figure \ref{Fig_angleA}) at the following orientations:
+    \begin{itemize}
+      \item{$0\degree$}
+      \item{$\pm 1\degree$}
+      \item{$\pm 2\degree$}
+      \item{$\pm 5\degree$}
+      \item{$\pm 15\degree$}
+      \item{$\pm 45\degree$}
+      \item{$\pm 90\degree$}
+      \item{$\pm 135\degree$}
+      \item{$180\degree$}
+    \end{itemize}
+              
+    Output: In the 0\% case, the predicted label should match the actual label as assigned by the oracle (the author). In all other cases,
+    the resulting value is unknown, although likely it will be incorrect, as this test is a degenerate edge case test that is covered by A4.
+              
+    Test Case Derivation: These images are not compatible with the software according to A4 in the SRS \citep{SRS}, however detecting that orientation is
+    skewed will be difficult in the scope of the project. Therefore, this test is performed to evaluate the performance of the program in 
+    these degenerate cases.
+              
+    How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
 
 
@@ -412,7 +393,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the scikit-learn library \citep{SKLearn}.
             
-  Result: The result of the accuracy calculation should be $ < \epsilon$ (see \ref{accuracy_calc})
+  Result: The result of the accuracy calculation should be output to be compared (see \ref{accuracy_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the accuracy metric.
 
@@ -423,7 +404,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the scikit-learn library \citep{SKLearn}.
             
-  Result: The result of the misclassification calculation should be $ < \epsilon$ (see \ref{misclass_calc})
+  Result: The result of the misclassification calculation should be output to be compared (see \ref{misclass_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the misclassification metric.
 
@@ -434,7 +415,7 @@ the user should be run the software on their platform and environment of choice.
   Condition: The OAR program, and a program built
   using the Logistic Regression Function from the scikit-learn library \citep{SKLearn}.
             
-  Result: The result of the precision calculation should be $ < \epsilon$ (see \ref{precision_calc})
+  Result: The result of the precision calculations should be output to be compared (see \ref{precision_calc})
             
   How test will be performed: The confusion matrices of both programs will be compared using the precision metric.
 \end{enumerate} 
@@ -471,7 +452,7 @@ the user should be run the software on their platform and environment of choice.
   Result: The code linters should list zero warnings, and zero errors.
             
   How test will be performed: Flake 8 is a VSCode Extension and it's messages are present at all times while 
-  viewing and writing code. The standard version of Flake 8 will be used, no config file will be needed.
+  viewing and writing code. A config file may be used to ignore E402 so that module level imports can be at the top of the file.
 
   \item{\textbf{T\refstepcounter{testnum}\thetestnum \label{T_duckTest}}: Duck Test Code Review\\}
 
@@ -525,19 +506,19 @@ When a component is changed, the elements marked with an ``X'' might need to be 
     & NFR3
     & NFR4
   \\ \hline
-  \tref{T_inputImage}           &X&X& &X& & & & & \\ \hline
-  \tref{T_inputColour}          &X&X& &X& & & & & \\ \hline
-  \tref{T_inputAngle}           &X&X& &X& & &X& & \\ \hline
+  \tref{T_inputImage}           &X&X& &X& & &X& & \\ \hline
+  \tref{T_inputError}           &X&X& &X& & & & & \\ \hline
+  \tref{T_inputColour}          &X&X& &X& & &X& & \\ \hline
   \tref{T_inputSize}            &X&X& &X& & & & & \\ \hline
-  \tref{T_outputLabel}          &X&X& &X& & & & & \\ \hline
-  \tref{T_outputConf}           &X&X& &X&X& & & & \\ \hline
+  \tref{T_outputLabel}          &X&X&X&X&X& & & & \\ \hline
+  \tref{T_outputDegen}          &X&X&X&X&X& & & & \\ \hline
+  \tref{T_inputAngle}           &X&X&X&X&X& &X& & \\ \hline
   \tref{T_accuracy}             & & &X&X&X&X& & & \\ \hline
   \tref{T_misclass}             & & &X&X&X&X& & & \\ \hline
   \tref{T_precision}            & & &X&X&X&X& & & \\ \hline
-  \tref{T_understandSurvey}     & & & & & & & &X& \\ \hline
+  \tref{T_understandSurvey}     & & & & & & &X&X& \\ \hline
   \tref{T_linters}              & & & & & & & &X& \\ \hline
   \tref{T_duckTest}             & & & & & & & &X& \\ \hline
-  \tref{T_useSurvey}            & & & & & & &X& & \\ \hline
   \tref{T_dockerImage}          & & & & & & & & &X\\ \hline
   \end{tabular}
   \caption{Traceability Matrix Showing the Connections Between the Tests and Requirements}
@@ -546,132 +527,167 @@ When a component is changed, the elements marked with an ``X'' might need to be 
 
 \newpage
 
-\begin{comment}
+
 \section{Unit Test Description}
 
-\wss{This section should not be filled in until after the MIS (detailed design
-  document) has been completed.}
-
-\wss{Reference your MIS (detailed design document) and explain your overall
-philosophy for test case selection.}  
-
-\wss{To save space and time, it may be an option to provide less detail in this section.  
-For the unit tests you can potentially layout your testing strategy here.  That is, you 
-can explain how tests will be selected for each module.  For instance, your test building 
-approach could be test cases for each access program, including one test for normal behaviour 
-and as many tests as needed for edge cases.  Rather than create the details of the input 
-and output here, you could point to the unit testing code.  For this to work, you code 
-needs to be well-documented, with meaningful names for all of the tests.}
+This section focuses on automated testing for individual modules as defined by the
+MG \cite{MG} and MIS \cite{MIS}.
+The unit tests and test image files are located here:
+\url{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests}
 
 \subsection{Unit Testing Scope}
 
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+All of the tests will be ran automatically through CircleCI \ref{CircleCI} unless otherwise stated.
+The functionality of the Output Calculator (M4), Input Data Read (M5), and Input Classifier (M6) Modules are tested by the
+system test cases listed above and as such, unit tests for these modules are not needed. Additionally since the Metrics (M11), Input Processing (M12),
+and Graphical User Interface (M13) modules are all implemented by 3rd party libraries, in interest of time they will not be unit tested and it 
+will be assumed that the functions they supply have already been verified. The OAR Model Testing Module (M10) will be tested manually, due to the nature of the
+module creating the entire model taking an excessively long time to run (too long for free automated testing resources). Although it is possible to test GUIs and visual fidelity to some degree, this
+is not planned here to due to limited resources (mainly time), and as such the Application Control (M2) and Graphics Display (M3) modules will not be tested.
+Finally since the OAR Model Data (M7) Module is a record to be written and read from there are no direct functionality tests that can be performed 
+(these are performed by tests on other modules). 
+Unit Testing will focus mainly on the OAR Model Equations (M8) and OAR Model Training (M9) modules and a suite of inputs are provided for each function (see Table \ref{table_unittest}).
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
+The tests for each module to be tested will be listed here, and each test will be part of an automated unit test suite.
 
-\subsubsection{Module 1}
-
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
+\subsubsection{Module 8 - OAR Model Equations}
+This module contributes to R3, R4, and R5 by providing the underlying theory and equations needed to construct the model and classify input images.
+The test names are related to the function that it tests.
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{\textbf{UT1}: \code{sigmoid}}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Type: Automatic
 					
-Initial State: 
+Input: \textbf{String} (see Table \ref{table_unittest})
 					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+Output: \code{ValueError}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The input to the \code{sigmoid} Function must be a float or integer.
 
-How test will be performed: 
+How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+
+\item{\textbf{UT2}: \code{logLossFunc}}
+
+Type: Automatic
 					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Input: \textbf{Valid Integer, Invalid Float}; \textbf{Invalid Integer, Valid Float}; \textbf{String, String}
 					
-Initial State: 
+Output: \code{ValueError}
+
+Test Case Derivation: The input \code{trueVal} must be an integer either 0 or 1, and the input \code{predVal} must be a float $0 \leq \code{predVal} \leq 1$.
+
+How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+\item{\textbf{UT3}: \code{predict}}
+
+Type: Automatic
 					
-Input: 
+Input: \textbf{Matrix 1, Matrix 2, ValidInteger}; \textbf{String, String, ValidInteger}; \textbf{Matrix 1, Matrix 1, String}
 					
-Output: \wss{The expected result for the given inputs}
+Output: \code{ValueError}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The inputs \code{inputImage} and \code{weight} must be matrices of the same size, and the input \code{bias} must be an integer or float.
 
-How test will be performed: 
+How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
-\item{...\\}
-    
+\item{\textbf{UT4}: \code{gradientW}}
+
+Type: Automatic
+					
+Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, String, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidInteger, String}
+					
+Output: \code{ValueError}
+
+Test Case Derivation: The inputs \code{inputImage}, \code{weight} and \code{bias} will be tested by \textbf{UT3} as the \code{predict} Function is called in this function. 
+The input \code{trueVal} must be an integer either 0 or 1, the input \code{regParam} must be a float, and the input \code{trainSize} must be an integer.
+
+How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+\item{\textbf{UT5}: \code{gradientB}}
+
+Type: Automatic
+					
+Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger}
+					
+Output: \code{ValueError}
+
+Test Case Derivation: The inputs \code{inputImage}, \code{weight} and \code{bias} will be tested by \textbf{UT3} as the \code{predict} Function is called in this function. 
+The input \code{trueVal} must be an integer either 0 or 1.
+
+How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 \end{enumerate}
 
-\subsubsection{Module 2}
+\subsubsection{Module 9 - OAR Model Training}
+This module contributes to R3 by providing the underlying theory and equations needed to train the classification model.
+The test names are related to the function that it tests, and the inputs are derived directly from the code, rather than the MIS document.
 
-...
+\begin{enumerate}
+
+  \item{\textbf{UT6}:\code{train}}
+
+  Type: Automatic
+            
+  Input: \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidFloat, String, ValidInteger}
+            
+  Output: \code{ValueError}
+  
+  Test Case Derivation: The inputs \code{inputImage}, \code{trueVal}, \code{weight}, \code{bias}, \code{regParam}, and \code{trainSize} will be tested by \textbf{UT3}, \textbf{UT4} and \textbf{UT5} as the \code{predict}, \code{gradientW} and \code{gradientB} Functions are called in this function. 
+  The input \code{alpha} must be a float.
+  
+  How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
+
+\end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
+There are no Unit Tests for Non-Functionl Requirements.
 
 \subsection{Traceability Between Test Cases and Modules}
 
-\wss{Provide evidence that all of the modules have been considered.}
-\end{comment}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+    & M1
+    & M2
+    & M3
+    & M4
+    & M5
+    & M6
+    & M7
+    & M8
+    & M9
+    & M10
+    & M11
+    & M12
+    & M13
+  \\ \hline
+  \tref{T_inputImage}           & & & & &X& & & & & & &X& \\ \hline
+  \tref{T_inputError}           & & & & &X& & & & & & &X& \\ \hline
+  \tref{T_inputColour}          & & & & &X& & & & & & &X& \\ \hline
+  \tref{T_inputSize}            & & & & &X& & & & & & &X& \\ \hline
+  \tref{T_outputLabel}          & & & &X&X&X&X&X& & & &X& \\ \hline
+  \tref{T_outputDegen}          & & & &X&X&X&X&X& & & &X& \\ \hline
+  \tref{T_inputAngle}           & & & &X&X&X&X&X& & & &X& \\ \hline
+  \tref{T_accuracy}             & & & & & & &X& & &X&X& & \\ \hline
+  \tref{T_misclass}             & & & & & & &X& & &X&X& & \\ \hline
+  \tref{T_precision}            & & & & & & &X& & &X&X& & \\ \hline
+  \tref{T_understandSurvey}     &X&X&X&X&X&X&X&X&X&X&X&X&X\\ \hline
+  \tref{T_linters}              &X&X&X&X&X&X&X&X&X&X&X&X&X\\ \hline
+  \tref{T_duckTest}             &X&X&X&X&X&X&X&X&X&X&X&X&X\\ \hline
+  \tref{T_dockerImage}          &X&X&X&X&X&X&X&X&X&X&X&X&X\\ \hline
+  \textbf{UT1-5}                & & & & & & & &X& & & & & \\ \hline
+  \textbf{UT6}                  & & & & & & & & &X& & & & \\ \hline
+  \end{tabular}
+  \caption{Traceability Matrix Showing the Connections Between the Tests and Requirements}
+  \label{Table:A_trace}
+\end{table}
+
 
 \bibliographystyle{plainnat}
 
@@ -723,15 +739,6 @@ and any Library model using the following equation which calculates the relative
 \begin{gather}
 \frac{|\mathit{OAR Precision} - \mathit{Library Precision}|}{|\mathit{Library Precision}|} \times 100\% < \epsilon
 \end{gather}
-\subsection{Symbolic Parameters}
-
-These are \textit{symbolic} values used in the descriptions and text in this document that are 
-subject to change. They are listed and defined here to make it easy to change and reduce the
-possibility of mistakes when updating this document.
-
-\begin{itemize}
-  \item $\epsilon$ = 0.1 or 10\% (used for error calculations)
-\end{itemize}
     
 \subsection{Understandability Survey Questions} \label{survey_understand}
 
@@ -767,18 +774,153 @@ possibility of mistakes when updating this document.
   \item{Is there any leftover commented code that is not useful?}
 \end{itemize}
 
-\subsection{Usability Survey Questions} \label{survey_useability}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[A.bmp]{"A.bmp"} & .BMP file & Input Processed Successfully \\ \hline
+    \hyperref[A.jpg]{"A.jpg"} & .JPG file & Input Processed Successfully \\ \hline
+    \hyperref[A.png]{"A.png"} & .PNG file & Input Processed Successfully \\ \hline
+  \end{tabular}
+  \caption{Table of Valid Extension Images}
+  \label{table_ext}
+\end{table}
 
-\begin{itemize}
-  \item{What operating system do you use?}
-  \item{Is OAR running smoothly on your computer?}
-  \item{On a scale from 1 to 10, how easy was it to use the software?}
-  \item{Was the output of the program satisfactory?}
-  \item{What was the least enjoyable feature to use?}
-  \item{Was everything legible and clearly displayed? If not, what was not?}
-  \item{Would you consider using the software as a learning or teaching tool?}
-  \item{Do you have any extra comments or thoughts you'd like to share?}
-\end{itemize}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[A.pdf]{"A.pdf"} & .PDF file & ValueError \\ \hline
+    \hyperref[Empty]{"Empty"} & Empty Folder & ValueError \\ \hline
+    None & No Path Passed & ValueError \\ \hline
+  \end{tabular}
+  \caption{Table of Invalid Extension Images}
+  \label{table_exterr}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[A.png]{"A.png"} & Black and White A & Input Processed Successfully \\ \hline
+    \hyperref[A_Blue.png]{"A_Blue.png"} & Blue A & Input Processed Successfully \\ \hline
+    \hyperref[A_Green.png]{"A_Green.png"} & Green A & Input Processed Successfully \\ \hline
+    \hyperref[A_Red.png]{"A_Red.png"} & Red A & Input Processed Successfully \\ \hline
+    \hyperref[A_Gray.png]{"A_Gray.png"} & Gray A & Input Processed Successfully \\ \hline
+  \end{tabular}
+  \caption{Table of Images with Different Colours}
+  \label{table_colour}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[toobig.png]{"toobig.png"} & Image of A of size 8192px $\times$ 8192px & Value Error \\ \hline
+    \hyperref[big.png]{"big.png"} & Image of A of size 4096px $\times$ 4096px & Input Processed Successfully \\ \hline
+    \hyperref[small.png]{"small.png"} & Image of A of size 20px $\times$ 20px & Input Processed Successfully \\ \hline
+    \hyperref[toosmall.png]{"toosmall.png"} & Image of A of size 10px $\times$ 10px & Value Error \\ \hline
+  \end{tabular}
+  \caption{Table of Images of Different Sizes in pixels}
+  \label{table_size}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[A.jpg]{"A.jpg"} & Letter A & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[B.jpg]{"B.jpg"} & Letter B & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[C.jpg]{"C.jpg"} & Letter C & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[D.jpg]{"D.jpg"} & Letter D & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[E.jpg]{"E.jpg"} & Letter E & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[F.jpg]{"F.jpg"} & Letter F & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[G.jpg]{"G.jpg"} & Letter G & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[H.jpg]{"H.jpg"} & Letter H & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[I.jpg]{"I.jpg"} & Letter I & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[J.jpg]{"J.jpg"} & Letter J & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[K.jpg]{"K.jpg"} & Letter K & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[L.jpg]{"L.jpg"} & Letter L & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[M.jpg]{"M.jpg"} & Letter M & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[N.jpg]{"N.jpg"} & Letter N & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[O.jpg]{"O.jpg"} & Letter O & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[P.jpg]{"P.jpg"} & Letter P & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[Q.jpg]{"Q.jpg"} & Letter Q & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[R.jpg]{"R.jpg"} & Letter R & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[S.jpg]{"S.jpg"} & Letter S & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[T.jpg]{"T.jpg"} & Letter T & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[U.jpg]{"U.jpg"} & Letter U & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[V.jpg]{"V.jpg"} & Letter V & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[W.jpg]{"W.jpg"} & Letter W & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[X.jpg]{"X.jpg"} & Letter X & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[Y.jpg]{"Y.jpg"} & Letter Y & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[Z.jpg]{"Z.jpg"} & Letter Z & Classification and Confidence Level Displayed\\ \hline
+  \end{tabular}
+  \caption{Table of Images of Different Letters}
+  \label{table_labels}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[ABC]{"ABC.jpg"} & Image of Letters A, B and C& Classification and Confidence level displayed stating "Not Classified"\\ \hline
+    \hyperref[Picture]{"hunter_ok.jpg"} & Picture of the Author & Classification and Confidence level displayed stating "Not Classified" \\ \hline
+    \hyperref[Blank]{"Blank.jpg"} & Blank Image & Classification and Confidence level displayed stating "Not Classified" \\ \hline
+  \end{tabular}
+  \caption{Table of Images of Degenerate Input Cases}
+  \label{table_degen}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
+    \hyperref[0 degrees]{"angle0.png"} & Image at 0 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+1 degrees]{"angle1p.png"} & Image at +1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-1 degrees]{"angle1n.png"} & Image at -1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+2 degrees]{"angle2p.png"} & Image at +2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-2 degrees]{"angle2n.png"} & Image at -2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+5 degrees]{"angle5p.png"} & Image at +5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-5 degrees]{"angle5n.png"} & Image at -5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+15 degrees]{"angle15p.png"} & Image at +15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-15 degrees]{"angle15n.png"} & Image at -15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+45 degrees]{"angle45p.png"} & Image at +45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-45 degrees]{"angle45n.png"} & Image at -45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+90 degrees]{"angle90p.png"} & Image at +90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-90 degrees]{"angle90n.png"} & Image at -90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[+135 degrees]{"angle135p.png"} & Image at +135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[-135 degrees]{"angle135n.png"} & Image at -135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \hyperref[180 degrees]{"angle180.png"} & Image at 180 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+  \end{tabular}
+  \caption{Table of Images of Different Angles}
+  \label{table_angle}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Name} & \textbf{Code Description} \\ \hline
+    \textbf{String} & A string input that takes the form: \code{"test"} \\ \hline
+    \textbf{Valid Integer} & An integer of the value: \code{1} \\ \hline
+    \textbf{Valid Float} & A float of the value: \code{0.5} \\ \hline
+    \textbf{Invalid Integer} & An integer of the value: \code{2} \\ \hline
+    \textbf{Invalid Float} & A float of the value: \code{-5.4} \\ \hline
+    \textbf{Matrix 1} & A matrix of ones of the size $3 \times 1$ \\ \hline
+    \textbf{Matrix 2} & A matrix of zeros of the size $2 \times 2$ \\ \hline
+    
+  \end{tabular}
+  \caption{Table of Unit Test Inputs}
+  \label{table_unittest}
+\end{table}
 
 \subsection{Figures}
 
@@ -793,15 +935,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{bandwA}
-  \caption{This image depicts a Black and White A to satisfy}
-  \label{Fig_BWA} 
-  \end{center}
-  \end{figure}
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=0.6\textwidth]{grayscaleA}
+    \includegraphics[width=0.6\textwidth]{A_Gray}
   \caption{This image depicts a Grayscale A to satisfy}
   \label{Fig_grayA} 
   \end{center}
@@ -809,7 +943,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{redA}
+    \includegraphics[width=0.6\textwidth]{A_Red}
   \caption{This image depicts a Red A to satisfy}
   \label{Fig_redA} 
   \end{center}
@@ -817,7 +951,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{greenA}
+    \includegraphics[width=0.6\textwidth]{A_Green}
   \caption{This image depicts a Green A}
   \label{Fig_greenA} 
   \end{center}
@@ -825,7 +959,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{blueA}
+    \includegraphics[width=0.6\textwidth]{A_Blue}
   \caption{This image depicts a Blue A}
   \label{Fig_blueA} 
   \end{center}
@@ -833,7 +967,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{angleA}
+    \includegraphics[width=0.6\textwidth]{angle90p}
   \caption{This image has been rotated to a $90\degree$ angle. Rotations are performed using paint.net}
   \label{Fig_angleA} 
   \end{center}
@@ -841,7 +975,7 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{Blank_image}
+    \includegraphics[width=0.6\textwidth]{Blank}
   \caption{This is a blank image}
   \label{Fig_blank} 
   \end{center}
@@ -849,17 +983,9 @@ possibility of mistakes when updating this document.
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{abc_image}
+    \includegraphics[width=0.6\textwidth]{ABC}
   \caption{This image depicts the characters A, B and C}
   \label{Fig_ABC} 
-  \end{center}
-  \end{figure}
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=0.6\textwidth]{trainA}
-  \caption{This image depicts a sample character from the EMNIST data set used for training and testing the OAR model \citep{EMNIST}}
-  \label{Fig_trainA} 
   \end{center}
   \end{figure}
 
