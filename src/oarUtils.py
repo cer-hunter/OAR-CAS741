@@ -38,9 +38,9 @@ def predictSigmoid(x, w, b):
 
 
 # computes the gradient with respect to the weights, corresponding to GD2
-def gradientW(x, y, w, b, regLambda, N):
+def gradientW(x, y, w, b, regParam, N):
     yHat = predictSigmoid(x, w, b)
-    dW = x*(y-yHat)-((regLambda*w*w)/N)
+    dW = x*(y-yHat)-((regParam*w*w)/N)
     return dW
 
 

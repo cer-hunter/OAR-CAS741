@@ -29,7 +29,7 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
           PATH+"angle135p.png", PATH+"angle135n.png", PATH+"angle180.png"]
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
-
+# System Tests
 def test_simple():
     assert True is True
 
@@ -44,3 +44,6 @@ def test_input_format():
 def test_input_exception():
     for i in ERR_IN:
         pytest.raises(ValueError, input, ERR_IN[i])
+
+# Unit Tests
+
