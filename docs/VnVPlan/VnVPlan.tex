@@ -329,7 +329,7 @@ To satisfy R4 and R5 (and by extension R3) from the SRS \citep{SRS}, any input i
             
   Initial State: OAR loaded and idle.
             
-  Input: A set of non-corrupt (valid) image files (see Table \ref{table_degen}) depicting degenerate cases such as multiple letters (Figure \ref{abc_image}), a picture, and a blank image depicting no character (Figure \ref{Fig_blank}).
+  Input: A set of non-corrupt (valid) image files (see Table \ref{table_degen}) depicting degenerate cases such as multiple letters (Figure \ref{abc_image}), a picture (Figure \ref{hunter}), and a blank image depicting no character (Figure \ref{Fig_blank}).
             
   Output: The output for all degenerate cases should state Not Classified.
             
@@ -935,23 +935,15 @@ and any Library model using the following equation which calculates the relative
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{A_Gray}
-  \caption{This image depicts a Grayscale A to satisfy}
-  \label{Fig_grayA} 
+    \includegraphics[width=0.6\textwidth]{BlueA}
+  \caption{This image depicts a Blue A}
+  \label{Fig_blueA} 
   \end{center}
   \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{A_Red}
-  \caption{This image depicts a Red A to satisfy}
-  \label{Fig_redA} 
-  \end{center}
-  \end{figure}
-
-\begin{figure}[h!]
-  \begin{center}
-    \includegraphics[width=0.6\textwidth]{A_Green}
+    \includegraphics[width=0.6\textwidth]{GreenA}
   \caption{This image depicts a Green A}
   \label{Fig_greenA} 
   \end{center}
@@ -959,9 +951,17 @@ and any Library model using the following equation which calculates the relative
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{A_Blue}
-  \caption{This image depicts a Blue A}
-  \label{Fig_blueA} 
+    \includegraphics[width=0.6\textwidth]{RedA}
+  \caption{This image depicts a Red A to satisfy}
+  \label{Fig_redA} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{GrayA}
+  \caption{This image depicts a Grayscale A to satisfy}
+  \label{Fig_grayA} 
   \end{center}
   \end{figure}
 
@@ -975,17 +975,25 @@ and any Library model using the following equation which calculates the relative
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{Blank}
-  \caption{This is a blank image}
-  \label{Fig_blank} 
+    \includegraphics[width=0.6\textwidth]{ABC}
+  \caption{This image depicts the characters A, B and C}
+  \label{Fig_ABC} 
   \end{center}
   \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{ABC}
-  \caption{This image depicts the characters A, B and C}
-  \label{Fig_ABC} 
+    \includegraphics[width=0.6\textwidth]{hunter}
+  \caption{This image depicts the Author, Hunter Ceranic, to be used as a degenerate input case}
+  \label{hunter} 
+  \end{center}
+  \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{Blank}
+  \caption{This is a blank image}
+  \label{Fig_blank} 
   \end{center}
   \end{figure}
 
