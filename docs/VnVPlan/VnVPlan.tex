@@ -30,7 +30,7 @@
 
 \title{Optical Alphabet Recognition: System Verification and Validation Plan} 
 \author{Hunter Ceranic}
-\date{February 19, 2024}
+\date{April 13, 2024}
 	
 \maketitle
 
@@ -333,7 +333,7 @@ To satisfy R4 and R5 (and by extension R3) from the SRS \citep{SRS}, any input i
             
   Output: The output for all degenerate cases should state Not Classified.
             
-  Test Case Derivation: These images cover the range of possible "valid" inputs for the program, that should not produce an associated labal.
+  Test Case Derivation: These images cover the range of possible valid inputs for the program, that should not produce an associated labal.
             
   How test will be performed: The automatic test will be performed using pytest, executed by CircleCI.
 
@@ -562,7 +562,7 @@ The test names are related to the function that it tests.
 
 Type: Automatic
 					
-Input: \textbf{String} (see Table \ref{table_unittest})
+Input (see Table \ref{table_unittest}): (\textbf{String})
 					
 Output: \textit{ValueError}
 
@@ -575,7 +575,9 @@ How test will be performed: The automatic test will be performed using pytest, e
 
 Type: Automatic
 					
-Input: \textbf{Valid Integer, Invalid Float}; \textbf{Invalid Integer, Valid Float}; \textbf{String, String}
+Input (see Table \ref{table_unittest}): (\textbf{Valid Integer, Invalid Float});\\
+(\textbf{Invalid Integer, Valid Float});\\
+(\textbf{String, String})\\
 					
 Output: \textit{ValueError}
 
@@ -587,7 +589,9 @@ How test will be performed: The automatic test will be performed using pytest, e
 
 Type: Automatic
 					
-Input: \textbf{Matrix 1, Matrix 2, ValidInteger}; \textbf{String, String, ValidInteger}; \textbf{Matrix 1, Matrix 1, String}
+Input (see Table \ref{table_unittest}): (\textbf{Matrix 1, Matrix 2, ValidInteger});\\
+(\textbf{String, String, ValidInteger});\\
+(\textbf{Matrix 1, Matrix 1, String})\\
 					
 Output: \textit{ValueError}
 
@@ -599,7 +603,10 @@ How test will be performed: The automatic test will be performed using pytest, e
 
 Type: Automatic
 					
-Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger, ValidInteger, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, String, ValidInteger}; \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidInteger, String}
+Input (see Table \ref{table_unittest}): (\textbf{Matrix 1, String, Matrix 1, ValidInteger, ValidInteger, ValidInteger});\\
+(\textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger, ValidInteger, ValidInteger});\\
+(\textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, String, ValidInteger});\\
+(\textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidInteger, String})\\
 					
 Output: \textit{ValueError}
 
@@ -612,7 +619,8 @@ How test will be performed: The automatic test will be performed using pytest, e
 
 Type: Automatic
 					
-Input: \textbf{Matrix 1, String, Matrix 1, ValidInteger}; \textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger}
+Input (see Table \ref{table_unittest}):(\textbf{Matrix 1, String, Matrix 1, ValidInteger});\\
+(\textbf{Matrix 1, InvalidInteger, Matrix 1, ValidInteger})\\
 					
 Output: \textit{ValueError}
 
@@ -632,7 +640,7 @@ The test names are related to the function that it tests, and the inputs are der
 
   Type: Automatic
             
-  Input: \textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidFloat, String, ValidInteger}
+  Input (see Table \ref{table_unittest}): (\textbf{Matrix 1, ValidInteger, Matrix 1, ValidInteger, ValidFloat, String, ValidInteger})\\
             
   Output: \textit{ValueError}
   
@@ -687,7 +695,7 @@ There are no Unit Tests for Non-Functionl Requirements.
   \caption{Traceability Matrix Showing the Connections Between the Tests and Requirements}
   \label{Table:A_trace}
 \end{table}
-
+\newpage
 
 \bibliographystyle{plainnat}
 
@@ -711,7 +719,7 @@ from that we define the definition of accuracy as:
 We can then use this definition to evaluate the overall accuracy of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|\mathit{OAR Accuracy} - \mathit{Library Accuracy}|}{|\mathit{Library Accuracy}|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Accuracy} - \mathit{Library Accuracy}|}{|\mathit{Library Accuracy}|} \times 100\% 
 \end{gather}
 \subsubsection{Misclassification Calculation} \label{misclass_calc}
 
@@ -724,7 +732,7 @@ from that we define the definition of misclassification as:
 We can then use this definition to evaluate the overall misclassifications of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|\mathit{OAR Misclassification} - \mathit{Library Misclassification}|}{|\mathit{Library Misclassification}|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Misclassification} - \mathit{Library Misclassification}|}{|\mathit{Library Misclassification}|} \times 100\% 
 \end{gather}
 \subsubsection{Precision Calculation} \label{precision_calc}
 
@@ -737,7 +745,7 @@ from that we define the definition of precision as:
 We can then use this definition to evaluate the overall precision of the OAR model, by comparing confusion matrices of the OAR model 
 and any Library model using the following equation which calculates the relative error between the two models:
 \begin{gather}
-\frac{|\mathit{OAR Precision} - \mathit{Library Precision}|}{|\mathit{Library Precision}|} \times 100\% < \epsilon
+\frac{|\mathit{OAR Precision} - \mathit{Library Precision}|}{|\mathit{Library Precision}|} \times 100\%
 \end{gather}
     
 \subsection{Understandability Survey Questions} \label{survey_understand}
@@ -779,9 +787,9 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[A.bmp]{"A.bmp"} & .BMP file & Input Processed Successfully \\ \hline
-    \hyperref[A.jpg]{"A.jpg"} & .JPG file & Input Processed Successfully \\ \hline
-    \hyperref[A.png]{"A.png"} & .PNG file & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.bmp}{A.bmp} & .BMP file & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.jpg}{A.jpg} & .JPG file & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.png}{A.png} & .PNG file & Input Processed Successfully \\ \hline
   \end{tabular}
   \caption{Table of Valid Extension Images}
   \label{table_ext}
@@ -792,8 +800,8 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[A.pdf]{"A.pdf"} & .PDF file & ValueError \\ \hline
-    \hyperref[Empty]{"Empty"} & Empty Folder & ValueError \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.pdf}{A.pdf} & .PDF file & ValueError \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/Empty}{Empty} & Empty Folder & ValueError \\ \hline
     None & No Path Passed & ValueError \\ \hline
   \end{tabular}
   \caption{Table of Invalid Extension Images}
@@ -805,11 +813,11 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[Black and White A]{"A.png"} & Black and White A & Input Processed Successfully \\ \hline
-    \hyperref[Blue A]{"BlueA.png"} & Blue A & Input Processed Successfully \\ \hline
-    \hyperref[Green A]{"GreenA.png"} & Green A & Input Processed Successfully \\ \hline
-    \hyperref[Red A]{"RedA.png"} & Red A & Input Processed Successfully \\ \hline
-    \hyperref[Gray A]{"GrayA.png"} & Gray A & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.png}{A.png} & Black and White A & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A_Blue.png}{Blue A} & Blue A & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A_Green.png}{Green A} & Green A & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A_Red.png}{Red A} & Red A & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A_Gray.png}{Gray A} & Gray A & Input Processed Successfully \\ \hline
   \end{tabular}
   \caption{Table of Images with Different Colours}
   \label{table_colour}
@@ -820,10 +828,10 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[Too Big]{"toobig.png"} & Image of A of size 8192px $\times$ 8192px & Value Error \\ \hline
-    \hyperref[Big Edge]{"big.png"} & Image of A of size 4096px $\times$ 4096px & Input Processed Successfully \\ \hline
-    \hyperref[Small Edge]{"small.png"} & Image of A of size 20px $\times$ 20px & Input Processed Successfully \\ \hline
-    \hyperref[Too Small]{"toosmall.png"} & Image of A of size 10px $\times$ 10px & Value Error \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/toobig.png}{Too Big} & Image of A of size 8192px $\times$ 8192px & Value Error \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/big.png}{Big Edge} & Image of A of size 4096px $\times$ 4096px & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/small.png}{Small Edge} & Image of A of size 20px $\times$ 20px & Input Processed Successfully \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/toosmall.png}{Too Small} & Image of A of size 10px $\times$ 10px & Value Error \\ \hline
   \end{tabular}
   \caption{Table of Images of Different Sizes in pixels}
   \label{table_size}
@@ -834,71 +842,69 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[A.jpg]{"A.jpg"} & Letter A & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[B.jpg]{"B.jpg"} & Letter B & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[C.jpg]{"C.jpg"} & Letter C & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[D.jpg]{"D.jpg"} & Letter D & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[E.jpg]{"E.jpg"} & Letter E & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[F.jpg]{"F.jpg"} & Letter F & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[G.jpg]{"G.jpg"} & Letter G & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[H.jpg]{"H.jpg"} & Letter H & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[I.jpg]{"I.jpg"} & Letter I & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[J.jpg]{"J.jpg"} & Letter J & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[K.jpg]{"K.jpg"} & Letter K & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[L.jpg]{"L.jpg"} & Letter L & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[M.jpg]{"M.jpg"} & Letter M & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[N.jpg]{"N.jpg"} & Letter N & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[O.jpg]{"O.jpg"} & Letter O & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[P.jpg]{"P.jpg"} & Letter P & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[Q.jpg]{"Q.jpg"} & Letter Q & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[R.jpg]{"R.jpg"} & Letter R & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[S.jpg]{"S.jpg"} & Letter S & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[T.jpg]{"T.jpg"} & Letter T & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[U.jpg]{"U.jpg"} & Letter U & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[V.jpg]{"V.jpg"} & Letter V & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[W.jpg]{"W.jpg"} & Letter W & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[X.jpg]{"X.jpg"} & Letter X & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[Y.jpg]{"Y.jpg"} & Letter Y & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[Z.jpg]{"Z.jpg"} & Letter Z & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/A.jpg}{A.jpg} & Letter A & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/B.jpg}{B.jpg} & Letter B & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/C.jpg}{C.jpg} & Letter C & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/D.jpg}{D.jpg} & Letter D & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/E.jpg}{E.jpg} & Letter E & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/F.jpg}{F.jpg} & Letter F & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/G.jpg}{G.jpg} & Letter G & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/H.jpg}{H.jpg} & Letter H & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/I.jpg}{I.jpg} & Letter I & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/J.jpg}{J.jpg} & Letter J & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/K.jpg}{K.jpg} & Letter K & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/L.jpg}{L.jpg} & Letter L & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/M.jpg}{M.jpg} & Letter M & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/N.jpg}{N.jpg} & Letter N & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/O.jpg}{O.jpg} & Letter O & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/P.jpg}{P.jpg} & Letter P & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/Q.jpg}{Q.jpg} & Letter Q & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/R.jpg}{R.jpg} & Letter R & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/S.jpg}{S.jpg} & Letter S & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/T.jpg}{T.jpg} & Letter T & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/U.jpg}{U.jpg} & Letter U & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/V.jpg}{V.jpg} & Letter V & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/W.jpg}{W.jpg} & Letter W & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/X.jpg}{X.jpg} & Letter X & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/Y.jpg}{Y.jpg} & Letter Y & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/Z.jpg}{Z.jpg} & Letter Z & Classification and Confidence Level Displayed\\ \hline
   \end{tabular}
   \caption{Table of Images of Different Letters}
   \label{table_labels}
 \end{table}
 
 \begin{table}[h!]
-  \centering
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[ABC]{"ABC.jpg"} & Image of Letters A, B and C& Classification and Confidence level displayed stating "Not Classified"\\ \hline
-    \hyperref[Picture]{"hunter.jpg"} & Picture of the Author & Classification and Confidence level displayed stating "Not Classified" \\ \hline
-    \hyperref[Blank]{"Blank.jpg"} & Blank Image & Classification and Confidence level displayed stating "Not Classified" \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/ABC.jpg}{ABC.jpg} & Image of Letters A, B and C& Classification and Confidence level displayed stating Not Classified\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/hunter_ok.jpg}{hunter.jpg} & Picture of the Author & Classification and Confidence level displayed stating Not Classified \\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/Blank.jpg}{Blank.jpg} & Blank Image & Classification and Confidence level displayed stating Not Classified \\ \hline
   \end{tabular}
   \caption{Table of Images of Degenerate Input Cases}
   \label{table_degen}
 \end{table}
 
 \begin{table}[h!]
-  \centering
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Hyperlink} & \textbf{Description} & \textbf{Expected Output} \\ \hline
-    \hyperref[0 degrees]{"angle0.png"} & Image at 0 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+1 degrees]{"angle1p.png"} & Image at +1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-1 degrees]{"angle1n.png"} & Image at -1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+2 degrees]{"angle2p.png"} & Image at +2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-2 degrees]{"angle2n.png"} & Image at -2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+5 degrees]{"angle5p.png"} & Image at +5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-5 degrees]{"angle5n.png"} & Image at -5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+15 degrees]{"angle15p.png"} & Image at +15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-15 degrees]{"angle15n.png"} & Image at -15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+45 degrees]{"angle45p.png"} & Image at +45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-45 degrees]{"angle45n.png"} & Image at -45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+90 degrees]{"angle90p.png"} & Image at +90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-90 degrees]{"angle90n.png"} & Image at -90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[+135 degrees]{"angle135p.png"} & Image at +135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[-135 degrees]{"angle135n.png"} & Image at -135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
-    \hyperref[180 degrees]{"angle180.png"} & Image at 180 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle0.png}{angle0.png} & Image at 0 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle1p.png}{angle1p.png} & Image at +1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle1n.png}{angle1n.png} & Image at -1 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle2p.png}{angle2p.png} & Image at +2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle2n.png}{angle2n.png} & Image at -2 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle5p.png}{angle5p.png} & Image at +5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle5n.png}{angle5n.png} & Image at -5 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle15p.png}{angle15p.png} & Image at +15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle15n.png}{angle15n.png} & Image at -15 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle45p.png}{angle45p.png} & Image at +45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle45n.png}{angle45n.png} & Image at -45 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle90p.png}{angle90p.png} & Image at +90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle90n.png}{angle90n.png} & Image at -90 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle135p.png}{angle135p.png} & Image at +135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle135n.png}{angle135n.png} & Image at -135 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
+    \href{https://github.com/cer-hunter/OAR-CAS741/tree/main/tests/test-images/angle180.png}{angle180.png} & Image at 180 degrees Orientation & Classification and Confidence Level Displayed\\ \hline
   \end{tabular}
   \caption{Table of Images of Different Angles}
   \label{table_angle}
@@ -909,7 +915,7 @@ and any Library model using the following equation which calculates the relative
   \begin{tabular}{|c|c|c|}
     \hline
     \textbf{Name} & \textbf{Code Description} \\ \hline
-    \textbf{String} & A string input that takes the form: \textit{"test"} \\ \hline
+    \textbf{String} & A string input that takes the form: \textit{test} \\ \hline
     \textbf{Valid Integer} & An integer of the value: 1 \\ \hline
     \textbf{Valid Float} & A float of the value: 0.5 \\ \hline
     \textbf{Invalid Integer} & An integer of the value: 2 \\ \hline
