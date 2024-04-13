@@ -1,11 +1,12 @@
 # This file computes the OAR model and outputs it's performance.
-
-from oarUtils import logLossFunc, predictSigmoid
-from metrics import confMatrix, confMatrixLabels, lossGraph
-from oarTrain import train
 import numpy as np
 import json
 from emnist import extract_training_samples, extract_test_samples
+from oarUtils import logLossFunc, predictSigmoid
+from metrics import confMatrix, confMatrixLabels, lossGraph
+from oarTrain import train
+import sys
+sys.path.insert(0, "../OAR-CAS741/")
 
 PX_VAL = 255
 REG = 0.0001                       # Regularization Parameter (for overfitting)
@@ -38,7 +39,7 @@ N = len(dataTrain)
 
 # Initialize the bias and weights matrices with ones,
 # if no model is found
-dataset = open('model.json', 'r')
+dataset = open('src/model.json', 'r')
 modelRecord = json.load(dataset)
 # Checks if there is a pre-existing set of weights and biases and not reset
 if (len(modelRecord) != 0) and not RESET:
@@ -140,7 +141,7 @@ for i in range(LABEL_NUM):
 
 # Write model to model.json record
 
-model = open('model.json', 'w')
+model = open('src/model.json', 'w')
 
 format = {}
 format['weights'] = weights.tolist()

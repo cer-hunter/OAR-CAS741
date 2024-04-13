@@ -280,3 +280,6 @@ TSWLatexianTemp*
 
 #PyCache
 *.pyc
+
+#other
+*.vscode

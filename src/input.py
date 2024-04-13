@@ -1,7 +1,7 @@
 import cv2
 import os
 import sys
-sys.path.insert(0, '../OAR-CAS741/')
+sys.path.insert(0, "../OAR-CAS741/")
 from src.preprocess import preprocess
 
 

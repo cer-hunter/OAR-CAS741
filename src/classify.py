@@ -1,7 +1,7 @@
 import numpy as np
 import json
 import sys
-sys.path.insert(0, '../OAR-CAS741/')
+sys.path.insert(0, "../OAR-CAS741/")
 from src.oarUtils import predictSigmoid
 
 LABEL_NUM = 26  # Number of labels
@@ -13,7 +13,7 @@ EPSILON = 0.1   # Cutoff for accuracy of predictions
 def classify(inputImg):
 
     # Retrieve OAR Model from record
-    record = open('model.json', 'r')
+    record = open('src/model.json', 'r')
     model = json.load(record)
 
     if (len(model) != 0):
