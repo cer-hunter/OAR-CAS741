@@ -8,7 +8,8 @@ PATH = "/tests/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
-SIZES = [PATH+"toobig.png", PATH+"big.png", PATH+"small.png", PATH+"toosmall.png"]
+SIZES = [PATH+"toobig.png", PATH+"big.png",
+         PATH+"small.png", PATH+"toosmall.png"]
 COLORS = [PATH+"A.png", PATH+"A_Blue.png", PATH+"A_Green.png",
           PATH+"A_Red.png", PATH+"A_Gray.png"]
 LETTERS = [PATH+"A.jpg", PATH+"B.jpg", PATH+"C.jpg", PATH+"D.jpg",
@@ -27,9 +28,11 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
           PATH+"angle135p.png", PATH+"angle135n.png", PATH+"angle180.png"]
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
+
 # System Tests
 def returnInput(path):
     return input(path)
+
 
 @pytest.mark.set1
 def test_input_format():
@@ -43,4 +46,3 @@ def test_input_format():
 #         pytest.raises(ValueError, input, ERR_IN[i])
 
 # Unit Tests
-
