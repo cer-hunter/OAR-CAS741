@@ -1,13 +1,15 @@
 import sys
 import pytest
 import numpy as np
+from pathlib import Path
 sys.path.insert(0, "../src/")
 from src.input import input
 
-PATH = "/tests/test-images/"
+ROOT_DIR = Path(__file__).parent.parent
+PATH = ROOT_DIR + "/tests/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
-ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
+ERR_IN = [PATH+"A.pdf", PATH+"Empty", None]
 SIZES = [PATH+"toobig.png", PATH+"big.png",
          PATH+"small.png", PATH+"toosmall.png"]
 COLORS = [PATH+"A.png", PATH+"A_Blue.png", PATH+"A_Green.png",
@@ -26,7 +28,7 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
           PATH+"angle45p.png", PATH+"angle45n.png",
           PATH+"angle90p.png", PATH+"angle90n.png",
           PATH+"angle135p.png", PATH+"angle135n.png", PATH+"angle180.png"]
-ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg", None]
+ERR_OUT = [PATH+"ABC.jpg", PATH+"hunter_ok.jpg", PATH+"Blank.jpg"]
 
 
 # System Tests
