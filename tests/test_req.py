@@ -31,7 +31,7 @@ ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 def simple(x):
     return str(x)
 
-@pytest.Mark.set1
+@pytest.mark.set1
 def test_simple():
     assert isinstance(simple(2), str)
 
