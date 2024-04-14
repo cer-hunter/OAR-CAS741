@@ -14,10 +14,10 @@ def input(imgPath):
 
     # check file is correct and contains an image of .BMP, .JPG, .PNG
     if (not os.path.isfile(imgPath)):
-        return Exception, Exception
+        raise ValueError
     ext = os.path.splitext(imgPath)[-1].lower()
     if (ext != '.png' and ext != '.jpg' and ext != '.bmp'):
-        return Exception, Exception
+        raise ValueError
 
     baseImg = cv2.imread(imgPath)
 
@@ -25,9 +25,9 @@ def input(imgPath):
     height = baseImg.shape[0]
     width = baseImg.shape[1]
     if ((height > 4096) or (width > 4096)):
-        return Exception, Exception
+        raise ValueError
     elif ((height < 20) or (width < 20)):
-        return Exception, Exception
+        raise ValueError
     else:
         # now process image
         dispImg, inputImg = preprocess(baseImg)

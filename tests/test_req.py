@@ -54,9 +54,8 @@ def test_input_format():
 @pytest.mark.vnv
 def test_invalid_input_format():
     for i in range(len(ERR_IN)):
-        result1, result2 = returnInput(ERR_IN[i])
-        assert result1 == ValueError
-        assert result2 == ValueError
+        with pytest.raises(ValueError):
+            returnInput(ERR_IN[i])
 
 
 # Unit Tests

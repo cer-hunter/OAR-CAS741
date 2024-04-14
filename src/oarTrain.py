@@ -17,4 +17,4 @@ def train(x, yTrue, w, b, regLambda, alpha, N):
 
         return w, b
     else:
-        return ValueError, ValueError
+        raise ValueError

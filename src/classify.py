@@ -25,7 +25,7 @@ def classify(inputImg):
             bias = np.asarray(model["bias"])
         else:
             print("No classification model found")
-            return Exception, Exception
+            raise Exception
 
         prediction = np.empty(LABEL_NUM)
         for i in range(LABEL_NUM):
@@ -46,4 +46,4 @@ def classify(inputImg):
 
         return label, probability
     except Exception:
-        return Exception, Exception
+        raise ValueError

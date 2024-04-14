@@ -32,9 +32,9 @@ def logLossFunc(yTrue, yHat):
                 logLoss = -np.log(abs(1-yHat))
             return logLoss
         else:
-            return ValueError
+            raise ValueError
     except TypeError:
-        return ValueError
+        raise ValueError
 
 
 # computes the sigmoid function for a predicted value, corresponding to GD1
@@ -47,9 +47,9 @@ def predictSigmoid(x, w, b):
             yHat = sigmoid(z)
             return yHat
         else:
-            return ValueError
+            raise ValueError
     except TypeError:
-        return ValueError
+        raise ValueError
 
 
 # computes the gradient with respect to the weights, corresponding to GD2
@@ -60,9 +60,9 @@ def gradientW(x, y, w, b, regParam, N):
             dW = x*(y-yHat)-((regParam*w*w)/N)
             return dW
         else:
-            return ValueError
+            raise ValueError
     except TypeError:
-        return ValueError
+        raise ValueError
 
 
 # computes the gradient with respect to the bias, corresponding to GD3
@@ -73,6 +73,6 @@ def gradientB(x, y, w, b):
             dB = y-yHat
             return dB
         else:
-            return ValueError
+            raise ValueError
     except TypeError:
-        return ValueError
+        raise ValueError

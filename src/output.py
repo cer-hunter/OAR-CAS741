@@ -17,4 +17,4 @@ def output(imgPath):
         resultConf = str(round(resultConf*100, 2))
         return resultLabel, resultConf, dispImg
     except Exception:
-        return Exception, Exception, Exception
+        raise ValueError
