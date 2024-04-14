@@ -40,6 +40,7 @@ ERR_OUT = [join(PATH, "ABC.jpg"), join(PATH, "hunter_ok.jpg"),
 def returnInput(path):
     return input(path)
 
+
 # Checks valid inputs return valid outputs
 @pytest.mark.vnv
 def test_input_format():
@@ -56,5 +57,6 @@ def test_invalid_input_format():
         result1, result2 = returnInput(ERR_IN[i])
         assert isinstance(result1, Exception)
         assert isinstance(result2, Exception)
+
 
 # Unit Tests
