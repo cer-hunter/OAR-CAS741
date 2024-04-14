@@ -48,6 +48,7 @@ def test_input_format():
         assert isinstance(result1, np.ndarray)
         assert isinstance(result2, np.ndarray)
 
+
 @pytest.mark.vnv
 def test_invalid_input_format():
     for i in range(len(ERR_IN)):
