@@ -1,9 +1,8 @@
 import sys
 import pytest
 import numpy as np
-
-sys.path.insert(0, "../OAR-CAS741/")
-from src.input import input
+sys.path.insert(0, "../OAR-CAS741/src/")
+from input import input
 
 
 PATH = "OAR-CAS741/tests/test-images/"

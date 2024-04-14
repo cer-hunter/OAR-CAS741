@@ -1,7 +1,7 @@
 import sys
-sys.path.insert(0, "../OAR-CAS741/")
-from src.input import input
-from src.classify import classify
+from input import input
+from classify import classify
+sys.path.insert(0, "../OAR-CAS741/src/")
 
 
 def output(imgPath):

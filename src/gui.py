@@ -2,8 +2,6 @@ import tkinter as tk
 import os
 from tkinter import ttk, filedialog, messagebox
 from PIL import Image, ImageTk
-import sys
-sys.path.insert(0, "../OAR-CAS741/")
 
 
 def getResult(output, root):
@@ -46,7 +44,7 @@ def displayNew(output, root):
     dispNew.title("OAR")
     dispNew.state('zoomed')
 
-    oarLogo = tk.PhotoImage(file="src/OAR_logo.png")
+    oarLogo = tk.PhotoImage(file="OAR_logo.png")
     logo = ttk.Label(dispNew, image=oarLogo)
     logo.place(x=75, y=0, relwidth=1, relheight=1)
 
@@ -66,7 +64,7 @@ def display(output):
     disp.title("OAR")
     disp.state('zoomed')
 
-    oarLogo = tk.PhotoImage(file="src/OAR_logo.png")
+    oarLogo = tk.PhotoImage(file="OAR_logo.png")
     logo = ttk.Label(disp, image=oarLogo)
     logo.place(x=75, y=0, relwidth=1, relheight=1)
 

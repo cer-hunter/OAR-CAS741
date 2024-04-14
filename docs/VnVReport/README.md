@@ -1,5 +1,3 @@
 # Test Report
 
-The folders and files for this folder are as follows:
-
-Describe ...
+The folder and files for the Validation and Verification Report.

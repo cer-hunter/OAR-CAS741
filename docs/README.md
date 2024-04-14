@@ -29,4 +29,16 @@ the unnecessary folders and rename your folder to SRS.>
 
 The folders and files for this folder are as follows:
 
-Describe ...
+Common.tex - So that .tex flies can share definitions.
+Comments.tex - So that the comments package can be used to embed
+comments into the generated pdf.  Comments can be set to false so that they do
+not appear.
+Makefile - Used to generate all .tex documents
+Checklists - Checklists for documentation.
+Design - Contains Software Design Documentation.
+Presentations - Contains Presentations for the course CAS-741.
+ProblemStatementAndGoals - Contains Problem Statement Documentation.
+Reflection - Contains Reflection Documentation.
+SRS - Contains Software Requierments Documentation.
+VnVPlan - Contains Software Testing Plan Documentation.
+VnVReport - Contains Software Testing Report Documentation.

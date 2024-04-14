@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(0, "../OAR-CAS741/")
-from src.oarUtils import gradientW, gradientB
+from oarUtils import gradientW, gradientB
+sys.path.insert(0, "../OAR-CAS741/src/")
 
 
 # computes the gradient descent for one epoch, corresponding to IM1

@@ -1,5 +1,3 @@
 # Test Plan
 
-The folders and files for this folder are as follows:
-
-VnV Plan
+The folder and files for the Verification and Validation Plan, including samples of the test sets.

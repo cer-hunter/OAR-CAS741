@@ -1,0 +1,5 @@
+name: oar
+dependencies:
+  - python=3.11.0
+  - pip
+  - numpy
