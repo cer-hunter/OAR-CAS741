@@ -17,7 +17,10 @@ EPSILON = 0.1   # Cutoff for accuracy of predictions
 def classify(inputImg):
     try:
         # Retrieve OAR Model from record
-        record = open('model.json', 'r')
+        try:
+            record = open('model.json', 'r')
+        except FileNotFoundError:
+            record = open('src/model.json', 'r')
         model = json.load(record)
 
         if (len(model) != 0):
