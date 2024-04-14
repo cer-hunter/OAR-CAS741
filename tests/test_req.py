@@ -52,7 +52,7 @@ def test_input_format():
 @pytest.mark.vnv
 def test_invalid_input_format():
     for i in range(len(ERR_IN)):
-        result1, result2 = returnInput(INS[i])
+        result1, result2 = returnInput(ERR_IN[i])
         assert isinstance(result1, ValueError)
         assert isinstance(result2, ValueError)
 
