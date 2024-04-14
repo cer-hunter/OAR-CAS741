@@ -3,11 +3,11 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{Reflection Report on \progname}
+\title{Reflection Report on OAR}
 
-\author{\authname}
+\author{Hunter Ceranic}
 
-\date{}
+\date{April 15, 2024}
 
 \input{../Comments}
 \input{../Common}
@@ -16,68 +16,75 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  In addition, several CEAB (Canadian Engineering Accreditation Board)
-Learning Outcomes (LOs) will be assessed based on your reflections.}
-
 \section{Changes in Response to Feedback}
 
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
+Feedback from the reviewers (Domain Expert, Secondary Reviewer, and the Course Instructor Dr. Smith) was integrated
+into the documentation. Namely there was a shift in the projects overall tone to becoming more of a "Educational" tool,
+and hopefully that is reflected in the final version of the project.
 
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
+\subsection{SRS}
 
-\subsection{SRS and Hazard Analysis}
+Using the SRS document I was able to create a kind of roadmap for where the project was headed, and for me at least, really develop the
+themes of the project (those being designing the project to be an educational tool, and using the project as an opportunity to 
+teach myself a lot about software development).
+Most of the updates over the course of the project related to adding more
+references or information to the Theoretical Models (especially since my understanding of them was very weak in the initial revisions),
+and updating descriptions or assumptions to be
+more clear. The issues created by the reviewers and their corresponding commits that resolve them are found in each issues comments.
+
 
 \subsection{Design and Design Documentation}
 
+I think the basic component modules that needed to be part of the design were clear from the beginning,
+however understanding how those modules needed to be connected, and how to communicate what they did
+on a high-level were more difficult. Even in the final version there are clear differences between the design documentation and
+how the actual implementation is handled, which I left different intentionally (I think the way its laid out in the documentation
+is easier to understand in that context, but it doesn't make as much sense in the actual code). Most of the updates over the course of the project related to adding more
+detail to the Module Interface Specification, further modularization of specific parts like th GUI
+and updates for clarity. The issues created by the reviewers and their corresponding commits that resolve them are found in each issues comments.
+
 \subsection{VnV Plan and Report}
 
-\section{Design Iteration (LO11)}
+\section{Design Iteration}
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
 
-\section{Design Decisions (LO12)}
+The core of the final design was similar to the initial version, however the way modules were linked to each other
+ were updated during the implementation. Module names were changed to match the
+file names.
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?}
+\section{Design Decisions}
 
-\section{Economic Considerations (LO23)}
+The decision to create a GUI for the project was so that I could ensure the proper images were being classified.
+The assumptions constrained the problem enough to ensure the project was focused on the goal of making it "educational"
+rather then simply a high performance classification model.
 
-\plt{Is there a market for your product? What would be involved in marketing your 
-product? What is your estimate of the cost to produce a version that you could 
-sell?  What would you charge for your product?  How many units would you have to 
-sell to make money? If your product isn't something that would be sold, like an 
-open source project, how would you go about attracting users?  How many potential 
-users currently exist?}
 
-\section{Reflection on Project Management (LO24)}
+\section{Reflection on Project Management}
 
-\plt{This question focuses on processes and tools used for project management.}
+The specific tools used in this project were CircleCI \cite{CircleCI}, Flake8 \cite{Flake8},
+and pytest.
 
 \subsection{How Does Your Project Management Compare to Your Development Plan}
 
-\plt{Did you follow your Development plan, with respect to the team meeting plan, 
-team communication plan, team member roles and workflow plan.  Did you use the 
-technology you planned on using?}
+Originally I also planned to use code coverage tools, however due to issues integrating the test suite into CircleCI
+these were dropped from the project in interest of time.
 
 \subsection{What Went Well?}
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
+CircleCI was great for testing build portability and Linting. Additionally I learned a lot about CI/CD Markdown, LaTeX, Makefiles, Config files,
+and other software development tools during the course of this project, and essentially taught myself how to use a lot of these things
+from scratch (which is probably why as the project progress you may also be able to track my competence using these tools).
 
 \subsection{What Went Wrong?}
 
-\plt{What went wrong in terms of processes and technology?}
+Integrating CircleCI and pytest was a pain. There was a lot of issues when it came to understanding how to link all the files properly and
+have the tests be recognized by CircleCI. It took way too long to figure that out and as a result a lot of the testing suffered, since I simply
+did not have enough time to cover it all. As a result, I dropped doing the Performance Non-Functional Requirement Tests, as the actual
+performance of the model was least important to my learning overall, and also to the purpose of the project.
 
 \subsection{What Would you Do Differently Next Time?}
 
-\plt{What will you do differently for your next project?}
+Next time I would probably use GitHub Actions. From what other have said it seems a bit simpler to integrate pytest with, and that would save me a 
+lot of time., and give me the ability to improve the quality of the software and documentation I wrote and the testing performed.
 
 \end{document}

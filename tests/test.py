@@ -2,10 +2,10 @@ import sys
 import pytest
 import numpy as np
 sys.path.insert(0, "../OAR-CAS741/src/")
-from input import input
+# from input import input
 
 
-PATH = "OAR-CAS741/tests/test-images/"
+PATH = "../tests/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]

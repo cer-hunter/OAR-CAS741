@@ -26,9 +26,9 @@ def getResult(output, root):
         againBtn.pack(anchor='center', pady=25)
         exitBtn = ttk.Button(outWin, text="Close", command=outWin.destroy)
         exitBtn.pack(anchor='center', pady=50)
-    except AttributeError:
-        errText = "No file was chosen"
-        messagebox.showerror("File Error", errText)
+    except Exception:
+        errText = "Invalid input, or no classification model found."
+        messagebox.showerror("Error", errText)
         btnText = "Open Main Menu"
         againBtn = ttk.Button(outWin, text=btnText,
                               command=lambda: displayNew(output, outWin))

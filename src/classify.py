@@ -11,32 +11,34 @@ EPSILON = 0.1   # Cutoff for accuracy of predictions
 
 
 def classify(inputImg):
+    try:
+        # Retrieve OAR Model from record
+        record = open('model.json', 'r')
+        model = json.load(record)
 
-    # Retrieve OAR Model from record
-    record = open('model.json', 'r')
-    model = json.load(record)
+        if (len(model) != 0):
+            weights = np.asarray(model["weights"])
+            bias = np.asarray(model["bias"])
+        else:
+            print("No classification model found")
+            return Exception, Exception
 
-    if (len(model) != 0):
-        weights = np.asarray(model["weights"])
-        bias = np.asarray(model["bias"])
-    else:
-        print("No classification model found")
-        return "N/A", 0
+        prediction = np.empty(LABEL_NUM)
+        for i in range(LABEL_NUM):
+            w = weights[0, i]
+            b = bias[i]
+            yHat = predictSigmoid(inputImg, w, b)
+            prediction[i] = yHat
+        bestLbl = np.argmax(prediction)  # Finds the index of the best prediction
+        # Check if predicition is above cutoff
+        if prediction[bestLbl] > EPSILON:
+            probability = prediction[bestLbl]
+            label = "THE LETTER " + LABELS[bestLbl]
+        # Otherwise confidence prediction is not identifiable is 100%
+        else:
+            probability = 1 - prediction[bestLbl]
+            label = "NOT CLASSIFIED"
 
-    prediction = np.empty(LABEL_NUM)
-    for i in range(LABEL_NUM):
-        w = weights[0, i]
-        b = bias[i]
-        yHat = predictSigmoid(inputImg, w, b)
-        prediction[i] = yHat
-    bestLbl = np.argmax(prediction)  # Finds the index of the best prediction
-    # Check if predicition is above cutoff
-    if prediction[bestLbl] > EPSILON:
-        probability = prediction[bestLbl]
-        label = "THE LETTER " + LABELS[bestLbl]
-    # Otherwise confidence prediction is not identifiable is 100%
-    else:
-        probability = 1 - prediction[bestLbl]
-        label = "NOT CLASSIFIED"
-
-    return label, probability
+        return label, probability
+    except Exception:
+        return Exception, Exception
