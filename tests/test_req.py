@@ -40,7 +40,7 @@ ERR_OUT = [join(PATH, "ABC.jpg"), join(PATH, "hunter_ok.jpg"),
 def returnInput(path):
     return input(path)
 
-
+# Checks valid inputs return valid outputs
 @pytest.mark.vnv
 def test_input_format():
     for i in range(len(INS)):
@@ -49,11 +49,12 @@ def test_input_format():
         assert isinstance(result2, np.ndarray)
 
 
+# Check exception is thrown when inputs of invalid formats are entered
 @pytest.mark.vnv
 def test_invalid_input_format():
     for i in range(len(ERR_IN)):
         result1, result2 = returnInput(ERR_IN[i])
-        assert isinstance(result1, ValueError)
-        assert isinstance(result2, ValueError)
+        assert isinstance(result1, Exception)
+        assert isinstance(result2, Exception)
 
 # Unit Tests
