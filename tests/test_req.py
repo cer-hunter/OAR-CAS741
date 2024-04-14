@@ -8,7 +8,7 @@ from src.input import input
 PATH = join(dirname(__file__), "test-images")
 
 INS = [join(PATH, "A.png"), join(PATH, "A.jpg"), join(PATH, "A.bmp")]
-ERR_IN = [join(PATH, "A.pdf"), join(PATH, "Empty"), None]
+ERR_IN = [join(PATH, "A.pdf"), join(PATH, "Empty"), join(PATH, "None")]
 SIZES = [join(PATH, "toobig.png"), join(PATH, "big.png"),
          join(PATH, "small.png"), join(PATH, "toosmall.png")]
 COLORS = [join(PATH, "A.png"), join(PATH, "A_Blue.png"),
