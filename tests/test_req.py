@@ -28,12 +28,17 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 # System Tests
-@pytest.fixture
 def simple(x):
     return str(x)
 
+
+@pytest.fixture(name="simple")
+def simple_fixture():
+    return simple(2)
+
+
 def test_simple():
-    assert isinstance(simple(2), str)
+    assert isinstance(simple_fixture(), str)
 
 # def returnInput(path):
 #     return input(path)
