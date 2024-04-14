@@ -1,8 +1,8 @@
 import cv2
 import os
 import sys
-from preprocess import preprocess
-sys.path.insert(0, "../OAR-CAS741/src/")
+sys.path.insert(0, "../src/")
+from src.preprocess import preprocess
 
 
 # Prompt for input done by GUI, this verifies and processes image

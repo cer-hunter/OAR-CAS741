@@ -19,6 +19,7 @@ jobs:
           name: Linter
           command: |
             flake8 src/ --extend-ignore E402
+            flake8 tests/ --extend-ignore E402
       - run:
           name: Run Tests
           command: python -m pytest 
