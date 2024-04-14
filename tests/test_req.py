@@ -1,11 +1,10 @@
 import sys
 import pytest
 import numpy as np
-sys.path.insert(0, "../OAR-CAS741/src/")
+sys.path.insert(0, "../src/")
 # from input import input
 
-
-PATH = "../tests/test-images/"
+PATH = "/tests/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
@@ -29,6 +28,7 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 # System Tests
+@pytest.fixture
 def simple(x):
     return str(x)
 
