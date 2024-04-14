@@ -1,8 +1,10 @@
 # Project Name Source Code
 
-Please install the Extended MNIST dataset (EMNIST) from: https://www.kaggle.com/datasets/crawford/emnist
-and place it into the src folder before using the software.
+Please note the Extended MNIST dataset (EMNIST) was used as the dataset for this project, documentation for which can be found here: https://www.kaggle.com/datasets/crawford/emnist
 
-The folders and files for this project are as follows:
+
+This folder contains all of the source code for the OAR project.
+- main.py is the top level module for the OAR classification part of the software
+- oarTest.py is the top level for training the classification model
 
 

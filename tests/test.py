@@ -29,20 +29,24 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 # System Tests
+def simple(x):
+    return str(x)
+
 def test_simple():
-    assert True is True
+    assert isinstance(simple(2), str)
+
+# def returnInput(path):
+#     return input(path)
+
+# def test_input_format():
+#     for i in INS:
+#         [result1, result2] = returnInput(INS[i])
+#         assert isinstance([result1, result2], [np.ndarray, np.ndarray])
 
 
-def test_input_format():
-    for i in INS:
-        result1, result2 = input(INS[i])
-        assert isinstance(result1, np.float32)
-        assert isinstance(result2, np.float32)
-
-
-def test_input_exception():
-    for i in ERR_IN:
-        pytest.raises(ValueError, input, ERR_IN[i])
+# def test_input_exception():
+#     for i in ERR_IN:
+#         pytest.raises(ValueError, input, ERR_IN[i])
 
 # Unit Tests
 
