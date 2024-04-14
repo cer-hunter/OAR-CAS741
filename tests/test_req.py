@@ -2,13 +2,14 @@ import sys
 import pytest
 import numpy as np
 from pathlib import Path
+from os.path import join
 sys.path.insert(0, "../src/")
 from src.input import input
 
 ROOT_DIR = Path(__file__).parent.parent
-PATH = ROOT_DIR + "/tests/test-images/"
+PATH = join(ROOT_DIR, "/tests/test-images/")
 
-INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
+INS = [join(PATH, "A.png"), join(PATH, "A.jpg"), join(PATH, "A.bmp")]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", None]
 SIZES = [PATH+"toobig.png", PATH+"big.png",
          PATH+"small.png", PATH+"toosmall.png"]
