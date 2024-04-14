@@ -31,14 +31,9 @@ ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 def simple(x):
     return str(x)
 
-
-@pytest.fixture(name="simple")
-def simple_fixture():
-    return simple(2)
-
-
+@pytest.Mark.set1
 def test_simple():
-    assert isinstance(simple_fixture(), str)
+    assert isinstance(simple(2), str)
 
 # def returnInput(path):
 #     return input(path)
