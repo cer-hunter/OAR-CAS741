@@ -50,13 +50,13 @@ def test_input_format():
         assert isinstance(result2, np.ndarray)
 
 
-# Check exception is thrown when inputs of invalid formats are entered
+# Check ValueError is thrown when inputs of invalid formats are entered
 @pytest.mark.vnv
 def test_invalid_input_format():
     for i in range(len(ERR_IN)):
         result1, result2 = returnInput(ERR_IN[i])
-        assert isinstance(result1, Exception)
-        assert isinstance(result2, Exception)
+        assert result1 == ValueError
+        assert result2 == ValueError
 
 
 # Unit Tests
