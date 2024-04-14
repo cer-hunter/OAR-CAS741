@@ -2,7 +2,11 @@ import numpy as np
 import json
 import sys
 sys.path.insert(0, "../src/")
-from src.oarUtils import predictSigmoid
+# How I have to do imports to properly link the test profile
+try:
+    from src.oarUtils import predictSigmoid
+except ModuleNotFoundError:
+    from oarUtils import predictSigmoid
 
 LABEL_NUM = 26  # Number of labels
 LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',

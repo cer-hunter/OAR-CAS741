@@ -2,7 +2,11 @@ import cv2
 import os
 import sys
 sys.path.insert(0, "../src/")
-from src.preprocess import preprocess
+# How I have to do imports to properly link the test profile
+try:
+    from src.preprocess import preprocess
+except ModuleNotFoundError:
+    from preprocess import preprocess
 
 
 # Prompt for input done by GUI, this verifies and processes image

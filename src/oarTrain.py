@@ -1,6 +1,10 @@
 import sys
 sys.path.insert(0, "../src/")
-from src.oarUtils import gradientW, gradientB
+# How I have to do imports to properly link the test profile
+try:
+    from src.oarUtils import gradientW, gradientB
+except ModuleNotFoundError:
+    from oarUtils import gradientW, gradientB
 
 
 # computes the gradient descent for one epoch, corresponding to IM1

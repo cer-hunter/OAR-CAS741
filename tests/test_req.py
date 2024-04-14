@@ -4,7 +4,7 @@ import numpy as np
 sys.path.insert(0, "../src/")
 from src.input import input
 
-PATH = "../tests/test-images/"
+PATH = "/tests/test-images/"
 
 INS = [PATH+"A.png", PATH+"A.jpg", PATH+"A.bmp"]
 ERR_IN = [PATH+"A.pdf", PATH+"Empty", ""]
@@ -27,7 +27,6 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
           PATH+"angle90p.png", PATH+"angle90n.png",
           PATH+"angle135p.png", PATH+"angle135n.png", PATH+"angle180.png"]
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg", None]
-
 
 # System Tests
 def returnInput(path):
