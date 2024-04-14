@@ -28,6 +28,7 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
           PATH+"angle135p.png", PATH+"angle135n.png", PATH+"angle180.png"]
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg", None]
 
+
 # System Tests
 def returnInput(path):
     return input(path)
