@@ -36,7 +36,7 @@ def returnInput(path):
 
 @pytest.mark.set1
 def test_input_format():
-    for i in range(INS):
+    for i in len(INS):
         [result1, result2] = returnInput(INS[i])
         assert isinstance([result1, result2], [np.ndarray, np.ndarray])
 
