@@ -2,7 +2,7 @@ import sys
 import pytest
 import numpy as np
 sys.path.insert(0, "../src/")
-# from input import input
+from src.input import input
 
 PATH = "/tests/test-images/"
 
@@ -28,20 +28,14 @@ ANGLES = [PATH+"angle0.png", PATH+"angle1p.png", PATH+"angle1n.png",
 ERR_OUT = [PATH+"ABC.jpg", PATH+"Blank.jpg"]
 
 # System Tests
-def simple(x):
-    return str(x)
+def returnInput(path):
+    return input(path)
 
 @pytest.mark.set1
-def test_simple():
-    assert isinstance(simple(2), str)
-
-# def returnInput(path):
-#     return input(path)
-
-# def test_input_format():
-#     for i in INS:
-#         [result1, result2] = returnInput(INS[i])
-#         assert isinstance([result1, result2], [np.ndarray, np.ndarray])
+def test_input_format():
+    for i in INS:
+        [result1, result2] = returnInput(INS[i])
+        assert isinstance([result1, result2], [np.ndarray, np.ndarray])
 
 
 # def test_input_exception():
