@@ -29,12 +29,13 @@ def classify(inputImg):
             b = bias[i]
             yHat = predictSigmoid(inputImg, w, b)
             prediction[i] = yHat
-        bestLbl = np.argmax(prediction)  # Finds the index of the best prediction
+        # Finds the index of the best prediction
+        bestLbl = np.argmax(prediction)
         # Check if predicition is above cutoff
         if prediction[bestLbl] > EPSILON:
             probability = prediction[bestLbl]
             label = "THE LETTER " + LABELS[bestLbl]
-        # Otherwise confidence prediction is not identifiable is 100%
+        # Otherwise give confidence that it can not be one of the labels
         else:
             probability = 1 - prediction[bestLbl]
             label = "NOT CLASSIFIED"

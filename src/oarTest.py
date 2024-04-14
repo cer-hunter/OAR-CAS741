@@ -21,12 +21,10 @@ try:
     imageTrain, labelTrain = extract_training_samples('letters')
     imageTest, labelTest = extract_test_samples('letters')
 
-
     # flatten data and match syntax
     dims = imageTrain.shape[1] * imageTrain.shape[2]
     dataTrain = imageTrain.reshape(imageTrain.shape[0], dims)
     dataTest = imageTest.reshape(imageTest.shape[0], dims)
-
 
     # Rescale data to 0 -> 1 by dividing by max pixel value (255)
     dataTrain = dataTrain.astype('float32')/PX_VAL
@@ -139,11 +137,11 @@ try:
             else:
                 modelTest[j] = 0
         lblTitle = LABELS[i] + " Test"
-        lblMatrix = confMatrixLabels(modelTestLabels, modelTest, lblTitle).tolist()
+        lblMatrix = confMatrixLabels(modelTestLabels, modelTest, lblTitle)
+        lblMatrix.tolist()
         modelPerformance.append(lblMatrix)
 except Exception:
     print("Error calculating model performance")
-
 
 # Write model to model.json record
 try:
