@@ -1,6 +1,7 @@
 # OAR - Optical Alphabet Recognition
+[![cer-hunter](https://circleci.com/gh/cer-hunter/OAR-CAS741.svg?style=svg)](https://app.circleci.com/pipelines/github/cer-hunter/OAR-CAS741)
 
-Developer Names: Hunter Ceranic
+Developer Name: Hunter Ceranic
 
 Date of project start: January 15, 2023
 
