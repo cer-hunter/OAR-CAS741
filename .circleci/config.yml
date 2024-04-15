@@ -19,7 +19,7 @@ jobs:
           command: python -m pytest 
       - store_test_results:
           path: tests/test-results
-  build-and-test:
+  lint-and-coverage:
     docker:
       - image: cimg/python:3.11.0
     steps:
