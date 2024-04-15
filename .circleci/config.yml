@@ -16,7 +16,7 @@ jobs:
       # Run tests!
       - run:
           name: Run Tests
-          command: pytest --junitxml=test-results/junit.xml
+          command: pytest --junitxml=test-results/results.xml
       - store_test_results:
           path: tests/test-results
   lint-and-coverage:

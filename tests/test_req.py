@@ -61,6 +61,8 @@ def test_invalid_input_format(record_testsuite_property):
     for i in range(len(ERR_IN)):
         with pytest.raises(ValueError):
             input(ERR_IN[i])
+        with pytest.raises(ValueError):
+            output(ERR_IN[i])
 
 
 # Check that images of different colours are able to be processed
@@ -133,6 +135,7 @@ def test_output_angles(record_testsuite_property):
 # Test Inputs for Unit Tests
 STRING = "test"
 V_INT = 1
+V_INT_2 = 0
 V_FLOAT = 0.5
 INV_INT = 2
 INV_FLOAT = -5.4
@@ -147,6 +150,7 @@ MATRIX_2 = np.zeros((2, 2))
 @pytest.mark.vnv
 def test_sigmoid(record_testsuite_property):
     record_testsuite_property = ("id", "UT-1")
+    assert sigmoid(V_INT_2) == 0.5
     with pytest.raises(ValueError):
         sigmoid(STRING)
 
@@ -155,6 +159,10 @@ def test_sigmoid(record_testsuite_property):
 @pytest.mark.vnv
 def test_logLossFunc(record_testsuite_property):
     record_testsuite_property = ("id", "UT-2")
+    res1 = logLossFunc(V_INT, V_INT)
+    res2 = logLossFunc(V_INT_2,  V_INT_2)
+    assert res1 == 0
+    assert res2 == 0
     with pytest.raises(ValueError):
         logLossFunc(V_INT, INV_FLOAT)
     with pytest.raises(ValueError):
@@ -167,6 +175,8 @@ def test_logLossFunc(record_testsuite_property):
 @pytest.mark.vnv
 def test_predict(record_testsuite_property):
     record_testsuite_property = ("id", "UT-3")
+    res = predictSigmoid(MATRIX_1, MATRIX_1, V_INT)
+    assert res == 0.490001333
     with pytest.raises(ValueError):
         predictSigmoid(MATRIX_1, MATRIX_2, V_INT)
     with pytest.raises(ValueError):
@@ -179,6 +189,8 @@ def test_predict(record_testsuite_property):
 @pytest.mark.vnv
 def test_gradientW(record_testsuite_property):
     record_testsuite_property = ("id", "UT-4")
+    res =  gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, V_INT, V_INT)
+    assert isinstance(res, float)
     with pytest.raises(ValueError):
         gradientW(MATRIX_1, STRING, MATRIX_1, V_INT, V_INT, V_INT)
     with pytest.raises(ValueError):
@@ -193,6 +205,8 @@ def test_gradientW(record_testsuite_property):
 @pytest.mark.vnv
 def test_gradientB(record_testsuite_property):
     record_testsuite_property = ("id", "UT-5")
+    res =  gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT)
+    assert isinstance(res, float)
     with pytest.raises(ValueError):
         gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
     with pytest.raises(ValueError):
@@ -203,5 +217,8 @@ def test_gradientB(record_testsuite_property):
 @pytest.mark.vnv
 def test_train(record_testsuite_property):
     record_testsuite_property = ("id", "UT-6")
+    r1, r2 = train(MATRIX_1, V_INT, MATRIX_1, V_INT, V_FLOAT, V_FLOAT, V_INT)
+    assert isinstance(r1, np.ndarray)
+    assert isinstance(r2, float)
     with pytest.raises(ValueError):
         train(MATRIX_1, V_INT, MATRIX_1, V_INT, V_FLOAT, STRING, V_INT)
