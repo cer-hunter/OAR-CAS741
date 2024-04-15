@@ -63,17 +63,17 @@ April 14, 2024 & 1.0 & Initial Revision\\
 
 \pagenumbering{arabic}
 
-This document reports the results of executing the Verification and Validation Plan \cite{VnV_plan}
+This document reports the results of executing the Verification and Validation Plan \citep{VnV_plan}
 
 \section{Functional Requirements Evaluation}
 
 For the System Functional Requirement tests, the Output Calculate, Input Data Read and Classify Modules were tested
-with a suite of input images as mentioned in the VnV Plan \cite{VnV_plan}. The source code for the tests can be found here:
+with a suite of input images as mentioned in the VnV Plan \citep{VnV_plan}. The source code for the tests can be found here:
 \url{https://github.com/cer-hunter/OAR-CAS741/blob/main/tests/test_req.py}
-All the tests passed as can be seen in the Test Report \ref{test_report}.
-However, \textbf{T5} and \textbf{T7} had some interesting results that should be discussed.
+All the tests passed as can be seen in the Test Report \ref{test_report}.\\
+However, \textbf{T5} and \textbf{T7} had some interesting results that should be discussed.\\
 Although performance was not a goal of \textbf{T5} it is interesting to note only 3 letters were correctly identified (A, H and M), while the
-rest were either misclassifed or not classified. On this set of test images it could be said that the model had a 11\% accuracy score and a 89\% misclassification score.
+rest were either misclassifed or not classified. On this set of test images it could be said that the model had a 11\% accuracy score and a 89\% misclassification score. \\
 For \textbf{T7} the result of the test was left purposefully vague as it wasn't possible to predict what the output could be for differently oriented letters.
 If you compare the test output to the test suite itself you can see that the model can accurately predict letters with greater than 50\% confidence 
 up to $\pm 15\degree$. There is one $135\degree$ image that was classified properly with a high confidence, however I am strongly led to believe
@@ -91,20 +91,20 @@ comparisons to existing sci-kit learn logistic regression models still need to b
 
 The results are as follows:
 \begin{enumerate}
-  \item{\textbf{T8}: Accuracy Performance Test}
-  Best Accuracy (Letter M) = 98.7\%
-  Worst Accuracy (Letter T) = 96.4\%
-  Overall Accuracy (Entire Model) = 67.4\%
-  \item{\textbf{T9}: Misclassification Performance Test}
-  Best Misclassification (Letter M) = 1.3\%
-  Worst Misclassification (Letter A) = 3.7\%
-  Overall Misclassification (Entire Model) = 32.5\%
-  \item{\textbf{T10}: Precision Performance Test}
-  Best Precision (Letter M) = 87.6\%
-  Worst Precision  (Letter A) = 55.3\%
+  \item{\textbf{T8}: Accuracy Performance Test}\\
+  Best Accuracy (Letter M) = 98.7\% \\
+  Worst Accuracy (Letter T) = 96.4\% \\
+  Overall Accuracy (Entire Model) = 67.4\% \\
+  \item{\textbf{T9}: Misclassification Performance Test}\\
+  Best Misclassification (Letter M) = 1.3\% \\
+  Worst Misclassification (Letter A) = 3.7\% \\
+  Overall Misclassification (Entire Model) = 32.5\% \\
+  \item{\textbf{T10}: Precision Performance Test}\\
+  Best Precision (Letter M) = 87.6\% \\
+  Worst Precision  (Letter A) = 55.3\% \\
   Note: Precision could not be claculated for the overall model due to the differnce in the way the confusion matrix was generated for the overall model vs for each
   individual label model. Please see the code in \href{https://github.com/cer-hunter/OAR-CAS741/blob/main/src/oarTest.py}{oarTest.py} and \href{https://github.com/cer-hunter/OAR-CAS741/blob/main/src/oarTest.py}{metrics.py}
-  for more details.
+  for more details.\\
 \end{enumerate}
 
 \subsection{Maintainability}
@@ -112,9 +112,9 @@ The results are as follows:
 Unfortunately (due to lack of time) the understandability survey \textbf{T11} was unable to be conducted yet, so it will still need to be done as part of future work.
 The results of the rest of the Maintability tests are as follows:
 \begin{enumerate}
-  \item{\textbf{T12}: Static Code Analysis}
+  \item{\textbf{T12}: Static Code Analysis}\\
   Flake8 passed successfully in the CircleCI workflow. Please see \url{https://github.com/cer-hunter/OAR-CAS741/blob/main/.circleci/config.yml} to view the configuration of Flake8 used.
-  \item{\textbf{T13}: Duck Test Code Review}
+  \item{\textbf{T13}: Duck Test Code Review}\\
   The results of the checklist can be seen here:
 
   \begin{itemize}
@@ -151,10 +151,8 @@ All the tests passed as seen in the Test Report \ref{test_report}.
 
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+There were a few bugs that were caught as a result of testing, mostly issue when it came to error handling
+and module imports.
 
 \section{Automated Testing}
 
