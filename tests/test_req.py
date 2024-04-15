@@ -52,6 +52,7 @@ def test_input_format(record_testsuite_property):
         result1, result2 = input(INS[i])
         assert isinstance(result1, np.ndarray)
         assert isinstance(result2, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Check ValueError is thrown when inputs of invalid formats are entered
@@ -63,6 +64,7 @@ def test_invalid_input_format(record_testsuite_property):
             input(ERR_IN[i])
         with pytest.raises(ValueError):
             output(ERR_IN[i])
+    print("---------- TEST PASS ----------")
 
 
 # Check that images of different colours are able to be processed
@@ -73,6 +75,7 @@ def test_input_colors(record_testsuite_property):
         result1, result2 = input(COLORS[i])
         assert isinstance(result1, np.ndarray)
         assert isinstance(result2, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Check that images of different sizeare able to be processed
@@ -88,6 +91,7 @@ def test_input_size(record_testsuite_property):
             result1, result2 = input(SIZES[i])
             assert isinstance(result1, np.ndarray)
             assert isinstance(result2, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Checks that each label can be successfully classified
@@ -103,6 +107,7 @@ def test_output_labels(record_testsuite_property):
         assert isinstance(result1, str)
         assert isinstance(result2, str)
         assert isinstance(result3, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Checks that degenerate input cases return "NOT CLASSIFIED"
@@ -114,6 +119,7 @@ def test_output_degen(record_testsuite_property):
         assert result1 == "NOT CLASSIFIED"
         assert isinstance(result2, str)
         assert isinstance(result3, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Checks that degenerate input cases of different orientations
@@ -130,6 +136,7 @@ def test_output_angles(record_testsuite_property):
         assert isinstance(result1, str)
         assert isinstance(result2, str)
         assert isinstance(result3, np.ndarray)
+    print("---------- TEST PASS ----------")
 
 
 # Test Inputs for Unit Tests
@@ -153,6 +160,7 @@ def test_sigmoid(record_testsuite_property):
     assert sigmoid(V_INT_2) == 0.5
     with pytest.raises(ValueError):
         sigmoid(STRING)
+    print("---------- TEST PASS ----------")
 
 
 # Testing logLossFunc function works properly
@@ -169,6 +177,7 @@ def test_logLossFunc(record_testsuite_property):
         logLossFunc(INV_INT, V_FLOAT)
     with pytest.raises(ValueError):
         logLossFunc(STRING, STRING)
+    print("---------- TEST PASS ----------")
 
 
 # Testing predictSigmoid function works properly
@@ -183,6 +192,7 @@ def test_predict(record_testsuite_property):
         predictSigmoid(STRING, STRING, V_INT)
     with pytest.raises(ValueError):
         predictSigmoid(MATRIX_1, MATRIX_1, STRING)
+    print("---------- TEST PASS ----------")
 
 
 # Testing gradientW function works properly
@@ -199,6 +209,7 @@ def test_gradientW(record_testsuite_property):
         gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, STRING, V_INT)
     with pytest.raises(ValueError):
         gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, V_INT, STRING)
+    print("---------- TEST PASS ----------")
 
 
 # Testing gradientB function works properly
@@ -211,6 +222,7 @@ def test_gradientB(record_testsuite_property):
         gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
     with pytest.raises(ValueError):
         gradientB(MATRIX_1, INV_INT, MATRIX_1, V_INT)
+    print("---------- TEST PASS ----------")
 
 
 # Testing train function works properly
@@ -222,3 +234,4 @@ def test_train(record_testsuite_property):
     assert isinstance(r2, float)
     with pytest.raises(ValueError):
         train(MATRIX_1, V_INT, MATRIX_1, V_INT, V_FLOAT, STRING, V_INT)
+    print("---------- TEST PASS ----------")
