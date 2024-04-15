@@ -18,7 +18,7 @@ jobs:
           name: Run Tests
           command: pytest --junitxml=test-results/results.xml
       - store_test_results:
-          path: tests/test-results
+          path: test-results
   lint-and-coverage:
     docker:
       - image: cimg/python:3.11.0

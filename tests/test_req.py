@@ -189,7 +189,7 @@ def test_predict(record_testsuite_property):
 @pytest.mark.vnv
 def test_gradientW(record_testsuite_property):
     record_testsuite_property = ("id", "UT-4")
-    res =  gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, V_INT, V_INT)
+    res = gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, V_INT, V_INT)
     assert isinstance(res, np.ndarray)
     with pytest.raises(ValueError):
         gradientW(MATRIX_1, STRING, MATRIX_1, V_INT, V_INT, V_INT)
@@ -205,7 +205,7 @@ def test_gradientW(record_testsuite_property):
 @pytest.mark.vnv
 def test_gradientB(record_testsuite_property):
     record_testsuite_property = ("id", "UT-5")
-    res =  gradientB(MATRIX_1, V_INT, MATRIX_1, V_INT)
+    res = gradientB(MATRIX_1, V_INT, MATRIX_1, V_INT)
     assert isinstance(res, float)
     with pytest.raises(ValueError):
         gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
