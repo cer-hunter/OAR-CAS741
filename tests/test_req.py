@@ -46,8 +46,8 @@ ANGLES = [join(PATH, "angle0.png"),
 
 # Checks valid inputs return valid outputs
 @pytest.mark.vnv
-def test_input_format(record_property):
-    record_property = ("id", "T-1")
+def test_input_format(record_testsuite_property):
+    record_testsuite_property = ("id", "T-1")
     for i in range(len(INS)):
         result1, result2 = input(INS[i])
         assert isinstance(result1, np.ndarray)
@@ -56,8 +56,8 @@ def test_input_format(record_property):
 
 # Check ValueError is thrown when inputs of invalid formats are entered
 @pytest.mark.vnv
-def test_invalid_input_format(record_property):
-    record_property = ("id", "T-2")
+def test_invalid_input_format(record_testsuite_property):
+    record_testsuite_property = ("id", "T-2")
     for i in range(len(ERR_IN)):
         with pytest.raises(ValueError):
             input(ERR_IN[i])
@@ -65,8 +65,8 @@ def test_invalid_input_format(record_property):
 
 # Check that images of different colours are able to be processed
 @pytest.mark.vnv
-def test_input_colors(record_property):
-    record_property = ("id", "T-3")
+def test_input_colors(record_testsuite_property):
+    record_testsuite_property = ("id", "T-3")
     for i in range(len(COLORS)):
         result1, result2 = input(COLORS[i])
         assert isinstance(result1, np.ndarray)
@@ -76,8 +76,8 @@ def test_input_colors(record_property):
 # Check that images of different sizeare able to be processed
 # And that images outside the specified range throw a ValueError
 @pytest.mark.vnv
-def test_input_size(record_property):
-    record_property = ("id", "T-4")
+def test_input_size(record_testsuite_property):
+    record_testsuite_property = ("id", "T-4")
     for i in range(len(SIZES)):
         if (i == 0 or i == 3):
             with pytest.raises(ValueError):
@@ -92,8 +92,8 @@ def test_input_size(record_property):
 # Note: Does not care about performance, just whether an
 # output is produced.
 @pytest.mark.vnv
-def test_output_labels(record_property):
-    record_property = ("id", "T-5")
+def test_output_labels(record_testsuite_property):
+    record_testsuite_property = ("id", "T-5")
     for i in range(len(LETTERS)):
         result1, result2, result3 = output(LETTERS[i])
         # Print the result for the test report
@@ -105,8 +105,8 @@ def test_output_labels(record_property):
 
 # Checks that degenerate input cases return "NOT CLASSIFIED"
 @pytest.mark.vnv
-def test_output_degen(record_property):
-    record_property = ("id", "T-6")
+def test_output_degen(record_testsuite_property):
+    record_testsuite_property = ("id", "T-6")
     for i in range(len(DEGEN)):
         result1, result2, result3 = output(DEGEN[i])
         assert result1 == "NOT CLASSIFIED"
@@ -119,8 +119,8 @@ def test_output_degen(record_property):
 # be inputs to the program, but testing just because they are
 # technically valid inputs the program will accept.
 @pytest.mark.vnv
-def test_output_angles(record_property):
-    record_property = ("id", "T-7")
+def test_output_angles(record_testsuite_property):
+    record_testsuite_property = ("id", "T-7")
     for i in range(len(ANGLES)):
         result1, result2, result3 = output(ANGLES[i])
         # Print to see what the results might be for the report.
@@ -145,16 +145,16 @@ MATRIX_2 = np.zeros((2, 2))
 
 # Testing sigmoid function works properly
 @pytest.mark.vnv
-def test_sigmoid(record_property):
-    record_property = ("id", "UT-1")
+def test_sigmoid(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-1")
     with pytest.raises(ValueError):
         sigmoid(STRING)
 
 
 # Testing logLossFunc function works properly
 @pytest.mark.vnv
-def test_logLossFunc(record_property):
-    record_property = ("id", "UT-2")
+def test_logLossFunc(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-2")
     with pytest.raises(ValueError):
         logLossFunc(V_INT, INV_FLOAT)
     with pytest.raises(ValueError):
@@ -165,8 +165,8 @@ def test_logLossFunc(record_property):
 
 # Testing predictSigmoid function works properly
 @pytest.mark.vnv
-def test_predict(record_property):
-    record_property = ("id", "UT-3")
+def test_predict(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-3")
     with pytest.raises(ValueError):
         predictSigmoid(MATRIX_1, MATRIX_2, V_INT)
     with pytest.raises(ValueError):
@@ -177,8 +177,8 @@ def test_predict(record_property):
 
 # Testing gradientW function works properly
 @pytest.mark.vnv
-def test_gradientW(record_property):
-    record_property = ("id", "UT-4")
+def test_gradientW(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-4")
     with pytest.raises(ValueError):
         gradientW(MATRIX_1, STRING, MATRIX_1, V_INT, V_INT, V_INT)
     with pytest.raises(ValueError):
@@ -191,8 +191,8 @@ def test_gradientW(record_property):
 
 # Testing gradientB function works properly
 @pytest.mark.vnv
-def test_gradientB(record_property):
-    record_property = ("id", "UT-5")
+def test_gradientB(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-5")
     with pytest.raises(ValueError):
         gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
     with pytest.raises(ValueError):
@@ -201,7 +201,7 @@ def test_gradientB(record_property):
 
 # Testing train function works properly
 @pytest.mark.vnv
-def test_train(record_property):
-    record_property = ("id", "UT-6")
+def test_train(record_testsuite_property):
+    record_testsuite_property = ("id", "UT-6")
     with pytest.raises(ValueError):
         train(MATRIX_1, V_INT, MATRIX_1, V_INT, V_FLOAT, STRING, V_INT)

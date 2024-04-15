@@ -1,0 +1,8 @@
+[run]
+branch = False
+
+[report]
+    if 0:
+    if __name__ == .__main__.:
+
+ignore_errors = True
