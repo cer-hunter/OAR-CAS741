@@ -184,7 +184,7 @@ def test_gradientB():
     with pytest.raises(ValueError):
         gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
     with pytest.raises(ValueError):
-        gradientW(MATRIX_1, INV_INT, MATRIX_1, V_INT)
+        gradientB(MATRIX_1, INV_INT, MATRIX_1, V_INT)
 
 
 # Testing train function works properly

@@ -14,7 +14,7 @@ def sigmoid(z):
     try:
         return (1/(1 + np.exp(-z)))
     except TypeError:
-        return ValueError
+        raise ValueError
 
 
 # Log Loss Function, corresponding to TM2
