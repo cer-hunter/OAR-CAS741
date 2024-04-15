@@ -63,17 +63,20 @@ April 14, 2024 & 1.0 & Initial Revision\\
 
 \pagenumbering{arabic}
 
-This document reports the results of executing the Verification and Validation Plan \citep{VnV_plan}
+This document reports the results of executing the Verification and Validation Plan \citep{VnVplan}.
 
 \section{Functional Requirements Evaluation}
 
 For the System Functional Requirement tests, the Output Calculate, Input Data Read and Classify Modules were tested
-with a suite of input images as mentioned in the VnV Plan \citep{VnV_plan}. The source code for the tests can be found here:
-\url{https://github.com/cer-hunter/OAR-CAS741/blob/main/tests/test_req.py}
+with a suite of input images as mentioned in the VnV Plan \citep{VnVplan}. The source code for the tests can be found here:
+\url{https://github.com/cer-hunter/OAR-CAS741/blob/main/tests/test_req.py}.
 All the tests passed as can be seen in the Test Report \ref{test_report}.\\
+
 However, \textbf{T5} and \textbf{T7} had some interesting results that should be discussed.\\
+
 Although performance was not a goal of \textbf{T5} it is interesting to note only 3 letters were correctly identified (A, H and M), while the
 rest were either misclassifed or not classified. On this set of test images it could be said that the model had a 11\% accuracy score and a 89\% misclassification score. \\
+
 For \textbf{T7} the result of the test was left purposefully vague as it wasn't possible to predict what the output could be for differently oriented letters.
 If you compare the test output to the test suite itself you can see that the model can accurately predict letters with greater than 50\% confidence 
 up to $\pm 15\degree$. There is one $135\degree$ image that was classified properly with a high confidence, however I am strongly led to believe
