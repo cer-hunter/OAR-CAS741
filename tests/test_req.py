@@ -5,10 +5,12 @@ from os.path import join, dirname
 sys.path.insert(0, "../src/")
 from src.input import input
 from src.output import output
-# from src.oarTrain import train
-# from src.oarUtils import sigmoid, logLossFunc, predictSigmoid
-# from src.oarUtils import gradientW, gradientB
+from src.oarTrain import train
+from src.oarUtils import sigmoid, logLossFunc, predictSigmoid
+from src.oarUtils import gradientW, gradientB
 
+
+# Test Inputs for System Tests
 PATH = join(dirname(__file__), "test-images")
 
 INS = [join(PATH, "A.png"), join(PATH, "A.jpg"), join(PATH, "A.bmp")]
@@ -121,4 +123,72 @@ def test_output_angles():
         assert isinstance(result3, np.ndarray)
 
 
+# Test Inputs for Unit Tests
+STRING = "test"
+V_INT = 1
+V_FLOAT = 0.5
+INV_INT = 2
+INV_FLOAT = -5.4
+MATRIX_1 = np.ones(3)
+MATRIX_2 = np.zeros((2, 2))
+
+
 # Unit Tests
+
+
+# Testing sigmoid function works properly
+@pytest.mark.vnv
+def test_sigmoid():
+    with pytest.raises(ValueError):
+        sigmoid(STRING)
+
+
+# Testing logLossFunc function works properly
+@pytest.mark.vnv
+def test_logLossFunc():
+    with pytest.raises(ValueError):
+        logLossFunc(V_INT, INV_FLOAT)
+    with pytest.raises(ValueError):
+        logLossFunc(INV_INT, V_FLOAT)
+    with pytest.raises(ValueError):
+        logLossFunc(STRING, STRING)
+
+
+# Testing predictSigmoid function works properly
+@pytest.mark.vnv
+def test_predict():
+    with pytest.raises(ValueError):
+        predictSigmoid(MATRIX_1, MATRIX_2, V_INT)
+    with pytest.raises(ValueError):
+        predictSigmoid(STRING, STRING, V_INT)
+    with pytest.raises(ValueError):
+        predictSigmoid(MATRIX_1, MATRIX_1, STRING)
+
+
+# Testing gradientW function works properly
+@pytest.mark.vnv
+def test_gradientW():
+    with pytest.raises(ValueError):
+        gradientW(MATRIX_1, STRING, MATRIX_1, V_INT, V_INT, V_INT)
+    with pytest.raises(ValueError):
+        gradientW(MATRIX_1, INV_INT, MATRIX_1, V_INT, V_INT, V_INT)
+    with pytest.raises(ValueError):
+        gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, STRING, V_INT)
+    with pytest.raises(ValueError):
+        gradientW(MATRIX_1, V_INT, MATRIX_1, V_INT, V_INT, STRING)
+
+
+# Testing gradientB function works properly
+@pytest.mark.vnv
+def test_gradientB():
+    with pytest.raises(ValueError):
+        gradientB(MATRIX_1, STRING, MATRIX_1, V_INT)
+    with pytest.raises(ValueError):
+        gradientW(MATRIX_1, INV_INT, MATRIX_1, V_INT)
+
+
+# Testing train function works properly
+@pytest.mark.vnv
+def test_train():
+    with pytest.raises(ValueError):
+        train(MATRIX_1, V_INT, MATRIX_1, V_INT, V_FLOAT, STRING, V_INT)
