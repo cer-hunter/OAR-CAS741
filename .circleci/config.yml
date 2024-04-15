@@ -16,7 +16,7 @@ jobs:
       # Run tests!
       - run:
           name: Run Tests
-          command: python -m pytest 
+          command: pytest --junitxml=test-results/junit.xml
       - store_test_results:
           path: tests/test-results
   lint-and-coverage:
@@ -40,7 +40,7 @@ jobs:
             coverage report
             coverage html
       - store_artifacts:
-          path: htmlcov
+          path: tests/htmlcov
 
 
 # Orchestrate jobs using workflows
