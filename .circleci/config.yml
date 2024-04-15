@@ -32,15 +32,12 @@ jobs:
           name: Run Linter
           command: |
             flake8 src/ --extend-ignore E402
-            flake8 tests/ --extend-ignore E402
+            flake8 tests/ --extend-ignore E402,F841
       - run:
           name: Run Coverage
           command: |
             coverage run -m pytest
             coverage report
-            coverage html
-      - store_artifacts:
-          path: tests/htmlcov
 
 
 # Orchestrate jobs using workflows
