@@ -63,12 +63,12 @@ April 14, 2024 & 1.0 & Initial Revision\\
 
 \pagenumbering{arabic}
 
-This document reports the results of executing the Verification and Validation Plan \citep{VnVPlan}.
+This document reports the results of executing the Verification and Validation Plan \href{https://github.com/cer-hunter/OAR-CAS741/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV Plan}.
 
 \section{Functional Requirements Evaluation}
 
 For the System Functional Requirement tests, the Output Calculate, Input Data Read and Classify Modules were tested
-with a suite of input images as mentioned in the VnV Plan \citep{VnVPlan}. The source code for the tests can be found here:
+with a suite of input images as mentioned in the VnV Plan \href{https://github.com/cer-hunter/OAR-CAS741/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV Plan}. The source code for the tests can be found here:
 \url{https://github.com/cer-hunter/OAR-CAS741/blob/main/tests/test_req.py}.
 All the tests passed as can be seen in the Test Report \ref{test_report}.\\
 
@@ -159,7 +159,7 @@ and module imports.
 
 \section{Automated Testing}
 
-The tests were set up to automatically run in CircleCI \citep{CircleCI} whenever a commit was pushed to the $\mathtt{main}$ branch.
+The tests were set up to automatically run in CircleCI whenever a commit was pushed to the $\mathtt{main}$ branch.
 The configuration for the CI/CD environment can be found at \url{https://github.com/cer-hunter/OAR-CAS741/blob/main/.circleci/config.yml}
 and the test pipeline can be viewed at \url{https://app.circleci.com/pipelines/github/cer-hunter/OAR-CAS741}.
 		
