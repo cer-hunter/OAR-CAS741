@@ -13,16 +13,34 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      # Run linting and tests!
+      # Run tests!
+      - run:
+          name: Run Tests
+          command: python -m pytest 
+      - store_test_results:
+          path: tests/test-results
+  build-and-test:
+    docker:
+      - image: cimg/python:3.11.0
+    steps:
+      # Checkout the code as the first step.
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
       - run:
       # Run Flake8 without checking for module imports at the top
-          name: Linter
+          name: Run Linter
           command: |
             flake8 src/ --extend-ignore E402
             flake8 tests/ --extend-ignore E402
       - run:
-          name: Run Tests
-          command: python -m pytest 
+          name: Run Coverage
+          command: |
+            coverage run -m pytest
+            coverage report
+            coverage html
+      - store_artifacts:
+          path: htmlcov
 
 
 # Orchestrate jobs using workflows
@@ -30,3 +48,4 @@ workflows:
   main:
     jobs:
       - build-and-test
+      - lint-and-coverage
