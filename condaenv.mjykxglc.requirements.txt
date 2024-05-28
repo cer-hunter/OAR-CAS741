@@ -1,0 +1,9 @@
+numpy
+pytest
+flake8
+tk
+matplotlib
+opencv-python
+pillow
+scikit-learn
+emnist
